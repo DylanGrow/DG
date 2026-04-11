@@ -6,184 +6,163 @@
     <title>Dylan Grow | IT Professional</title>
     <style>
         :root {
-            /* ── MONEY GREEN PALETTE ── */
-            --money-green: #15803d; /* Base Green */
-            --dark-green: #0a4020;  /* Deep Green for contrast */
-            --growth-green: #22c55e; /* Highlight Green */
-            --black: #f0f2f5;       /* Background Light Mode */
-            --card: #ffffff;        /* Card Background */
-            --border: #d1d5db;
-            --silver: #4b5563;
-            --text: #111827;
-        }
-
-        /* ── LIGHT MODE OVERRIDES (For Growth Theme) ── */
-        body.light-mode {
-            --black: #f9fafb;
-            --money-green: #166534;
-            --growth-green: #15803d;
-            --card: #ffffff;
-            --card2: #f3f4f6;
-            --border: #e5e7eb;
-            --text: #111827;
+            --money-green: #15803d; 
+            --dark-green: #0a4020;  
+            --growth-green: #22c55e; 
+            --black: #080808;       /* Locked Dark Mode for better contrast */
+            --card: #121212;        
+            --border: #2a2a2a;
+            --silver: #a0a0a0;
+            --text: #ffffff;
+            --focus-outline: #3b82f6; /* High-visibility blue for accessibility */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
+        /* ── ACCESSIBILITY: FOCUS STATES ── */
+        button:focus, a:focus, input:focus {
+            outline: 3px solid var(--focus-outline);
+            outline-offset: 2px;
+        }
+
         /* ── MONEY GREEN SCROLLBAR ── */
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { 
-            background: var(--money-green); 
-            border-radius: 10px; 
-            border: 2px solid var(--black);
-        }
-        ::-webkit-scrollbar-thumb:hover { background: var(--growth-green); }
+        ::-webkit-scrollbar-thumb { background: var(--money-green); border-radius: 10px; border: 2px solid var(--black); }
 
         /* ── CUSTOM MONEY GREEN CURSOR ── */
-        * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%2315803d" stroke="black" stroke-width="1"/></svg>'), auto !important; }
+        * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%2315803d" stroke="white" stroke-width="1"/></svg>'), auto !important; }
         
         body {
             background: var(--black);
             color: var(--text);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.5;
+            line-height: 1.6;
             transition: all 0.3s ease;
-            font-size: 16px;
+            font-size: 18px; /* Increased base size for readability */
             overflow-x: hidden;
         }
 
-        /* ── RESPONSIVE HEADER (GREEN THEME) ── */
+        /* ── RESPONSIVE HEADER ── */
         header {
             position: sticky; top: 0; z-index: 1000;
-            background: var(--card);
-            border-bottom: 3px solid var(--money-green);
-            padding: 12px 15px;
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            background: var(--black);
+            border-bottom: 4px solid var(--money-green);
+            padding: 15px 20px;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
         }
 
-        .brand { font-weight: 500; font-size: 1.4rem; color: var(--money-green); text-align: center; }
+        .brand { font-weight: 500; font-size: 1.5rem; color: var(--money-green); text-align: center; }
 
         .search-relay { width: 100%; max-width: 500px; }
         .search-relay input {
-            width: 100%; padding: 12px 20px;
+            width: 100%; padding: 14px 25px;
             background: var(--card); border: 2px solid var(--border);
-            border-radius: 25px; color: var(--text); font-size: 1rem;
+            border-radius: 35px; color: var(--text); font-size: 1rem;
         }
 
-        .header-controls { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-        .system-intel { text-align: right; line-height: 1.1; }
-        .clock { color: var(--money-green); font-weight: bold; font-family: monospace; font-size: 1rem; }
-        .date-display { color: var(--silver); font-size: 0.75rem; font-family: monospace; text-transform: uppercase; }
+        .system-intel { text-align: right; width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; margin-top: 5px; }
+        .clock { color: var(--money-green); font-weight: bold; font-family: monospace; font-size: 1.2rem; }
+        .date-display { color: var(--silver); font-size: 0.85rem; font-family: monospace; text-transform: uppercase; }
 
         @media (min-width: 850px) {
-            header { flex-direction: row; height: 85px; padding: 0 25px; }
-            .brand { text-align: left; min-width: 220px; }
-            .header-controls { width: auto; gap: 25px; }
+            header { flex-direction: row; height: 90px; padding: 0 30px; }
+            .brand { text-align: left; min-width: 250px; }
+            .search-relay { margin: 0 auto; }
+            .system-intel { width: auto; align-items: flex-end; }
         }
 
-        /* ── NAV TABS ── */
-        .nav-tabs { 
-            display: flex; background: var(--card); border-bottom: 1px solid var(--border); 
-            padding: 5px; overflow-x: auto;
-        }
+        /* ── NAVIGATION ── */
+        .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 5px; overflow-x: auto; justify-content: center; }
         .nav-tabs button {
-            background: none; border: none; color: var(--silver); padding: 12px 20px;
-            font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.2s; white-space: nowrap; font-size: 1rem;
+            background: none; border: none; color: var(--silver); padding: 15px 25px;
+            font-weight: 700; cursor: pointer; border-bottom: 4px solid transparent; transition: 0.2s; white-space: nowrap; font-size: 1rem;
         }
         .nav-tabs button.active { color: var(--money-green); border-bottom-color: var(--money-green); }
 
-        .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 25px 15px; }
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 25px; width: 100%; }
-        .card-title { color: var(--money-green); font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; }
+        .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+        .card { background: var(--card); border: 2px solid var(--border); border-radius: 15px; padding: 35px; margin-bottom: 25px; width: 100%; }
+        .card-title { color: var(--money-green); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 12px; text-transform: uppercase; }
 
-        /* ── GREEN SKILLS BARS ── */
-        .skill-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--silver); margin-bottom: 6px; font-weight: bold; }
-        .track { background: var(--dark-green); height: 14px; border-radius: 7px; overflow: hidden; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        .fill { height: 100%; background: var(--growth-green); border-radius: 7px; position: relative; }
-        .fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background:rgba(255,255,255,0.2); border-radius: 2px; }
+        /* ── ACCESSIBLE SKILLS BARS ── */
+        .skill-meta { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--silver); margin-bottom: 8px; font-weight: bold; }
+        .track { background: var(--dark-green); height: 18px; border-radius: 9px; overflow: hidden; margin-bottom: 25px; border: 1px solid var(--border); }
+        .fill { height: 100%; background: var(--growth-green); border-radius: 9px; position: relative; }
 
-        /* ── GREEN BADGES ── */
         .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .badge { background: var(--dark-green); border: 2px solid var(--money-green); padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: #fff; }
-        .pursuing { border: 2px dashed var(--red); color: var(--red); opacity: 0.9; background: none; }
-
-        /* ── PORTRAIT ── */
-        .profile-img-wrap {
-            width: 110px; height: 110px; border-radius: 50%; border: 4px solid var(--money-green);
-            overflow: hidden; margin-bottom: 15px; background: #fff;
-        }
-        .profile-img-wrap img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+        .badge { background: var(--dark-green); border: 2px solid var(--money-green); padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: #fff; font-size: 0.9rem; }
+        .pursuing { border: 2px dashed var(--red); color: var(--red); background: none; }
 
         .section { display: none; }
-        .section.visible { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section.visible { display: block; }
     </style>
 </head>
 <body onload="startTime(); typeWriter()">
 
-    <header>
-        <div class="brand" id="type-text"></div>
-        <div class="search-relay">
+    <header role="banner">
+        <div class="brand" id="type-text" aria-live="polite"></div>
+        <nav class="search-relay" aria-label="Quick Search">
             <form action="https://duckduckgo.com/" method="get" target="_blank">
-                <input type="text" name="q" placeholder="🔍 Duck AI Search Assist..." autocomplete="off">
+                <input type="text" name="q" placeholder="🔍 Search with Duck AI..." aria-label="Search the web safely">
             </form>
-        </div>
-        <div class="header-controls">
-            <button onclick="document.body.classList.toggle('light-mode')" style="background:var(--money-green); border:none; color:#fff; border-radius:20px; padding:8px 16px; font-weight:bold; cursor:pointer; font-size:0.8rem;">🌓 MODE</button>
-            <div class="system-intel">
-                <div id="clock" class="clock">00:00:00 AM</div>
-                <div id="date-display" class="date-display">APR 11, 2026</div>
-            </div>
+        </nav>
+        <div class="system-intel" aria-label="Current Date and Time">
+            <div id="clock" class="clock">00:00:00 AM</div>
+            <div id="date-display" class="date-display">APRIL 11, 2026</div>
         </div>
     </header>
 
-    <nav class="nav-tabs">
-        <button class="active" onclick="showSection('home', this)">🏠 Home</button>
-        <button onclick="showSection('about', this)">🔍 Who is Dylan Grow</button>
-        <button onclick="showSection('book', this)">📅 Booking</button>
+    <nav class="nav-tabs" role="tablist">
+        <button class="active" onclick="showSection('home', this)" role="tab" aria-selected="true">🏠 HOME</button>
+        <button onclick="showSection('about', this)" role="tab" aria-selected="false">🔍 WHO IS DYLAN GROW</button>
+        <button onclick="showSection('book', this)" role="tab" aria-selected="false">📅 BOOKING</button>
     </nav>
 
-    <div class="wrap">
-        <div class="section visible" id="home">
-            <h1 style="font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 500; margin-bottom: 10px; line-height: 1;">Dylan Grow</h1>
-            <p style="color: var(--money-green); font-size: 1.3rem; font-weight:bold; margin-bottom: 25px;">IT Support & Network Specialist</p>
-            <div class="card" style="border-left: 6px solid var(--money-green);">
-                <p style="font-size: 1.15rem;">Advanced technical solutions delivered with precision. Solving complex system issues and securing network infrastructure for seamless operations.</p>
+    <main class="wrap">
+        <div class="section visible" id="home" role="tabpanel">
+            <h1 style="font-size: 3.5rem; font-weight: 500; margin-bottom: 10px;">Dylan Grow</h1>
+            <p style="color: var(--money-green); font-size: 1.4rem; font-weight:bold; margin-bottom: 25px;">IT Support & Network Specialist</p>
+            <div class="card" style="border-left: 8px solid var(--money-green);">
+                <p style="font-size: 1.25rem;">Expert technical solutions provided with a personal touch. I specialize in resolving complex system issues, securing networks, and empowering users through reliable support.</p>
             </div>
         </div>
 
-        <div class="section" id="about">
-            <div class="card" style="border-top: 5px solid var(--money-green); text-align: center;">
-                <div style="display: flex; flex-direction: column; align-items: center;">
-                    <div class="profile-img-wrap">
-                        <img src="https://images.credly.com/size/220x220/images/633454b5-5d98-4660-8480-164749f1704e/CompTIA_A_2Bce.png" alt="CompTIA A+ Badge">
-                    </div>
-                    <div style="color: var(--growth-green); font-weight: bold; font-size: 0.9rem; margin-bottom: 20px;">● SYSTEM STATUS: ONLINE</div>
-                </div>
-                <div style="text-align: left;">
-                    <div class="card-title">Priority Comms</div>
-                    <p style="font-size: 1.8rem; font-weight: bold; margin-bottom: 5px;">
-                        <a href="tel:2523490830" style="color:var(--money-green); text-decoration:none;">(252) 349-0830</a>
-                    </p>
-                    <p style="margin-bottom: 25px; font-size: 1.2rem;"><a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a></p>
-                    
-                    <a href="https://www.linkedin.com/in/dgrow27" target="_blank" style="background:var(--money-green); color:#fff; padding: 20px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 15px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.2);">
-                        <span style="font-weight:900; font-size:1.8rem;">in</span>
-                        <div style="text-align: left;">
-                            <div style="font-size:1.1rem; font-weight:bold;">LinkedIn Profile</div>
-                            <div style="font-size:0.8rem; opacity:0.8;">Certified IT Professional</div>
+        <div class="section" id="about" role="tabpanel">
+            <div class="card" style="border-top: 6px solid var(--money-green);">
+                <div class="card-title">📞 Priority Communications Relay</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+                    <div>
+                        <p style="font-size: 1.1rem; color: var(--silver);">Direct Line:</p>
+                        <p style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">
+                            <a href="tel:2523490830" style="color:var(--money-green); text-decoration:none;">(252) 349-0830</a>
+                        </p>
+                        <p style="font-size: 1.1rem; color: var(--silver);">Email:</p>
+                        <p style="font-size: 1.4rem; margin-bottom: 30px;"><a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a></p>
+                        
+                        <div style="color: var(--growth-green); font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 10px;">
+                            <span style="width:10px; height:10px; border-radius:50%; background:var(--growth-green);"></span>
+                            SYSTEM STATUS: ONLINE / OPEN TO WORK
                         </div>
-                    </a>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; justify-content: center;">
+                        <a href="https://www.linkedin.com/in/dgrow27" target="_blank" style="background:var(--money-green); color:#fff; padding: 25px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 15px; border: 2px solid rgba(255,255,255,0.2);">
+                            <span style="font-weight:900; font-size:2rem;">in</span>
+                            <div>
+                                <div style="font-size:1.2rem; font-weight:bold;">LinkedIn Profile</div>
+                                <div style="font-size:0.9rem; opacity:0.8;">Certified IT Professional</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-title">⚡ Growth Matrix (Skills)</div>
+                <div class="card-title">⚡ Growth Matrix & Skillset</div>
                 <div class="skill-meta"><span>CompTIA A+ / Google IT Support</span><span>100%</span></div>
                 <div class="track"><div class="fill" style="width:100%;"></div></div>
                 
-                <div class="skill-meta"><span>Salesforce Champion</span><span>100%</span></div>
+                <div class="skill-meta"><span>Salesforce Administration</span><span>100%</span></div>
                 <div class="track"><div class="fill" style="width:100%;"></div></div>
 
                 <div class="skill-meta"><span>TCP/IP & Command-Line Diagnostics</span><span>85%</span></div>
@@ -194,7 +173,7 @@
             </div>
 
             <div class="card">
-                <div class="card-title">🏆 Active Credentials</div>
+                <div class="card-title">🏆 Certified Credentials</div>
                 <div class="badge-grid">
                     <div class="badge">CompTIA A+</div>
                     <div class="badge">Google IT</div>
@@ -204,29 +183,26 @@
                     <div class="badge pursuing">Salesforce</div>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-title">🌍 Local Context — 28560</div>
-                <div style="height: 180px; border-radius: 12px; overflow: hidden; border: 2px solid var(--border); background: #000;">
-                    <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:100%; border:none;"></iframe>
-                </div>
-            </div>
         </div>
 
-        <div class="section" id="book">
-            <div class="card-title">🕒 Schedule Support</div>
-            <div style="background:#fff; border-radius:12px; overflow:hidden; border:5px solid var(--money-green);">
-                <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:700px; border:none;"></iframe>
+        <div class="section" id="book" role="tabpanel">
+            <div class="card-title">🕒 Schedule Technical Support</div>
+            <div style="background:#fff; border-radius:15px; overflow:hidden; border:6px solid var(--money-green);">
+                <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:750px; border:none;" title="Booking Calendar"></iframe>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
             document.getElementById(id).classList.add('visible');
-            document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav-tabs button').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
             btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
             window.scrollTo(0,0);
         }
         function typeWriter() {
@@ -241,13 +217,4 @@
             run();
         }
         function startTime() {
-            const t = new Date();
-            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-            const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
-            document.getElementById('clock').textContent = t.toLocaleTimeString('en-US', timeOptions);
-            document.getElementById('date-display').textContent = t.toLocaleDateString('en-US', dateOptions);
-            setTimeout(startTime, 1000);
-        }
-    </script>
-</body>
-</html>
+            const t =
