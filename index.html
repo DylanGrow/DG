@@ -4,555 +4,718 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dylan Grow | IT Professional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --steelers-gold: #FFB612;
-            --steelers-black: #101010;
-            --card-bg: #1A1A1A;
-            --text-gold: #FFC233;
-            --cyber-red: #C60C30;
-            --steelers-silver: #A5ACAF;
+            --gold: #FFB612;
+            --gold-dim: #cc920e;
+            --black: #0a0a0a;
+            --card: #141414;
+            --card2: #1c1c1c;
+            --red: #C60C30;
+            --silver: #9aa0a6;
+            --green: #22c55e;
+            --text: #f0f0f0;
+            --border: #272727;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background: var(--steelers-black);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
+            background: var(--black);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
         }
 
+        /* ── HEADER ── */
         header {
-            background: var(--steelers-gold);
-            color: #000;
-            padding: 12px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--cyber-red);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 58px;
+            display: flex; align-items: center; gap: 18px;
         }
 
         .brand {
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.35rem;
+            letter-spacing: 3px;
+            color: var(--gold);
             white-space: nowrap;
-            min-width: 180px;
+            flex-shrink: 0;
         }
 
-        .floating-search { flex: 1; min-width: 200px; max-width: 480px; }
-        .floating-search input {
-            width: 100%;
-            padding: 9px 20px;
-            border-radius: 30px;
-            border: 2px solid var(--steelers-black);
-            background: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            outline: none;
+        .header-divider { width: 1px; height: 28px; background: var(--border); }
+
+        .search-wrap { flex: 1; max-width: 460px; }
+        .search-wrap form { position: relative; display: flex; align-items: center; }
+        .search-wrap input {
+            width: 100%; padding: 8px 16px 8px 38px;
+            background: var(--card2); border: 1px solid var(--border);
+            border-radius: 8px; color: var(--text);
+            font-family: 'DM Mono', monospace; font-size: 0.82rem;
+            outline: none; transition: border-color .2s;
+        }
+        .search-wrap input:focus { border-color: var(--gold); }
+        .search-wrap .s-icon {
+            position: absolute; left: 11px; width: 14px; height: 14px;
+            stroke: var(--silver); fill: none; stroke-width: 2;
+            pointer-events: none;
         }
 
-        #clock-container {
-            font-family: 'Roboto Condensed', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            white-space: nowrap;
-            margin-left: auto;
+        .clock {
+            margin-left: auto; flex-shrink: 0;
+            font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--silver);
         }
 
-        .main-container {
-            max-width: 1100px;
-            margin: 28px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 0 20px;
+        /* ── NAV TABS ── */
+        .nav-tabs {
+            display: flex; gap: 0;
+            background: var(--card); border-bottom: 1px solid var(--border);
+            padding: 0 24px; overflow-x: auto;
+        }
+        .nav-tabs button {
+            background: none; border: none; color: var(--silver);
+            font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600;
+            padding: 12px 18px; cursor: pointer;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap; transition: color .2s, border-color .2s;
+        }
+        .nav-tabs button.active, .nav-tabs button:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+        /* ── LAYOUT ── */
+        .wrap {
+            max-width: 1140px; margin: 0 auto; padding: 24px 20px;
+            display: flex; flex-direction: column; gap: 20px;
         }
 
+        /* ── CARD ── */
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 22px 24px;
-            border: 1px solid #222;
-            transition: border-color 0.3s ease;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 24px 26px;
+            transition: border-color .25s;
         }
-        .card:hover { border-color: var(--steelers-gold); }
+        .card:hover { border-color: #2d2d2d; }
 
-        h3 {
-            margin-top: 0;
-            font-family: 'Roboto Condensed', sans-serif;
-            color: var(--text-gold);
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--cyber-red);
-            padding-bottom: 10px;
-            margin-bottom: 18px;
-            letter-spacing: 1px;
-            font-size: 1rem;
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.95rem; letter-spacing: 2.5px;
+            color: var(--gold); text-transform: uppercase;
+            padding-bottom: 12px; margin-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .card-title .ct-bar {
+            width: 3px; height: 16px; background: var(--red); border-radius: 2px;
         }
 
-        /* Professional Operations */
-        .identity-row { display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; }
-        .pro-summary { flex: 1; min-width: 280px; }
-        .summary-text { color: var(--steelers-silver); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.6; }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #0d2b0d;
-            border: 1px solid #2d6a2d;
-            color: #6fcf6f;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 14px;
+        /* ── HERO SECTION ── */
+        .hero-row { display: flex; gap: 30px; flex-wrap: wrap; }
+        .hero-left { flex: 1; min-width: 280px; }
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.2rem; letter-spacing: 4px; line-height: 1;
+            color: #fff; margin-bottom: 6px;
         }
-        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #6fcf6f; flex-shrink: 0; }
+        .hero-name span { color: var(--gold); }
+        .hero-title { font-size: 0.85rem; color: var(--silver); margin-bottom: 16px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
 
-        .cert-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
-        .pill { font-size: 0.72rem; padding: 4px 10px; border-radius: 14px; font-weight: 600; }
-        .pill-gold  { background: #2a1f00; border: 1px solid var(--steelers-gold); color: var(--steelers-gold); }
-        .pill-red   { background: #2a0008; border: 1px solid var(--cyber-red); color: #ff6680; }
-        .pill-green { background: #0a2010; border: 1px solid #2d6a2d; color: #6fcf6f; }
-
-        .skill-block { flex: 1; min-width: 240px; }
-        .skill-container { margin-bottom: 13px; }
-        .skill-label { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 5px; color: var(--text-gold); font-weight: 600; }
-        .progress-track { background: #000; height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid #333; }
-        .progress-fill { height: 100%; border-radius: 4px; }
-
-        /* Links grid */
-        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
-        .links-grid a {
-            background: #111;
-            color: #fff;
-            text-decoration: none;
-            padding: 13px 10px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-align: center;
-            border: 1px solid #2a2a2a;
-            transition: all 0.25s ease;
+        .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+        .badge {
+            font-size: 0.72rem; font-weight: 700; padding: 4px 11px;
+            border-radius: 6px; letter-spacing: .5px;
         }
-        .links-grid a:hover { background: var(--steelers-gold); color: #000; transform: translateY(-2px); }
+        .badge-gold  { background: rgba(255,182,18,.1); border: 1px solid var(--gold); color: var(--gold); }
+        .badge-red   { background: rgba(198,12,48,.1); border: 1px solid var(--red); color: #f46; }
+        .badge-green { background: rgba(34,197,94,.08); border: 1px solid #22c55e; color: #22c55e; }
 
-        iframe.weather {
-            width: 100%;
-            height: 240px;
-            border: 1px solid #2a2a2a;
-            border-radius: 8px;
-            background: #000;
-            display: block;
-        }
+        .status-dot-row { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: var(--green); font-weight: 600; margin-bottom: 18px; }
+        .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; flex-shrink: 0; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
-        /* Credentials */
-        .creds-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-        .cred-card {
-            background: #111;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            flex: 1;
-            min-width: 200px;
-            transition: border-color 0.25s;
+        .bio { font-size: 0.88rem; color: var(--silver); line-height: 1.7; max-width: 480px; }
+
+        .hero-right { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+
+        .skill-row { margin-bottom: 2px; }
+        .skill-meta { display: flex; justify-content: space-between; font-size: 0.77rem; color: var(--silver); font-weight: 600; margin-bottom: 5px; }
+        .track { background: #0e0e0e; height: 6px; border-radius: 3px; overflow: hidden; border: 1px solid #222; }
+        .fill { height: 100%; border-radius: 3px; position: relative; }
+        .fill::after { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:rgba(255,255,255,.2); border-radius:2px; }
+
+        /* ── CREDS ── */
+        .creds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+        .cred {
+            background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
+            padding: 14px 16px; display: flex; align-items: center; gap: 13px;
+            transition: border-color .25s;
         }
-        .cred-card:hover { border-color: var(--steelers-gold); }
+        .cred:hover { border-color: var(--gold); }
         .cred-icon {
-            width: 40px; height: 40px;
-            border-radius: 8px;
+            width: 40px; height: 40px; border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-family: 'Bebas Neue', sans-serif; font-size: 1rem;
             flex-shrink: 0;
         }
-        .cred-icon.gold  { background: #2a1f00; color: var(--steelers-gold); border: 1px solid var(--steelers-gold); }
-        .cred-icon.blue  { background: #001a2a; color: #85b7eb; border: 1px solid #378add; }
-        .cred-icon.green { background: #0a2010; color: #6fcf6f; border: 1px solid #2d6a2d; }
-        .cred-name   { font-size: 0.88rem; font-weight: 700; margin: 0 0 2px; }
-        .cred-issuer { font-size: 0.75rem; color: var(--steelers-silver); margin: 0; }
+        .ci-gold  { background: rgba(255,182,18,.12); border: 1px solid var(--gold); color: var(--gold); }
+        .ci-blue  { background: rgba(56,133,220,.12); border: 1px solid #3885dc; color: #7ab8f5; }
+        .ci-green { background: rgba(34,197,94,.1); border: 1px solid #22c55e; color: #22c55e; }
+        .cred-name { font-size: 0.87rem; font-weight: 700; }
+        .cred-issuer { font-size: 0.73rem; color: var(--silver); margin-top: 2px; }
 
-        /* Services */
-        .services-grid { display: flex; flex-wrap: wrap; gap: 14px; }
-        .service-card {
-            background: #111;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 18px 20px;
-            flex: 1;
-            min-width: 260px;
-            transition: border-color 0.25s;
+        /* ── LINKS ── */
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 9px; }
+        .lnk {
+            background: var(--card2); border: 1px solid var(--border); border-radius: 9px;
+            color: var(--text); text-decoration: none;
+            padding: 12px 10px; text-align: center;
+            font-size: 0.83rem; font-weight: 600;
+            transition: all .2s;
         }
-        .service-card:hover { border-color: var(--steelers-gold); }
-        .service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .service-icon {
-            width: 38px; height: 38px;
-            border-radius: 8px;
-            background: #2a1f00;
-            border: 1px solid var(--steelers-gold);
-            display: flex; align-items: center; justify-content: center;
+        .lnk:hover { background: var(--gold); color: #000; border-color: var(--gold); transform: translateY(-2px); }
+        .lnk-label { font-size: 0.65rem; color: var(--silver); margin-top: 3px; display: block; font-weight: 400; }
+
+        /* ── WEATHER ── */
+        iframe.weather {
+            width: 100%; height: 240px; border: 1px solid var(--border);
+            border-radius: 10px; background: #000; display: block;
+        }
+
+        /* ── ANYDESK SERVICE ── */
+        .service-inner {
+            display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start;
+        }
+        .service-left { flex: 1; min-width: 280px; }
+        .service-right { flex: 1; min-width: 240px; }
+
+        .ad-hero {
+            background: linear-gradient(135deg, rgba(255,182,18,.06), rgba(198,12,48,.05));
+            border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .ad-logo {
+            width: 52px; height: 52px; border-radius: 10px;
+            background: #e8132c; display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #fff;
+            letter-spacing: 1px;
+        }
+        .ad-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 3px; }
+        .ad-sub { font-size: 0.78rem; color: var(--silver); }
+
+        .steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+        .steps-list li {
+            display: flex; gap: 10px; align-items: flex-start;
+            font-size: 0.83rem; color: var(--silver); line-height: 1.55;
+        }
+        .sn {
+            width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+            background: rgba(255,182,18,.1); border: 1px solid var(--gold);
+            color: var(--gold); font-size: 0.7rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; margin-top: 1px;
+        }
+
+        .dl-btn {
+            display: inline-flex; align-items: center; gap: 9px;
+            background: var(--gold); color: #0a0a0a;
+            font-weight: 700; font-size: 0.88rem; padding: 11px 22px;
+            border-radius: 9px; text-decoration: none; border: none; cursor: pointer;
+            transition: background .2s; font-family: 'DM Sans', sans-serif;
+        }
+        .dl-btn:hover { background: var(--gold-dim); }
+
+        .info-chip {
+            display: inline-block; margin-top: 10px;
+            font-size: 0.71rem; color: var(--silver);
+            background: var(--card2); border: 1px solid var(--border);
+            border-radius: 6px; padding: 4px 10px;
+        }
+
+        /* ── CALENDAR BOOKING ── */
+        .calendar-wrap {
+            border-radius: 10px; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .calendar-wrap iframe { display: block; width: 100%; height: 600px; border: none; }
+
+        /* ── BLOG ── */
+        .blog-header {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
+        }
+        .blog-date-badge {
+            font-family: 'DM Mono', monospace; font-size: 0.75rem;
+            background: rgba(255,182,18,.08); border: 1px solid rgba(255,182,18,.2);
+            color: var(--gold); padding: 4px 12px; border-radius: 6px;
+        }
+
+        .site-cards { display: flex; flex-direction: column; gap: 12px; }
+        .site-card {
+            background: var(--card2); border: 1px solid var(--border); border-radius: 11px;
+            padding: 16px 18px; display: flex; gap: 16px; align-items: flex-start;
+            transition: border-color .25s, transform .2s;
+        }
+        .site-card:hover { border-color: var(--gold); transform: translateX(3px); }
+        .site-rank {
+            font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+            color: rgba(255,182,18,.2); line-height: 1; flex-shrink: 0;
+            width: 36px; text-align: center;
+        }
+        .site-info { flex: 1; }
+        .site-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+        .site-name { font-size: 0.95rem; font-weight: 700; }
+        .site-tag {
+            font-size: 0.67rem; font-weight: 700; padding: 2px 8px;
+            border-radius: 4px; text-transform: uppercase; letter-spacing: .5px;
+        }
+        .st-gold  { background: rgba(255,182,18,.1); color: var(--gold); border: 1px solid rgba(255,182,18,.3); }
+        .st-blue  { background: rgba(56,133,220,.1); color: #7ab8f5; border: 1px solid rgba(56,133,220,.3); }
+        .st-red   { background: rgba(198,12,48,.1); color: #f46; border: 1px solid rgba(198,12,48,.3); }
+        .st-green { background: rgba(34,197,94,.1); color: #22c55e; border: 1px solid rgba(34,197,94,.3); }
+        .st-purple{ background: rgba(168,85,247,.1); color: #c084fc; border: 1px solid rgba(168,85,247,.3); }
+
+        .site-desc { font-size: 0.82rem; color: var(--silver); line-height: 1.6; margin-bottom: 8px; }
+        .site-url a {
+            font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--gold);
+            text-decoration: none; transition: color .2s;
+        }
+        .site-url a:hover { color: #fff; }
+
+        .blog-footer { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--silver); }
+        .blog-footer strong { color: var(--text); }
+
+        /* ── CONTACT ── */
+        .contact-row { display: flex; gap: 20px; flex-wrap: wrap; }
+        .contact-left { flex: 1; min-width: 240px; }
+        .contact-right { flex: 1; min-width: 260px; }
+
+        .avatar-block { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+        .avatar {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--gold); display: flex; align-items: center; justify-content: center;
+            font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #0a0a0a;
             flex-shrink: 0;
         }
-        .service-icon svg { width: 18px; height: 18px; stroke: var(--steelers-gold); fill: none; stroke-width: 1.8; }
-        .service-title { font-size: 0.95rem; font-weight: 700; margin: 0 0 2px; }
-        .service-sub   { font-size: 0.75rem; color: var(--steelers-silver); margin: 0; }
-        .service-desc  { font-size: 0.82rem; color: var(--steelers-silver); line-height: 1.55; margin: 0 0 14px; }
+        .av-name { font-size: 1rem; font-weight: 700; }
+        .av-role { font-size: 0.78rem; color: var(--silver); }
 
-        .service-steps { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
-        .service-steps li {
-            display: flex; align-items: flex-start; gap: 9px;
-            font-size: 0.8rem; color: var(--steelers-silver); line-height: 1.5;
+        .cta-btns { display: flex; flex-direction: column; gap: 9px; }
+        .cta-btn {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--card2); border: 1px solid var(--border); border-radius: 9px;
+            color: var(--text); text-decoration: none;
+            padding: 11px 14px; font-size: 0.84rem; font-weight: 600;
+            transition: all .25s;
         }
-        .step-num {
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            background: #1f1700;
-            border: 1px solid var(--steelers-gold);
-            color: var(--steelers-gold);
-            font-size: 0.68rem;
-            font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
+        .cta-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(255,182,18,.05); }
+        .cta-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-        .qa-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--steelers-gold);
-            color: #101010;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
+        .form-field {
+            width: 100%; background: var(--card2); border: 1px solid var(--border);
+            border-radius: 8px; color: var(--text);
+            font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+            padding: 10px 13px; outline: none; resize: none;
+            transition: border-color .2s; margin-bottom: 9px;
         }
-        .qa-btn:hover { background: #e6a410; }
-        .qa-btn svg { width: 15px; height: 15px; fill: none; stroke: #101010; stroke-width: 2; }
+        .form-field:focus { border-color: var(--gold); }
+        .form-row { display: flex; gap: 9px; }
+        .form-row .form-field { flex: 1; }
 
-        .info-tag {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 0.72rem;
-            color: var(--steelers-silver);
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 6px;
-            padding: 4px 10px;
+        .submit-btn {
+            background: var(--gold); color: #0a0a0a;
+            border: none; border-radius: 9px;
+            padding: 11px 24px; font-size: 0.86rem; font-weight: 700;
+            cursor: pointer; font-family: 'DM Sans', sans-serif;
+            transition: background .2s;
         }
+        .submit-btn:hover { background: var(--gold-dim); }
+        .confirm-msg { font-size: 0.78rem; color: var(--green); margin-top: 8px; display: none; }
 
-        /* Contact */
-        .contact-top {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-        }
-        .contact-avatar {
-            width: 46px; height: 46px;
-            border-radius: 50%;
-            background: var(--steelers-gold);
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 0.95rem; color: #101010;
-            flex-shrink: 0;
-        }
-        .contact-name { font-size: 1rem; font-weight: 700; margin: 0 0 2px; }
-        .contact-role { font-size: 0.82rem; color: var(--steelers-silver); margin: 0; }
-        .contact-open {
-            margin-left: auto;
-            display: flex; align-items: center; gap: 6px;
-            background: #0d2b0d; border: 1px solid #2d6a2d;
-            color: #6fcf6f; font-size: 0.75rem; font-weight: 600;
-            padding: 4px 12px; border-radius: 20px;
-        }
+        /* ── SECTION VISIBILITY ── */
+        .section { display: none; }
+        .section.visible { display: flex; flex-direction: column; gap: 20px; }
 
-        .contact-btns { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 9px; margin-bottom: 18px; }
-        .contact-btn {
-            display: flex; align-items: center; justify-content: center; gap: 7px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #2a2a2a;
-            background: #111;
-            color: #fff;
-            font-size: 0.82rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.25s ease;
+        /* ── FOOTER ── */
+        footer {
+            text-align: center; padding: 28px 20px;
+            font-size: 0.75rem; color: var(--silver);
+            border-top: 1px solid var(--border);
         }
-        .contact-btn:hover { border-color: var(--steelers-gold); background: #1f1700; color: var(--steelers-gold); }
-        .contact-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-
-        .contact-divider { border: none; border-top: 1px solid #222; margin: 0 0 16px; }
-
-        .form-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
-        .form-row input, .form-row textarea {
-            flex: 1; min-width: 140px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            border-radius: 8px;
-            border: 1px solid #333;
-            padding: 9px 13px;
-            background: #111;
-            color: #fff;
-            outline: none;
-            resize: none;
-            transition: border-color 0.2s;
-        }
-        .form-row input:focus, .form-row textarea:focus { border-color: var(--steelers-gold); }
-        .form-row textarea { min-height: 80px; width: 100%; flex: 1 1 100%; }
-
-        .send-btn {
-            background: var(--steelers-gold);
-            color: #101010;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 24px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            transition: background 0.2s;
-        }
-        .send-btn:hover { background: #e6a410; }
-        .send-confirm { display: none; font-size: 0.8rem; color: #6fcf6f; margin-top: 8px; }
+        footer span { color: var(--gold); }
     </style>
 </head>
 <body onload="startTime(); typeWriter()">
 
+    <!-- HEADER -->
     <header>
         <div id="type-text" class="brand"></div>
-        <div class="floating-search">
+        <div class="header-divider"></div>
+        <div class="search-wrap">
             <form action="https://duckduckgo.com/" method="get">
-                <input type="text" name="q" placeholder="DuckAI Search..." autofocus autocomplete="off">
+                <svg class="s-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" name="q" placeholder="DuckAI Search..." autocomplete="off">
                 <input type="hidden" name="ia" value="chat">
             </form>
         </div>
-        <div id="clock-container">
-            <span id="date"></span> | <span id="clock"></span>
-        </div>
+        <div class="clock" id="clock">--:-- --</div>
     </header>
 
-    <div class="main-container">
+    <!-- NAV TABS -->
+    <nav class="nav-tabs">
+        <button class="active" onclick="showSection('home', this)">Home</button>
+        <button onclick="showSection('creds', this)">Credentials</button>
+        <button onclick="showSection('links', this)">Links</button>
+        <button onclick="showSection('weather', this)">Weather</button>
+        <button onclick="showSection('remote', this)">Remote Support</button>
+        <button onclick="showSection('book', this)">Book a Session</button>
+        <button onclick="showSection('blog', this)">Daily Blog</button>
+        <button onclick="showSection('contact', this)">Contact</button>
+    </nav>
 
-        <!-- Professional Operations -->
-        <div class="card">
-            <h3>Professional Operations</h3>
-            <div class="identity-row">
-                <div class="pro-summary">
-                    <div class="status-badge"><div class="status-dot"></div>Open to opportunities</div>
-                    <p class="summary-text">
-                        <strong>IT Support Specialist | Network Technician</strong><br>
-                        CompTIA A+ certified professional based in New Bern, NC. Deep experience resolving complex connectivity, hardware, and enterprise endpoint security issues. Expertise includes TCP/IP, DNS, DHCP, VLANs, and advanced command-line diagnostics.
-                    </p>
-                    <div class="cert-pills">
-                        <span class="pill pill-gold">CompTIA A+</span>
-                        <span class="pill pill-gold">Google IT Support</span>
-                        <span class="pill pill-gold">Salesforce Champion</span>
-                        <span class="pill pill-red">Network+ (in progress)</span>
-                        <span class="pill pill-red">Security+ (in progress)</span>
-                        <span class="pill pill-green">AHA BLS Certified</span>
-                    </div>
-                </div>
-                <div class="skill-block">
-                    <div class="skill-container">
-                        <div class="skill-label"><span>CompTIA A+ / Google IT</span><span>100%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:100%; background:var(--steelers-gold);"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-label"><span>Salesforce Champion</span><span>100%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:100%; background:var(--steelers-gold);"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-label"><span>TCP/IP & Networking</span><span>80%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:80%; background:var(--cyber-red);"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-label"><span>Network+ / Security+</span><span>65%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:65%; background:var(--cyber-red);"></div></div>
-                    </div>
-                    <div class="skill-container">
-                        <div class="skill-label"><span>Azure / Cloud</span><span>55%</span></div>
-                        <div class="progress-track"><div class="progress-fill" style="width:55%; background:#444;"></div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="wrap">
 
-        <!-- Credentials -->
-        <div class="card">
-            <h3>Credentials &amp; Certifications</h3>
-            <div class="creds-grid">
-                <div class="cred-card">
-                    <div class="cred-icon gold">A+</div>
-                    <div>
-                        <p class="cred-name">CompTIA A+</p>
-                        <p class="cred-issuer">CompTIA</p>
-                    </div>
-                </div>
-                <div class="cred-card">
-                    <div class="cred-icon blue">IT</div>
-                    <div>
-                        <p class="cred-name">Google IT Support</p>
-                        <p class="cred-issuer">Google / Coursera</p>
-                    </div>
-                </div>
-                <div class="cred-card">
-                    <div class="cred-icon gold">SF</div>
-                    <div>
-                        <p class="cred-name">Salesforce Champion &amp; Innovator</p>
-                        <p class="cred-issuer">Salesforce</p>
-                    </div>
-                </div>
-                <div class="cred-card">
-                    <div class="cred-icon green">BLS</div>
-                    <div>
-                        <p class="cred-name">Basic Life Support (BLS)</p>
-                        <p class="cred-issuer">American Heart Association</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mission Critical Access -->
-        <div class="card">
-            <h3>Mission Critical Access</h3>
-            <div class="links-grid">
-                <a href="https://github.com/flyingknee25" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/dgrow27" target="_blank">LinkedIn</a>
-                <a href="https://smoothschool.com" target="_blank">Smoothschool</a>
-                <a href="https://portal.azure.com" target="_blank">Azure Portal</a>
-                <a href="https://chatgpt.com" target="_blank">ChatGPT</a>
-                <a href="https://cve.mitre.org/" target="_blank">CVE Database</a>
-                <a href="https://tryhackme.com" target="_blank">TryHackMe</a>
-                <a href="https://www.virustotal.com" target="_blank">VirusTotal</a>
-            </div>
-        </div>
-
-        <!-- Local Environment -->
-        <div class="card">
-            <h3>Local Environment — New Bern, NC</h3>
-            <iframe class="weather" src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=FAHRENHEIT&windunit=MILE_PER_HOUR&layout=dark" allowtransparency="true"></iframe>
-        </div>
-
-        <!-- Services -->
-        <div class="card">
-            <h3>Services</h3>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-header">
-                        <div class="service-icon">
-                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <!-- HOME -->
+        <div class="section visible" id="home">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Professional Operations</div>
+                <div class="hero-row">
+                    <div class="hero-left">
+                        <div class="hero-name">DYLAN <span>GROW</span></div>
+                        <div class="hero-title">IT Support Specialist · Network Technician · New Bern, NC</div>
+                        <div class="status-dot-row"><div class="dot"></div>Open to Opportunities</div>
+                        <div class="badge-row">
+                            <span class="badge badge-gold">CompTIA A+</span>
+                            <span class="badge badge-gold">Google IT Support</span>
+                            <span class="badge badge-gold">Salesforce Champion</span>
+                            <span class="badge badge-red">Network+ (In Progress)</span>
+                            <span class="badge badge-red">Security+ (In Progress)</span>
+                            <span class="badge badge-green">AHA BLS Certified</span>
                         </div>
-                        <div>
-                            <p class="service-title">Remote Desktop Support</p>
-                            <p class="service-sub">Windows · Quick Assist · No download needed</p>
+                        <p class="bio">CompTIA A+ certified IT professional with deep experience resolving complex connectivity, hardware, and enterprise endpoint security issues. Expertise includes TCP/IP, DNS, DHCP, VLANs, and advanced command-line diagnostics.</p>
+                    </div>
+                    <div class="hero-right">
+                        <div class="skill-row">
+                            <div class="skill-meta"><span>CompTIA A+ / Google IT</span><span style="color:var(--gold)">100%</span></div>
+                            <div class="track"><div class="fill" style="width:100%;background:var(--gold)"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-meta"><span>Salesforce Champion</span><span style="color:var(--gold)">100%</span></div>
+                            <div class="track"><div class="fill" style="width:100%;background:var(--gold)"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-meta"><span>TCP/IP & Networking</span><span style="color:var(--red)">80%</span></div>
+                            <div class="track"><div class="fill" style="width:80%;background:var(--red)"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-meta"><span>Network+ / Security+</span><span style="color:var(--red)">65%</span></div>
+                            <div class="track"><div class="fill" style="width:65%;background:var(--red)"></div></div>
+                        </div>
+                        <div class="skill-row">
+                            <div class="skill-meta"><span>Azure / Cloud</span><span style="color:var(--silver)">55%</span></div>
+                            <div class="track"><div class="fill" style="width:55%;background:#444"></div></div>
                         </div>
                     </div>
-                    <p class="service-desc">
-                        Secure, real-time remote support directly to your Windows PC using Microsoft's built-in Quick Assist tool — no third-party installs required. I can troubleshoot software issues, slow performance, connectivity problems, driver errors, and more from anywhere.
-                    </p>
-                    <ul class="service-steps">
-                        <li><span class="step-num">1</span>Contact me via email below to schedule a session</li>
-                        <li><span class="step-num">2</span>Open Quick Assist on your Windows PC — press Start and search "Quick Assist"</li>
-                        <li><span class="step-num">3</span>Click <strong style="color:#fff;">Get Help</strong> and enter the 6-digit code I send you</li>
-                        <li><span class="step-num">4</span>Accept the screen share prompt — we're live</li>
-                    </ul>
-                    <a class="qa-btn" href="ms-quickassist:">
-                        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        Launch Quick Assist
-                    </a>
-                    <span class="info-tag">Windows 10 &amp; 11 · Built-in Microsoft tool · No download required</span>
                 </div>
             </div>
         </div>
 
-        <!-- Reach Me -->
-        <div class="card">
-            <h3>Reach Me</h3>
-            <div class="contact-top">
-                <div class="contact-avatar">DG</div>
-                <div>
-                    <p class="contact-name">Dylan Grow</p>
-                    <p class="contact-role">IT Support Specialist · New Bern, NC</p>
+        <!-- CREDENTIALS -->
+        <div class="section" id="creds">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Credentials &amp; Certifications</div>
+                <div class="creds-grid">
+                    <div class="cred">
+                        <div class="cred-icon ci-gold">A+</div>
+                        <div><div class="cred-name">CompTIA A+</div><div class="cred-issuer">CompTIA</div></div>
+                    </div>
+                    <div class="cred">
+                        <div class="cred-icon ci-blue">IT</div>
+                        <div><div class="cred-name">Google IT Support</div><div class="cred-issuer">Google / Coursera</div></div>
+                    </div>
+                    <div class="cred">
+                        <div class="cred-icon ci-gold">SF</div>
+                        <div><div class="cred-name">Salesforce Champion &amp; Innovator</div><div class="cred-issuer">Salesforce</div></div>
+                    </div>
+                    <div class="cred">
+                        <div class="cred-icon ci-green">BLS</div>
+                        <div><div class="cred-name">Basic Life Support (BLS)</div><div class="cred-issuer">American Heart Association</div></div>
+                    </div>
+                    <div class="cred" style="border-style:dashed;opacity:.6">
+                        <div class="cred-icon" style="background:rgba(198,12,48,.1);border:1px dashed var(--red);color:var(--red)">N+</div>
+                        <div><div class="cred-name">CompTIA Network+</div><div class="cred-issuer">In Progress</div></div>
+                    </div>
+                    <div class="cred" style="border-style:dashed;opacity:.6">
+                        <div class="cred-icon" style="background:rgba(198,12,48,.1);border:1px dashed var(--red);color:var(--red)">S+</div>
+                        <div><div class="cred-name">CompTIA Security+</div><div class="cred-issuer">In Progress</div></div>
+                    </div>
                 </div>
-                <div class="contact-open"><div class="status-dot"></div>Open to opportunities</div>
             </div>
+        </div>
 
-            <div class="contact-btns">
-                <a class="contact-btn" href="mailto:DylanGrow@gmail.com">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
-                    Email Me
-                </a>
-                <a class="contact-btn" href="https://github.com/flyingknee25" target="_blank">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-                    GitHub
-                </a>
+        <!-- LINKS -->
+        <div class="section" id="links">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Mission Critical Access</div>
+                <div class="links-grid">
+                    <a class="lnk" href="https://github.com/flyingknee25" target="_blank">GitHub<span class="lnk-label">Repository</span></a>
+                    <a class="lnk" href="https://www.linkedin.com/in/dgrow27" target="_blank">LinkedIn<span class="lnk-label">Profile</span></a>
+                    <a class="lnk" href="https://smoothschool.com" target="_blank">Smoothschool<span class="lnk-label">Learning</span></a>
+                    <a class="lnk" href="https://portal.azure.com" target="_blank">Azure<span class="lnk-label">Cloud Portal</span></a>
+                    <a class="lnk" href="https://chatgpt.com" target="_blank">ChatGPT<span class="lnk-label">AI</span></a>
+                    <a class="lnk" href="https://cve.mitre.org/" target="_blank">CVE DB<span class="lnk-label">Vulnerabilities</span></a>
+                    <a class="lnk" href="https://tryhackme.com" target="_blank">TryHackMe<span class="lnk-label">Training</span></a>
+                    <a class="lnk" href="https://www.virustotal.com" target="_blank">VirusTotal<span class="lnk-label">Malware Scan</span></a>
+                </div>
             </div>
+        </div>
 
-            <hr class="contact-divider">
+        <!-- WEATHER -->
+        <div class="section" id="weather">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Local Environment — New Bern, NC</div>
+                <iframe class="weather" src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=FAHRENHEIT&windunit=MILE_PER_HOUR&layout=dark" allowtransparency="true"></iframe>
+            </div>
+        </div>
 
-            <div class="form-row">
-                <input type="text" id="cr-name" placeholder="Your name" />
-                <input type="email" id="cr-email" placeholder="Your email" />
+        <!-- REMOTE SUPPORT - ANYDESK -->
+        <div class="section" id="remote">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Remote Desktop Support</div>
+                <div class="service-inner">
+                    <div class="service-left">
+                        <div class="ad-hero">
+                            <div class="ad-logo">AD</div>
+                            <div>
+                                <div class="ad-title">AnyDesk Remote Support</div>
+                                <div class="ad-sub">Cross-platform · Secure · Fast connection</div>
+                            </div>
+                        </div>
+                        <p style="font-size:.85rem;color:var(--silver);line-height:1.65;margin-bottom:16px;">
+                            Secure, real-time remote support using AnyDesk — available on Windows, Mac, Linux, iOS, and Android. Lightweight client, encrypted sessions, and no complicated setup. Once connected, I can troubleshoot software issues, slow performance, connectivity problems, driver errors, and more.
+                        </p>
+                        <ul class="steps-list">
+                            <li><span class="sn">1</span>Contact me via email or use the <strong style="color:#fff">Book a Session</strong> tab to schedule</li>
+                            <li><span class="sn">2</span>Download and run AnyDesk using the button below — no install required</li>
+                            <li><span class="sn">3</span>Share your 9-digit AnyDesk ID with me at session time</li>
+                            <li><span class="sn">4</span>Accept the connection request — you stay in full control and can disconnect anytime</li>
+                        </ul>
+                        <a class="dl-btn" href="https://anydesk.com/en/downloads" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Download AnyDesk
+                        </a>
+                        <span class="info-chip">Windows · Mac · Linux · iOS · Android · No permanent install needed</span>
+                    </div>
+                    <div class="service-right">
+                        <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+                            <div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px;">Why AnyDesk?</div>
+                            <div style="display:flex;flex-direction:column;gap:11px;">
+                                <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
+                                    <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
+                                    <span><strong style="color:#fff">Cross-platform</strong> — works on any OS, any device</span>
+                                </div>
+                                <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
+                                    <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
+                                    <span><strong style="color:#fff">256-bit encryption</strong> — TLS 1.2 secured sessions</span>
+                                </div>
+                                <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
+                                    <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
+                                    <span><strong style="color:#fff">No admin rights</strong> needed to run as portable app</span>
+                                </div>
+                                <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
+                                    <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
+                                    <span><strong style="color:#fff">You're in control</strong> — revoke access instantly anytime</span>
+                                </div>
+                                <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
+                                    <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
+                                    <span><strong style="color:#fff">Ultra-low latency</strong> — fast even on slower connections</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-row">
-                <textarea id="cr-msg" placeholder="Your message..."></textarea>
+        </div>
+
+        <!-- BOOK A SESSION - GOOGLE CALENDAR -->
+        <div class="section" id="book">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Book a Support Session</div>
+                <p style="font-size:.85rem;color:var(--silver);margin-bottom:16px;line-height:1.6;">
+                    Select an available time slot below to schedule a remote support or consultation session. You'll receive a confirmation email with connection details.
+                </p>
+                <div class="calendar-wrap">
+                    <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true"></iframe>
+                </div>
             </div>
-            <button class="send-btn" onclick="sendMsg()">Send Message</button>
-            <p class="send-confirm" id="cr-confirm">Message opened in your email client — ready to send!</p>
+        </div>
+
+        <!-- DAILY BLOG -->
+        <div class="section" id="blog">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Daily Blog — Top 5 Sites</div>
+                <div class="blog-header">
+                    <div>
+                        <p style="font-size:.82rem;color:var(--silver);margin-top:4px;">My handpicked picks of the day — tools, research, and resources worth bookmarking.</p>
+                    </div>
+                    <div class="blog-date-badge" id="blog-date">--</div>
+                </div>
+                <div class="site-cards" id="site-cards">
+                    <!-- Rendered by JS -->
+                </div>
+                <div class="blog-footer">
+                    <strong>Update frequency:</strong> Curated daily. Check back tomorrow for a fresh set of picks. Have a site suggestion? <a href="mailto:DylanGrow@gmail.com" style="color:var(--gold);text-decoration:none;">Drop me a line.</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="section" id="contact">
+            <div class="card">
+                <div class="card-title"><span class="ct-bar"></span>Reach Me</div>
+                <div class="contact-row">
+                    <div class="contact-left">
+                        <div class="avatar-block">
+                            <div class="avatar">DG</div>
+                            <div>
+                                <div class="av-name">Dylan Grow</div>
+                                <div class="av-role">IT Support Specialist · New Bern, NC</div>
+                            </div>
+                        </div>
+                        <div class="cta-btns">
+                            <a class="cta-btn" href="mailto:DylanGrow@gmail.com">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                                DylanGrow@gmail.com
+                            </a>
+                            <a class="cta-btn" href="https://github.com/flyingknee25" target="_blank">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                                github.com/flyingknee25
+                            </a>
+                            <a class="cta-btn" href="https://www.linkedin.com/in/dgrow27" target="_blank">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                linkedin.com/in/dgrow27
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-right">
+                        <div class="form-row">
+                            <input class="form-field" type="text" id="cr-name" placeholder="Your name">
+                            <input class="form-field" type="email" id="cr-email" placeholder="Your email">
+                        </div>
+                        <textarea class="form-field" id="cr-msg" rows="4" placeholder="Your message..."></textarea>
+                        <button class="submit-btn" onclick="sendMsg()">Send Message</button>
+                        <p class="confirm-msg" id="cr-confirm">Message opened in your email client — ready to send!</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <footer>Built by <span>Dylan Grow</span> · IT Professional · New Bern, NC</footer>
+
     <script>
+        // ── TYPEWRITER ──
         let i = 0;
-        const txt = 'DYLAN GROW | IT OPERATIONS';
+        const txt = 'DYLAN GROW | IT OPS';
         function typeWriter() {
             if (i < txt.length) {
-                document.getElementById("type-text").innerHTML += txt.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
+                document.getElementById('type-text').innerHTML += txt.charAt(i++);
+                setTimeout(typeWriter, 55);
             }
         }
 
+        // ── CLOCK ──
         function startTime() {
-            const today = new Date();
-            let h = today.getHours(), m = today.getMinutes(), s = today.getSeconds();
-            const ampm = h >= 12 ? 'PM' : 'AM';
+            const t = new Date();
+            let h = t.getHours(), m = t.getMinutes(), s = t.getSeconds();
+            const ap = h >= 12 ? 'PM' : 'AM';
             h = h % 12 || 12;
-            m = m < 10 ? "0" + m : m;
-            s = s < 10 ? "0" + s : s;
-            document.getElementById('clock').innerHTML = h + ":" + m + ":" + s + " " + ampm;
-            document.getElementById('date').innerHTML = today.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+            document.getElementById('clock').textContent =
+                `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} ${ap}`;
             setTimeout(startTime, 1000);
         }
+        startTime(); typeWriter();
 
+        // ── TABS ──
+        function showSection(id, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+            document.getElementById(id).classList.add('visible');
+            document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // ── BLOG DATE ──
+        const blogDate = document.getElementById('blog-date');
+        if (blogDate) {
+            blogDate.textContent = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+        }
+
+        // ── BLOG DATA ──
+        // Edit this array daily with your top 5 picks!
+        const todaysSites = [
+            {
+                rank: '01',
+                name: 'TryHackMe',
+                tag: 'Security', tagClass: 'st-red',
+                desc: "Hands-on cybersecurity training with guided labs, CTF challenges, and learning paths for every skill level. My go-to for Network+ and Security+ prep outside of books. The gamified approach keeps the grind from feeling like a grind.",
+                url: 'https://tryhackme.com'
+            },
+            {
+                rank: '02',
+                name: 'CVE Mitre',
+                tag: 'Research', tagClass: 'st-blue',
+                desc: "The authoritative database for publicly disclosed cybersecurity vulnerabilities. If you work in IT or security, knowing how to read a CVE is non-negotiable. I reference this regularly when troubleshooting endpoint security issues.",
+                url: 'https://cve.mitre.org'
+            },
+            {
+                rank: '03',
+                name: 'VirusTotal',
+                tag: 'Tool', tagClass: 'st-green',
+                desc: "Free online service that analyzes files, URLs, IPs, and domains for malware and suspicious behavior using 70+ antivirus engines. Essential first stop when something looks off on a client machine or in a phishing report.",
+                url: 'https://www.virustotal.com'
+            },
+            {
+                rank: '04',
+                name: 'Azure Portal',
+                tag: 'Cloud', tagClass: 'st-blue',
+                desc: "Microsoft's cloud management hub. As I push my Azure skills forward, the portal is where I spin up VMs, configure AAD, and practice identity management. The free tier is generous enough for real lab work.",
+                url: 'https://portal.azure.com'
+            },
+            {
+                rank: '05',
+                name: 'Smoothschool',
+                tag: 'Learning', tagClass: 'st-purple',
+                desc: "A learning resource I actively use and recommend. Great supplemental material to pair with certification study — especially helpful for understanding real-world application of concepts rather than just passing the exam.",
+                url: 'https://smoothschool.com'
+            }
+        ];
+
+        const container = document.getElementById('site-cards');
+        todaysSites.forEach(site => {
+            container.innerHTML += `
+            <div class="site-card">
+                <div class="site-rank">${site.rank}</div>
+                <div class="site-info">
+                    <div class="site-name-row">
+                        <div class="site-name">${site.name}</div>
+                        <span class="site-tag ${site.tagClass}">${site.tag}</span>
+                    </div>
+                    <p class="site-desc">${site.desc}</p>
+                    <div class="site-url"><a href="${site.url}" target="_blank">${site.url} ↗</a></div>
+                </div>
+            </div>`;
+        });
+
+        // ── CONTACT FORM ──
         function sendMsg() {
             const name = document.getElementById('cr-name').value.trim();
-            const replyTo = document.getElementById('cr-email').value.trim();
+            const email = document.getElementById('cr-email').value.trim();
             const msg = document.getElementById('cr-msg').value.trim();
             const subject = encodeURIComponent('Message from ' + (name || 'your portfolio'));
-            const body = encodeURIComponent((msg || '') + (replyTo ? '\n\nReply to: ' + replyTo : ''));
+            const body = encodeURIComponent((msg || '') + (email ? '\n\nReply to: ' + email : ''));
             window.location.href = 'mailto:DylanGrow@gmail.com?subject=' + subject + '&body=' + body;
             document.getElementById('cr-confirm').style.display = 'block';
         }
