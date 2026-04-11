@@ -2,157 +2,283 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dylan Grow | IT Professional</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dylan Grow | IT Support & Network Specialist | New Bern, NC</title>
+    <meta name="description" content="Dylan Grow - CompTIA A+ & Google IT certified IT Support and Network Specialist in New Bern, NC. Technical support, network diagnostics, Salesforce admin. Book a consult.">
+    <meta name="theme-color" content="#15803d">
+    
+    <!-- Open Graph for link previews -->
+    <meta property="og:title" content="Dylan Grow | IT Professional">
+    <meta property="og:description" content="Expert technical solutions with a personal touch. CompTIA A+, Google IT certified.">
+    <meta property="og:type" content="profile">
+    
     <style>
+        /* ── THEME SYSTEM: DARK/LIGHT ── */
         :root {
             --money-green: #15803d; 
             --dark-green: #0a4020;  
-            --growth-green: #22c55e; 
+            --growth-green: #22c55e;
+            --red: #dc2626;
             --black: #080808;       
             --card: #121212;        
             --border: #2a2a2a;
             --silver: #a0a0a0;
             --text: #ffffff;
-            --focus-outline: #3b82f6; 
+            --focus-outline: #3b82f6;
+            --bg: var(--black);
+            --bg-elevated: var(--card);
+        }
+        
+        [data-theme="light"] {
+            --money-green: #15803d;
+            --dark-green: #dcfce7;
+            --growth-green: #16a34a;
+            --red: #dc2626;
+            --black: #ffffff;
+            --card: #f8fafc;
+            --border: #e2e8f0;
+            --silver: #475569;
+            --text: #0f172a;
+            --bg: #ffffff;
+            --bg-elevated: #f1f5f9;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-        /* ── ACCESSIBILITY: FOCUS STATES ── */
-        button:focus, a:focus, input:focus {
+        /* ── ACCESSIBILITY ── */
+        button:focus-visible, a:focus-visible, input:focus-visible {
             outline: 3px solid var(--focus-outline);
             outline-offset: 2px;
+            border-radius: 4px;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
         }
 
-        /* ── THEME SCROLLBAR ── */
+        /* ── SCROLLBAR ── */
         ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: var(--money-green); border-radius: 10px; border: 2px solid var(--black); }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--money-green); border-radius: 10px; border: 2px solid var(--bg); }
 
-        /* ── CUSTOM MONEY GREEN CURSOR ── */
-        * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%2315803d" stroke="white" stroke-width="1"/></svg>'), auto !important; }
+        /* ── CUSTOM CURSOR - removed on touch devices for performance ── */
+        @media (hover: hover) and (pointer: fine) {
+            * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%2315803d" stroke="white" stroke-width="1"/></svg>'), auto !important; }
+        }
+        
+        html { scroll-behavior: smooth; }
         
         body {
-            background: var(--black);
+            background: var(--bg);
             color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease;
             font-size: 18px; 
             overflow-x: hidden;
         }
 
+        /* ── SKIP LINK ── */
+        .skip-link {
+            position: absolute; top: -40px; left: 0;
+            background: var(--money-green); color: white;
+            padding: 8px 16px; text-decoration: none; z-index: 9999;
+        }
+        .skip-link:focus { top: 0; }
+
         /* ── HEADER ── */
         header {
             position: sticky; top: 0; z-index: 1000;
-            background: var(--black);
+            background: var(--bg);
             border-bottom: 4px solid var(--money-green);
-            padding: 15px 20px;
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
+            padding: 12px 16px;
+            display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+            transition: background 0.3s ease;
         }
 
-        .brand { font-weight: 500; font-size: 1.5rem; color: var(--money-green); text-align: center; }
+        .brand { 
+            font-weight: 600; font-size: 1.5rem; color: var(--money-green); 
+            flex: 1 1 auto; min-width: 200px;
+        }
 
-        .search-relay { width: 100%; max-width: 500px; }
+        .header-controls {
+            display: flex; align-items: center; gap: 12px;
+            flex: 1 1 auto; justify-content: flex-end;
+        }
+
+        .search-relay { flex: 1 1 100%; max-width: 500px; order: 3; }
         .search-relay input {
-            width: 100%; padding: 14px 25px;
-            background: var(--card); border: 2px solid var(--border);
+            width: 100%; padding: 12px 20px;
+            background: var(--bg-elevated); border: 2px solid var(--border);
             border-radius: 35px; color: var(--text); font-size: 1rem;
         }
 
-        .system-intel { text-align: right; width: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center; margin-top: 5px; }
-        .clock { color: var(--money-green); font-weight: bold; font-family: monospace; font-size: 1.2rem; }
-        .date-display { color: var(--silver); font-size: 0.85rem; font-family: monospace; text-transform: uppercase; }
+        .theme-toggle {
+            background: var(--bg-elevated); border: 2px solid var(--border);
+            color: var(--text); padding: 8px 12px; border-radius: 8px;
+            font-size: 1.2rem; cursor: pointer; line-height: 1;
+        }
 
-        @media (min-width: 850px) {
-            header { flex-direction: row; height: 90px; padding: 0 30px; }
-            .brand { text-align: left; min-width: 250px; }
-            .search-relay { margin: 0 auto; }
-            .system-intel { width: auto; align-items: flex-end; }
+        .system-intel { text-align: right; font-family: ui-monospace, monospace; }
+        .clock { color: var(--money-green); font-weight: bold; font-size: 1.1rem; }
+        .date-display { color: var(--silver); font-size: 0.8rem; text-transform: uppercase; }
+
+        @media (min-width: 900px) {
+            header { flex-wrap: nowrap; height: 80px; padding: 0 24px; }
+            .search-relay { order: 0; flex: 0 1 500px; margin: 0 auto; }
         }
 
         /* ── NAVIGATION ── */
-        .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 5px; overflow-x: auto; justify-content: center; }
+        .nav-tabs { 
+            display: flex; background: var(--bg-elevated); border-bottom: 1px solid var(--border); 
+            padding: 4px; overflow-x: auto; scrollbar-width: none;
+        }
+        .nav-tabs::-webkit-scrollbar { display: none; }
         .nav-tabs button {
-            background: none; border: none; color: var(--silver); padding: 15px 25px;
-            font-weight: 700; cursor: pointer; border-bottom: 4px solid transparent; transition: 0.2s; white-space: nowrap; font-size: 1rem;
+            background: none; border: none; color: var(--silver); padding: 14px 20px;
+            font-weight: 700; cursor: pointer; border-bottom: 4px solid transparent; 
+            transition: 0.2s; white-space: nowrap; font-size: 0.95rem;
         }
         .nav-tabs button.active { color: var(--money-green); border-bottom-color: var(--money-green); }
+        .nav-tabs button:hover { color: var(--text); }
 
-        .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
-        .card { background: var(--card); border: 2px solid var(--border); border-radius: 15px; padding: 35px; margin-bottom: 25px; width: 100%; }
-        .card-title { color: var(--money-green); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 12px; text-transform: uppercase; }
+        .wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+        .card { 
+            background: var(--bg-elevated); border: 2px solid var(--border); 
+            border-radius: 12px; padding: 28px; margin-bottom: 20px; width: 100%;
+            transition: background 0.3s ease;
+        }
+        .card-title { 
+            color: var(--money-green); font-weight: 800; font-size: 1.2rem; 
+            margin-bottom: 16px; border-bottom: 2px solid var(--border); 
+            padding-bottom: 10px; text-transform: uppercase; 
+        }
 
         /* ── SKILLS ── */
-        .skill-meta { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--silver); margin-bottom: 8px; font-weight: bold; }
-        .track { background: var(--dark-green); height: 18px; border-radius: 9px; overflow: hidden; margin-bottom: 25px; border: 1px solid var(--border); }
-        .fill { height: 100%; background: var(--growth-green); border-radius: 9px; position: relative; }
+        .skill-meta { 
+            display: flex; justify-content: space-between; font-size: 0.9rem; 
+            color: var(--silver); margin-bottom: 6px; font-weight: 600; 
+        }
+        .track { 
+            background: var(--dark-green); height: 16px; border-radius: 8px; 
+            overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); 
+        }
+        .fill { 
+            height: 100%; background: var(--growth-green); border-radius: 8px; 
+            width: 0; transition: width 1s ease-out;
+        }
 
-        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .badge { background: var(--dark-green); border: 2px solid var(--money-green); padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: #fff; font-size: 0.9rem; }
-        .pursuing { border: 2px dashed var(--red); color: var(--red); background: none; }
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+        .badge { 
+            background: var(--dark-green); border: 2px solid var(--money-green); 
+            padding: 14px; border-radius: 8px; text-align: center; font-weight: 800; 
+            color: var(--text); font-size: 0.85rem; 
+        }
+        .pursuing { border: 2px dashed var(--red); color: var(--red); background: transparent; }
 
         .section { display: none; }
-        .section.visible { display: block; }
+        .section.visible { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .weather-frame { height: 260px; border-radius: 12px; overflow: hidden; border: 2px solid var(--border); background: #000; margin-top: 25px; }
+        .embed-frame { 
+            height: 600px; border-radius: 12px; overflow: hidden; 
+            border: 2px solid var(--border); background: var(--bg); 
+            position: relative;
+        }
+        .embed-fallback {
+            display: none; padding: 40px; text-align: center; color: var(--silver);
+        }
+
+        /* ── TECH STATS ── */
+        .tech-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px; margin-top: 20px;
+        }
+        .stat {
+            background: var(--bg); border: 1px solid var(--border);
+            padding: 16px; border-radius: 8px; text-align: center;
+        }
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--money-green); }
+        .stat-label { font-size: 0.85rem; color: var(--silver); text-transform: uppercase; }
+
+        a { color: var(--money-green); }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
-<body onload="startTime(); typeWriter()">
-
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
     <header role="banner">
         <div class="brand" id="type-text" aria-live="polite"></div>
-        <nav class="search-relay" aria-label="Quick Search">
-            <form action="https://duckduckgo.com/" method="get" target="_blank">
-                <input type="text" name="q" placeholder="🔍 Search with Duck AI..." aria-label="Search the web safely">
-            </form>
-        </nav>
-        <div class="system-intel" aria-label="Current Date and Time">
-            <div id="clock" class="clock">00:00:00 AM</div>
-            <div id="date-display" class="date-display">APRIL 11, 2026</div>
-        </div>
-    </header>
-
-    <nav class="nav-tabs" role="tablist">
-        <button class="active" onclick="showSection('home', this)" role="tab" aria-selected="true">🏠 HOME</button>
-        <button onclick="showSection('about', this)" role="tab" aria-selected="false">🔍 WHO IS DYLAN GROW</button>
-        <button onclick="showSection('book', this)" role="tab" aria-selected="false">📅 BOOKING</button>
-    </nav>
-
-    <main class="wrap">
-        <div class="section visible" id="home" role="tabpanel">
-            <h1 style="font-size: 3.5rem; font-weight: 500; margin-bottom: 10px;">Dylan Grow</h1>
-            <p style="color: var(--money-green); font-size: 1.4rem; font-weight:bold; margin-bottom: 25px;">IT Support & Network Specialist</p>
-            <div class="card" style="border-left: 8px solid var(--money-green);">
-                <p style="font-size: 1.25rem;">Expert technical solutions provided with a personal touch. I specialize in resolving complex system issues, securing networks, and empowering users through reliable support.</p>
+        <div class="header-controls">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+            <div class="system-intel" aria-label="Current Date and Time">
+                <div id="clock" class="clock">00:00:00 AM</div>
+                <div id="date-display" class="date-display">APRIL 11, 2026</div>
             </div>
         </div>
+        <nav class="search-relay" aria-label="Quick Search">
+            <form action="https://duckduckgo.com/" method="get" target="_blank" rel="noopener">
+                <input type="text" name="q" placeholder="🔍 Search with DuckDuckGo..." aria-label="Search the web safely">
+            </form>
+        </nav>
+    </header>
 
-        <div class="section" id="about" role="tabpanel">
-            <div class="card" style="border-top: 6px solid var(--money-green);">
-                <div class="card-title">📞 Communications Relay & Skills</div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+    <nav class="nav-tabs" role="tablist" aria-label="Main navigation">
+        <button class="active" onclick="showSection('home', this)" role="tab" aria-selected="true" aria-controls="home">🏠 HOME</button>
+        <button onclick="showSection('about', this)" role="tab" aria-selected="false" aria-controls="about">🔍 ABOUT</button>
+        <button onclick="showSection('book', this)" role="tab" aria-selected="false" aria-controls="book">📅 BOOK</button>
+    </nav>
+
+    <main class="wrap" id="main">
+        <section class="section visible" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h1 style="font-size: clamp(2.5rem, 8vw, 3.5rem); font-weight: 500; margin-bottom: 8px;">Dylan Grow</h1>
+            <p style="color: var(--money-green); font-size: 1.3rem; font-weight:700; margin-bottom: 20px;">IT Support & Network Specialist | New Bern, NC</p>
+            
+            <div class="card" style="border-left: 6px solid var(--money-green);">
+                <p style="font-size: 1.15rem;">Expert technical solutions provided with a personal touch. I specialize in resolving complex system issues, securing networks, and empowering users through reliable support.</p>
+                
+                <div class="tech-stats">
+                    <div class="stat">
+                        <div class="stat-value">2+</div>
+                        <div class="stat-label">Certifications</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Monitoring Mindset</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">28560</div>
+                        <div class="stat-label">Local to ENC</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about" role="tabpanel" aria-labelledby="about-tab">
+            <div class="card" style="border-top: 4px solid var(--money-green);">
+                <h2 class="card-title">📞 Communications Relay</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
                     <div>
-                        <p style="font-size: 1.1rem; color: var(--silver);">Direct Line:</p>
-                        <p style="font-size: 2rem; font-weight: bold; margin-bottom: 20px;">
-                            <a href="tel:2523490830" style="color:var(--money-green); text-decoration:none;">(252) 349-0830</a>
+                        <p style="font-size: 1rem; color: var(--silver);">Direct Line:</p>
+                        <p style="font-size: 1.8rem; font-weight: bold; margin-bottom: 16px;">
+                            <a href="tel:2523490830" style="text-decoration:none;">(252) 349-0830</a>
                         </p>
-                        <p style="font-size: 1.1rem; color: var(--silver);">Email:</p>
-                        <p style="font-size: 1.4rem; margin-bottom: 30px;"><a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a></p>
+                        <p style="font-size: 1rem; color: var(--silver);">Email:</p>
+                        <p style="font-size: 1.3rem; margin-bottom: 24px;"><a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a></p>
                         
-                        <div style="color: var(--growth-green); font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 10px;">
-                            <span style="width:10px; height:10px; border-radius:50%; background:var(--growth-green);"></span>
+                        <div style="color: var(--growth-green); font-weight: bold; font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
+                            <span style="width:8px; height:8px; border-radius:50%; background:var(--growth-green);" aria-hidden="true"></span>
                             SYSTEM STATUS: ONLINE / OPEN TO WORK
                         </div>
                     </div>
                     
                     <div style="display: flex; flex-direction: column; justify-content: center;">
-                        <a href="https://www.linkedin.com/in/dgrow27" target="_blank" style="background:var(--money-green); color:#fff; padding: 25px; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 15px; border: 2px solid rgba(255,255,255,0.2);">
-                            <span style="font-weight:900; font-size:2rem;">in</span>
+                        <a href="https://www.linkedin.com/in/dgrow27" target="_blank" rel="noopener" style="background:var(--money-green); color:#fff; padding: 20px; border-radius: 10px; text-decoration: none; display: flex; align-items: center; gap: 12px; border: 2px solid rgba(255,255,255,0.2);">
+                            <span style="font-weight:900; font-size:1.8rem;" aria-hidden="true">in</span>
                             <div>
-                                <div style="font-size:1.2rem; font-weight:bold;">LinkedIn Profile</div>
-                                <div style="font-size:0.9rem; opacity:0.8;">Certified IT Professional</div>
+                                <div style="font-size:1.1rem; font-weight:bold;">LinkedIn Profile</div>
+                                <div style="font-size:0.85rem; opacity:0.9;">Certified IT Professional</div>
                             </div>
                         </a>
                     </div>
@@ -160,79 +286,15 @@
             </div>
 
             <div class="card">
-                <div class="card-title">⚡ Growth Matrix</div>
+                <h2 class="card-title">⚡ Growth Matrix</h2>
                 <div class="skill-meta"><span>CompTIA A+ / Google IT Support</span><span>100%</span></div>
-                <div class="track"><div class="fill" style="width:100%;"></div></div>
+                <div class="track"><div class="fill" data-width="100"></div></div>
                 
                 <div class="skill-meta"><span>Salesforce Administration</span><span>100%</span></div>
-                <div class="track"><div class="fill" style="width:100%;"></div></div>
+                <div class="track"><div class="fill" data-width="100"></div></div>
 
-                <div class="skill-meta"><span>TCP/IP & Diagnostics</span><span>85%</span></div>
-                <div class="track"><div class="fill" style="width:85%;"></div></div>
+                <div class="skill-meta"><span>TCP/IP & Network Diagnostics</span><span>85%</span></div>
+                <div class="track"><div class="fill" data-width="85"></div></div>
 
-                <div class="skill-meta"><span>Net+ / Sec+ (Pursuing)</span><span>65%</span></div>
-                <div class="track"><div class="fill" style="width:65%; background: var(--red);"></div></div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">🏆 Certified Credentials</div>
-                <div class="badge-grid">
-                    <div class="badge">CompTIA A+</div>
-                    <div class="badge">Google IT</div>
-                    <div class="badge">AHA BLS</div>
-                    <div class="badge pursuing">Network+</div>
-                    <div class="badge pursuing">Security+</div>
-                    <div class="badge pursuing">Salesforce</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section" id="book" role="tabpanel">
-            <div class="card-title">🕒 Schedule Technical Support</div>
-            <div style="background:#fff; border-radius:15px; overflow:hidden; border:6px solid var(--money-green);">
-                <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:750px; border:none;" title="Booking Calendar"></iframe>
-            </div>
-
-            <div class="card">
-                <div class="card-title">🌍 Local Environment context — 28560</div>
-                <div class="weather-frame">
-                    <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:100%; border:none;" title="Weather Widget"></iframe>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function showSection(id, btn) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
-            document.getElementById(id).classList.add('visible');
-            document.querySelectorAll('.nav-tabs button').forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-            window.scrollTo(0,0);
-        }
-        function typeWriter() {
-            const txt = 'Dylan Grow';
-            let i = 0;
-            function run() {
-                if (i < txt.length) {
-                    document.getElementById('type-text').innerHTML += txt.charAt(i++);
-                    setTimeout(run, 150);
-                }
-            }
-            run();
-        }
-        function startTime() {
-            const t = new Date();
-            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-            const dateOptions = { month: 'long', day: '2-digit', year: 'numeric' };
-            document.getElementById('clock').textContent = t.toLocaleTimeString('en-US', timeOptions);
-            document.getElementById('date-display').textContent = t.toLocaleDateString('en-US', dateOptions);
-            setTimeout(startTime, 1000);
-        }
-    </script>
-</body>
-</html>
+                <div class="skill-meta"><span>Network+ / Security+ (In Progress)</span><span>65%</span></div>
+                <div class="track"><div class="fill" data-width="65" style="background: var(--red
