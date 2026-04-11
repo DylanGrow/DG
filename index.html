@@ -28,7 +28,7 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* ── CUSTOM GOLD CURSOR (Pure CSS / Ad-Block Safe) ── */
+        /* ── CUSTOM GOLD CURSOR ── */
         * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%23FFB612" stroke="black" stroke-width="1"/></svg>'), auto !important; }
         
         body {
@@ -57,16 +57,12 @@
             border-radius: 30px; color: var(--text);
         }
 
-        .header-controls { display: flex; align-items: center; gap: 15px; justify-content: flex-end; }
-        .mode-toggle {
-            background: var(--gold); color: #000; border: none;
-            padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.75rem;
-        }
+        .clock { margin-left: auto; color: var(--gold); font-weight: bold; }
 
         .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 20px; overflow-x: auto; }
         .nav-tabs button {
             background: none; border: none; color: var(--silver); padding: 15px 20px;
-            font-weight: 700; display: flex; align-items: center; gap: 8px;
+            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;
             border-bottom: 3px solid transparent; transition: 0.2s; white-space: nowrap;
         }
         .nav-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); }
@@ -75,24 +71,21 @@
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 30px; margin-bottom: 20px; }
         .card-title { color: var(--gold); font-weight: 900; font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; }
 
-        .sn {
-            width: 24px; height: 24px; border-radius: 50%; display: inline-flex;
-            align-items: center; justify-content: center; background: rgba(255,182,18,0.1);
-            border: 1px solid var(--gold); color: var(--gold); font-weight: bold; font-size: 0.8rem;
-        }
-
+        /* ── PROGRESS BARS ── */
         .skill-meta { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--silver); margin-bottom: 8px; }
-        .track { background: #222; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 20px; }
-        .fill { height: 100%; background: var(--gold); border-radius: 5px; }
+        .track { background: #222; height: 12px; border-radius: 6px; overflow: hidden; margin-bottom: 20px; }
+        .fill { height: 100%; background: var(--gold); border-radius: 6px; position: relative; }
+        .fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background: rgba(255,255,255,0.3); }
+
+        /* ── BADGES ── */
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .badge { background: var(--card2); border: 1px solid var(--gold); padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: var(--gold); }
+        .pursuing { border: 1px dashed var(--red); color: var(--red); opacity: 0.8; }
 
         .section { display: none; }
         .section.visible { display: block; }
-
-        .btn-action {
-            display: inline-block; background: var(--gold); color: #000; padding: 12px 24px;
-            border-radius: 30px; font-weight: 800; text-decoration: none; margin-top: 15px;
-        }
     </style>
+    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 </head>
 <body onload="startTime(); typeWriter()">
 
@@ -103,9 +96,9 @@
                 <input type="text" name="q" placeholder="🔍 Search Safely..." autocomplete="off">
             </form>
         </div>
-        <div class="header-controls">
-            <button class="mode-toggle" onclick="toggleTheme()">🌓 TOGGLE MODE</button>
-            <div id="clock" style="color: var(--gold); font-weight: bold;">00:00:00</div>
+        <div class="header-controls" style="display:flex; align-items:center; gap:15px;">
+            <button onclick="document.body.classList.toggle('light-mode')" style="background:var(--gold); border:none; border-radius:20px; padding:6px 12px; font-weight:bold; cursor:pointer;">🌓 MODE</button>
+            <div id="clock">00:00:00</div>
         </div>
     </header>
 
@@ -113,7 +106,7 @@
         <button class="active" onclick="showSection('home', this)">🏠 Home</button>
         <button onclick="showSection('book', this)">📅 Appointments</button>
         <button onclick="showSection('remote', this)">💻 Remote Support</button>
-        <button onclick="showSection('about', this)">👤 About Dylan</button>
+        <button onclick="showSection('about', this)">👤 Operator Profile</button>
     </nav>
 
     <div class="wrap">
@@ -121,30 +114,54 @@
             <h1 style="font-size: 3.5rem; font-weight: 900; letter-spacing: -1px;">DYLAN GROW</h1>
             <p style="color: var(--gold); font-size: 1.2rem; font-weight:bold; margin-bottom: 20px;">IT Support Specialist & Network Technician</p>
             <div class="card" style="border-left: 5px solid var(--gold);">
-                <p style="font-size: 1.1rem;">Expert technical solutions delivered with precision. I bridge the gap between complex technology and seamless user experiences.</p>
+                <p style="font-size: 1.1rem;">Expert technical solutions delivered with precision. Providing advanced diagnostics and network infrastructure stability.</p>
             </div>
         </div>
 
         <div class="section" id="about">
-            <div class="card">
-                <div class="card-title">☁️ Local Environment — New Bern, NC</div>
-                <div style="height: 260px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
-                    <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:100%; border:none;"></iframe>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="card" style="border-top: 4px solid var(--gold);">
+                    <div class="card-title">📞 Priority Comms Relay</div>
+                    <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">
+                        <a href="tel:2523490830" style="color:var(--gold); text-decoration:none;">(252) 349-0830</a>
+                    </p>
+                    <p style="margin-bottom: 20px;">
+                        <a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a>
+                    </p>
+                    <hr style="border:0; border-top:1px solid var(--border); margin-bottom:20px;">
+                    <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="dgrow27" data-version="v1">
+                        <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/dgrow27?trk=profile-badge">Dylan G.</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">⚡ Operator Proficiency</div>
+                    <div class="skill-meta"><span>CompTIA A+ / Google IT</span><span>100%</span></div>
+                    <div class="track"><div class="fill" style="width:100%;"></div></div>
+                    
+                    <div class="skill-meta"><span>Salesforce Champion</span><span>100%</span></div>
+                    <div class="track"><div class="fill" style="width:100%;"></div></div>
+
+                    <div class="skill-meta"><span>Active Ambition: Network+ / Sec+</span><span>Pursuing</span></div>
+                    <div class="track"><div class="fill" style="width:65%; background: var(--red);"></div></div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="card">
-                    <div class="card-title">ℹ️ Operator Profile</div>
-                    <p><strong>Cell:</strong> <a href="tel:2523490830" style="color:var(--gold); text-decoration:none;">(252) 349-0830</a></p>
-                    <p><strong>Email:</strong> <a href="mailto:DylanGrow@gmail.com" style="color:var(--gold); text-decoration:none;">DylanGrow@gmail.com</a></p>
+            <div class="card">
+                <div class="card-title">🏆 Verified Badges & Pursuits</div>
+                <div class="badge-grid">
+                    <div class="badge">CompTIA A+</div>
+                    <div class="badge">Google IT Support</div>
+                    <div class="badge">AHA BLS Certified</div>
+                    <div class="badge pursuing">CompTIA Network+</div>
+                    <div class="badge pursuing">CompTIA Security+</div>
                 </div>
-                <div class="card">
-                    <div class="card-title">⚡ Skill Metrics</div>
-                    <div class="skill-meta"><span>CompTIA A+ / Google IT</span><span>100%</span></div>
-                    <div class="track"><div class="fill" style="width:100%;"></div></div>
-                    <div class="skill-meta"><span>TCP/IP & Networking</span><span>85%</span></div>
-                    <div class="track"><div class="fill" style="width:85%; background: var(--red);"></div></div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🌍 Local Environment Context — 28560</div>
+                <div style="height: 260px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+                    <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:100%; border:none;"></iframe>
                 </div>
             </div>
         </div>
@@ -157,22 +174,14 @@
         </div>
 
         <div class="section" id="remote">
-            <div class="card" style="border-left: 4px solid var(--gold);">
-                <div class="card-title">📡 Remote Engagement Protocol</div>
-                <h3 style="margin-bottom: 10px;">Quick Assist Deployment</h3>
-                <p style="color: var(--silver); margin-bottom: 20px;">Utilizing native Windows security for encrypted, zero-install remote troubleshooting.</p>
-                <div style="background: var(--card2); padding: 20px; border-radius: 10px; border: 1px solid var(--border);">
-                    <p style="margin-bottom: 12px; display: flex; gap: 12px;"><span class="sn">1</span><span>Launch tool: Press <strong style="color: #fff;">Ctrl + Win + Q</strong>.</span></p>
-                    <p style="margin-bottom: 12px; display: flex; gap: 12px;"><span class="sn">2</span><span>Input the <strong style="color: var(--gold);">6-digit code</strong> provided at start.</span></p>
-                    <p style="display: flex; gap: 12px;"><span class="sn">3</span><span>Select <strong style="color: #fff;">'Allow'</strong> to authorize operator access.</span></p>
-                </div>
-                <a href="#" onclick="showSection('book', document.querySelectorAll('.nav-tabs button')[1])" class="btn-action">Schedule Connection Now</a>
+            <div class="card">
+                <div class="card-title">💻 Remote Support Briefing</div>
+                <p>Press <strong>Ctrl + Win + Q</strong> to launch Quick Assist.</p>
             </div>
         </div>
     </div>
 
     <script>
-        function toggleTheme() { document.body.classList.toggle('light-mode'); }
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
             document.getElementById(id).classList.add('visible');
