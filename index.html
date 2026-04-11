@@ -217,4 +217,13 @@
             run();
         }
         function startTime() {
-            const t =
+            const t = new Date();
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+            const dateOptions = { month: 'long', day: '2-digit', year: 'numeric' };
+            document.getElementById('clock').textContent = t.toLocaleTimeString('en-US', timeOptions);
+            document.getElementById('date-display').textContent = t.toLocaleDateString('en-US', dateOptions);
+            setTimeout(startTime, 1000);
+        }
+    </script>
+</body>
+</html>
