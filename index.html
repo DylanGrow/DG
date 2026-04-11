@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dylan Grow | IT Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --steelers-gold: #FFB612;
+            --steelers-black: #101010;
+            --card-bg: #1A1A1A;
+            --text-gold: #FFC233;
+            --cyber-red: #C60C30;
+            --steelers-silver: #A5ACAF;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: var(--steelers-black);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: var(--steelers-gold);
+            color: #000;
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--cyber-red);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            min-width: 180px;
+        }
+
+        .floating-search { flex: 1; min-width: 200px; max-width: 480px; }
+        .floating-search input {
+            width: 100%;
+            padding: 9px 20px;
+            border-radius: 30px;
+            border: 2px solid var(--steelers-black);
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        #clock-container {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: 28px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 22px 24px;
+            border: 1px solid #222;
+            transition: border-color 0.3s ease;
+        }
+        .card:hover { border-color: var(--steelers-gold); }
+
+        h3 {
+            margin-top: 0;
+            font-family: 'Roboto Condensed', sans-serif;
+            color: var(--text-gold);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--cyber-red);
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        /* Professional Operations */
+        .identity-row { display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; }
+        .pro-summary { flex: 1; min-width: 280px; }
+        .summary-text { color: var(--steelers-silver); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.6; }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #0d2b0d;
+            border: 1px solid #2d6a2d;
+            color: #6fcf6f;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #6fcf6f; flex-shrink: 0; }
+
+        .cert-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+        .pill { font-size: 0.72rem; padding: 4px 10px; border-radius: 14px; font-weight: 600; }
+        .pill-gold  { background: #2a1f00; border: 1px solid var(--steelers-gold); color: var(--steelers-gold); }
+        .pill-red   { background: #2a0008; border: 1px solid var(--cyber-red); color: #ff6680; }
+        .pill-green { background: #0a2010; border: 1px solid #2d6a2d; color: #6fcf6f; }
+
+        .skill-block { flex: 1; min-width: 240px; }
+        .skill-container { margin-bottom: 13px; }
+        .skill-label { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 5px; color: var(--text-gold); font-weight: 600; }
+        .progress-track { background: #000; height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid #333; }
+        .progress-fill { height: 100%; border-radius: 4px; }
+
+        /* Links grid */
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+        .links-grid a {
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            padding: 13px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+            transition: all 0.25s ease;
+        }
+        .links-grid a:hover { background: var(--steelers-gold); color: #000; transform: translateY(-2px); }
+
+        iframe.weather {
+            width: 100%;
+            height: 240px;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            background: #000;
+            display: block;
+        }
+
+        /* Credentials */
+        .creds-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+        .cred-card {
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            flex: 1;
+            min-width: 200px;
+            transition: border-color 0.25s;
+        }
+        .cred-card:hover { border-color: var(--steelers-gold); }
+        .cred-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .cred-icon.gold  { background: #2a1f00; color: var(--steelers-gold); border: 1px solid var(--steelers-gold); }
+        .cred-icon.blue  { background: #001a2a; color: #85b7eb; border: 1px solid #378add; }
+        .cred-icon.green { background: #0a2010; color: #6fcf6f; border: 1px solid #2d6a2d; }
+        .cred-name   { font-size: 0.88rem; font-weight: 700; margin: 0 0 2px; }
+        .cred-issuer { font-size: 0.75rem; color: var(--steelers-silver); margin: 0; }
+
+        /* Services */
+        .services-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+        .service-card {
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 18px 20px;
+            flex: 1;
+            min-width: 260px;
+            transition: border-color 0.25s;
+        }
+        .service-card:hover { border-color: var(--steelers-gold); }
+        .service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .service-icon {
+            width: 38px; height: 38px;
+            border-radius: 8px;
+            background: #2a1f00;
+            border: 1px solid var(--steelers-gold);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .service-icon svg { width: 18px; height: 18px; stroke: var(--steelers-gold); fill: none; stroke-width: 1.8; }
+        .service-title { font-size: 0.95rem; font-weight: 700; margin: 0 0 2px; }
+        .service-sub   { font-size: 0.75rem; color: var(--steelers-silver); margin: 0; }
+        .service-desc  { font-size: 0.82rem; color: var(--steelers-silver); line-height: 1.55; margin: 0 0 14px; }
+
+        .service-steps { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
+        .service-steps li {
+            display: flex; align-items: flex-start; gap: 9px;
+            font-size: 0.8rem; color: var(--steelers-silver); line-height: 1.5;
+        }
+        .step-num {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: #1f1700;
+            border: 1px solid var(--steelers-gold);
+            color: var(--steelers-gold);
+            font-size: 0.68rem;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .qa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--steelers-gold);
+            color: #101010;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .qa-btn:hover { background: #e6a410; }
+        .qa-btn svg { width: 15px; height: 15px; fill: none; stroke: #101010; stroke-width: 2; }
+
+        .info-tag {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.72rem;
+            color: var(--steelers-silver);
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 4px 10px;
+        }
+
+        /* Contact */
+        .contact-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .contact-avatar {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            background: var(--steelers-gold);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.95rem; color: #101010;
+            flex-shrink: 0;
+        }
+        .contact-name { font-size: 1rem; font-weight: 700; margin: 0 0 2px; }
+        .contact-role { font-size: 0.82rem; color: var(--steelers-silver); margin: 0; }
+        .contact-open {
+            margin-left: auto;
+            display: flex; align-items: center; gap: 6px;
+            background: #0d2b0d; border: 1px solid #2d6a2d;
+            color: #6fcf6f; font-size: 0.75rem; font-weight: 600;
+            padding: 4px 12px; border-radius: 20px;
+        }
+
+        .contact-btns { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 9px; margin-bottom: 18px; }
+        .contact-btn {
+            display: flex; align-items: center; justify-content: center; gap: 7px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            background: #111;
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .contact-btn:hover { border-color: var(--steelers-gold); background: #1f1700; color: var(--steelers-gold); }
+        .contact-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+        .contact-divider { border: none; border-top: 1px solid #222; margin: 0 0 16px; }
+
+        .form-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+        .form-row input, .form-row textarea {
+            flex: 1; min-width: 140px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+            padding: 9px 13px;
+            background: #111;
+            color: #fff;
+            outline: none;
+            resize: none;
+            transition: border-color 0.2s;
+        }
+        .form-row input:focus, .form-row textarea:focus { border-color: var(--steelers-gold); }
+        .form-row textarea { min-height: 80px; width: 100%; flex: 1 1 100%; }
+
+        .send-btn {
+            background: var(--steelers-gold);
+            color: #101010;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: background 0.2s;
+        }
+        .send-btn:hover { background: #e6a410; }
+        .send-confirm { display: none; font-size: 0.8rem; color: #6fcf6f; margin-top: 8px; }
+    </style>
+</head>
+<body onload="startTime(); typeWriter()">
+
+    <header>
+        <div id="type-text" class="brand"></div>
+        <div class="floating-search">
+            <form action="https://duckduckgo.com/" method="get">
+                <input type="text" name="q" placeholder="DuckAI Search..." autofocus autocomplete="off">
+                <input type="hidden" name="ia" value="chat">
+            </form>
+        </div>
+        <div id="clock-container">
+            <span id="date"></span> | <span id="clock"></span>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+        <!-- Professional Operations -->
+        <div class="card">
+            <h3>Professional Operations</h3>
+            <div class="identity-row">
+                <div class="pro-summary">
+                    <div class="status-badge"><div class="status-dot"></div>Open to opportunities</div>
+                    <p class="summary-text">
+                        <strong>IT Support Specialist | Network Technician</strong><br>
+                        CompTIA A+ certified professional based in New Bern, NC. Deep experience resolving complex connectivity, hardware, and enterprise endpoint security issues. Expertise includes TCP/IP, DNS, DHCP, VLANs, and advanced command-line diagnostics.
+                    </p>
+                    <div class="cert-pills">
+                        <span class="pill pill-gold">CompTIA A+</span>
+                        <span class="pill pill-gold">Google IT Support</span>
+                        <span class="pill pill-gold">Salesforce Champion</span>
+                        <span class="pill pill-red">Network+ (in progress)</span>
+                        <span class="pill pill-red">Security+ (in progress)</span>
+                        <span class="pill pill-green">AHA BLS Certified</span>
+                    </div>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-container">
+                        <div class="skill-label"><span>CompTIA A+ / Google IT</span><span>100%</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:100%; background:var(--steelers-gold);"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-label"><span>Salesforce Champion</span><span>100%</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:100%; background:var(--steelers-gold);"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-label"><span>TCP/IP & Networking</span><span>80%</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:80%; background:var(--cyber-red);"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-label"><span>Network+ / Security+</span><span>65%</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:65%; background:var(--cyber-red);"></div></div>
+                    </div>
+                    <div class="skill-container">
+                        <div class="skill-label"><span>Azure / Cloud</span><span>55%</span></div>
+                        <div class="progress-track"><div class="progress-fill" style="width:55%; background:#444;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credentials -->
+        <div class="card">
+            <h3>Credentials &amp; Certifications</h3>
+            <div class="creds-grid">
+                <div class="cred-card">
+                    <div class="cred-icon gold">A+</div>
+                    <div>
+                        <p class="cred-name">CompTIA A+</p>
+                        <p class="cred-issuer">CompTIA</p>
+                    </div>
+                </div>
+                <div class="cred-card">
+                    <div class="cred-icon blue">IT</div>
+                    <div>
+                        <p class="cred-name">Google IT Support</p>
+                        <p class="cred-issuer">Google / Coursera</p>
+                    </div>
+                </div>
+                <div class="cred-card">
+                    <div class="cred-icon gold">SF</div>
+                    <div>
+                        <p class="cred-name">Salesforce Champion &amp; Innovator</p>
+                        <p class="cred-issuer">Salesforce</p>
+                    </div>
+                </div>
+                <div class="cred-card">
+                    <div class="cred-icon green">BLS</div>
+                    <div>
+                        <p class="cred-name">Basic Life Support (BLS)</p>
+                        <p class="cred-issuer">American Heart Association</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mission Critical Access -->
+        <div class="card">
+            <h3>Mission Critical Access</h3>
+            <div class="links-grid">
+                <a href="https://github.com/flyingknee25" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/dgrow27" target="_blank">LinkedIn</a>
+                <a href="https://smoothschool.com" target="_blank">Smoothschool</a>
+                <a href="https://portal.azure.com" target="_blank">Azure Portal</a>
+                <a href="https://chatgpt.com" target="_blank">ChatGPT</a>
+                <a href="https://cve.mitre.org/" target="_blank">CVE Database</a>
+                <a href="https://tryhackme.com" target="_blank">TryHackMe</a>
+                <a href="https://www.virustotal.com" target="_blank">VirusTotal</a>
+            </div>
+        </div>
+
+        <!-- Local Environment -->
+        <div class="card">
+            <h3>Local Environment — New Bern, NC</h3>
+            <iframe class="weather" src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=FAHRENHEIT&windunit=MILE_PER_HOUR&layout=dark" allowtransparency="true"></iframe>
+        </div>
+
+        <!-- Services -->
+        <div class="card">
+            <h3>Services</h3>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        </div>
+                        <div>
+                            <p class="service-title">Remote Desktop Support</p>
+                            <p class="service-sub">Windows · Quick Assist · No download needed</p>
+                        </div>
+                    </div>
+                    <p class="service-desc">
+                        Secure, real-time remote support directly to your Windows PC using Microsoft's built-in Quick Assist tool — no third-party installs required. I can troubleshoot software issues, slow performance, connectivity problems, driver errors, and more from anywhere.
+                    </p>
+                    <ul class="service-steps">
+                        <li><span class="step-num">1</span>Contact me via email below to schedule a session</li>
+                        <li><span class="step-num">2</span>Open Quick Assist on your Windows PC — press Start and search "Quick Assist"</li>
+                        <li><span class="step-num">3</span>Click <strong style="color:#fff;">Get Help</strong> and enter the 6-digit code I send you</li>
+                        <li><span class="step-num">4</span>Accept the screen share prompt — we're live</li>
+                    </ul>
+                    <a class="qa-btn" href="ms-quickassist:">
+                        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        Launch Quick Assist
+                    </a>
+                    <span class="info-tag">Windows 10 &amp; 11 · Built-in Microsoft tool · No download required</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reach Me -->
+        <div class="card">
+            <h3>Reach Me</h3>
+            <div class="contact-top">
+                <div class="contact-avatar">DG</div>
+                <div>
+                    <p class="contact-name">Dylan Grow</p>
+                    <p class="contact-role">IT Support Specialist · New Bern, NC</p>
+                </div>
+                <div class="contact-open"><div class="status-dot"></div>Open to opportunities</div>
+            </div>
+
+            <div class="contact-btns">
+                <a class="contact-btn" href="mailto:DylanGrow@gmail.com">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                    Email Me
+                </a>
+                <a class="contact-btn" href="https://github.com/flyingknee25" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                    GitHub
+                </a>
+            </div>
+
+            <hr class="contact-divider">
+
+            <div class="form-row">
+                <input type="text" id="cr-name" placeholder="Your name" />
+                <input type="email" id="cr-email" placeholder="Your email" />
+            </div>
+            <div class="form-row">
+                <textarea id="cr-msg" placeholder="Your message..."></textarea>
+            </div>
+            <button class="send-btn" onclick="sendMsg()">Send Message</button>
+            <p class="send-confirm" id="cr-confirm">Message opened in your email client — ready to send!</p>
+        </div>
+
+    </div>
+
+    <script>
+        let i = 0;
+        const txt = 'DYLAN GROW | IT OPERATIONS';
+        function typeWriter() {
+            if (i < txt.length) {
+                document.getElementById("type-text").innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        function startTime() {
+            const today = new Date();
+            let h = today.getHours(), m = today.getMinutes(), s = today.getSeconds();
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            document.getElementById('clock').innerHTML = h + ":" + m + ":" + s + " " + ampm;
+            document.getElementById('date').innerHTML = today.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+            setTimeout(startTime, 1000);
+        }
+
+        function sendMsg() {
+            const name = document.getElementById('cr-name').value.trim();
+            const replyTo = document.getElementById('cr-email').value.trim();
+            const msg = document.getElementById('cr-msg').value.trim();
+            const subject = encodeURIComponent('Message from ' + (name || 'your portfolio'));
+            const body = encodeURIComponent((msg || '') + (replyTo ? '\n\nReply to: ' + replyTo : ''));
+            window.location.href = 'mailto:DylanGrow@gmail.com?subject=' + subject + '&body=' + body;
+            document.getElementById('cr-confirm').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
