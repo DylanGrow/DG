@@ -3,187 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dylan Grow | IT Professional</title>
+    <title>Dylan Grow | Duck AI Search Assist</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #FFB612;
-            --black: #050505;
-            --card: #0f0f0f;
-            --card2: #161616;
-            --border: #222222;
-            --silver: #888888;
-            --red: #C60C30;
-            --green: #22c55e;
-            --text: #e0e0e0;
+            --black: #0a0a0a;
+            --card: #181818;
+            --card2: #222222;
+            --border: #333333;
+            --silver: #b0b0b0;
+            --text: #ffffff;
+            /* Larger base font for senior readability */
+            font-size: 18px; 
         }
 
-        * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%23FFB612" stroke="black" stroke-width="1"/></svg>'), auto !important; }
+        body.light-mode {
+            --black: #ffffff;
+            --card: #f8f9fa;
+            --card2: #ffffff;
+            --border: #cccccc;
+            --silver: #444444;
+            --text: #000000;
+        }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        /* Simplified Cursor for better tracking */
+        * { cursor: default; }
+        a, button { cursor: pointer; }
 
         body {
             background: var(--black);
             color: var(--text);
             font-family: 'DM Sans', sans-serif;
             margin: 0;
-            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         header {
             position: sticky; top: 0; z-index: 1000;
-            background: rgba(5, 5, 5, 0.98);
-            border-bottom: 1px solid var(--border);
-            padding: 0 24px; height: 65px;
-            display: flex; align-items: center; gap: 25px;
+            background: var(--black);
+            border-bottom: 2px solid var(--gold);
+            padding: 15px 24px;
+            display: grid;
+            grid-template-columns: 320px 1fr 280px;
+            align-items: center;
+            gap: 20px;
         }
 
-        .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); display: flex; align-items: center; gap: 10px; }
+        .brand { font-size: 1.4rem; font-weight: 700; color: var(--gold); }
 
-        .search-relay { flex: 1; max-width: 450px; position: relative; }
+        .search-relay { position: relative; width: 100%; max-width: 500px; justify-self: center; }
         .search-relay input {
-            width: 100%; padding: 10px 15px 10px 40px;
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 6px; color: var(--text); font-family: 'DM Mono'; font-size: 0.8rem;
+            width: 100%; padding: 12px 15px 12px 45px;
+            background: var(--card); border: 2px solid var(--border);
+            border-radius: 30px; color: var(--text); font-size: 1rem;
         }
-        .search-relay i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--silver); }
 
-        .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px; overflow-x: auto; }
+        .header-controls { display: flex; align-items: center; gap: 20px; justify-content: flex-end; }
+        .mode-toggle {
+            background: var(--gold); color: #000; border: none;
+            padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+        }
+
+        .nav-tabs { 
+            display: flex; background: var(--card); border-bottom: 1px solid var(--border); 
+            padding: 10px 24px; justify-content: center; flex-wrap: wrap;
+        }
         .nav-tabs button {
-            background: none; border: none; color: var(--silver); padding: 15px 20px;
-            cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
-            border-bottom: 2px solid transparent; transition: 0.3s; white-space: nowrap;
+            background: none; border: none; color: var(--silver); padding: 12px 25px;
+            font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 10px;
+            cursor: pointer; transition: 0.2s;
         }
-        .nav-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(255, 182, 18, 0.05); }
+        .nav-tabs button.active { color: var(--gold); text-decoration: underline; text-underline-offset: 8px; }
 
-        .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+        .card { background: var(--card); border: 2px solid var(--border); border-radius: 15px; padding: 35px; margin-bottom: 25px; }
+        
+        /* High Contrast Skill Bars */
+        .track { background: #333; height: 12px; border-radius: 6px; margin: 10px 0 20px; }
+        .fill { height: 100%; border-radius: 6px; background: var(--gold); }
 
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 30px; margin-bottom: 20px; }
-        .card-title { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-
-        .hero-name { font-family: 'Bebas Neue'; font-size: 4rem; color: #fff; line-height: 0.9; }
-        .hero-name span { color: var(--gold); }
-
-        /* ── PROGRESS BARS ── */
-        .skill-row { margin-bottom: 15px; }
-        .skill-meta { display: flex; justify-content: space-between; font-size: 0.75rem; font-family: 'DM Mono'; color: var(--silver); margin-bottom: 6px; }
-        .track { background: #111; height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid #222; }
-        .fill { height: 100%; border-radius: 4px; }
-
-        /* ── CREDENTIAL BADGES ── */
-        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .badge-item { background: var(--card2); border: 1px solid var(--border); padding: 15px; border-radius: 6px; display: flex; align-items: center; gap: 12px; }
-        .badge-icon { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.2rem; background: rgba(255,182,18,0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid var(--gold); }
+        .btn-large {
+            display: block; width: fit-content; background: var(--gold); color: #000;
+            padding: 20px 40px; border-radius: 40px; font-size: 1.3rem; font-weight: 800;
+            text-decoration: none; text-align: center; margin: 20px 0;
+        }
 
         .section { display: none; }
-        .section.visible { display: block; animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .section.visible { display: block; }
 
-        .clock { margin-left: auto; font-family: 'DM Mono'; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
-        
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+        h1 { font-size: 3rem; margin: 0; }
+        h2 { color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 10px; }
     </style>
 </head>
 <body onload="startTime(); typeWriter()">
 
     <header>
-        <div class="brand"><i data-lucide="shield"></i> <span id="type-text"></span></div>
+        <div class="brand"><i data-lucide="duck"></i> <span id="type-text"></span></div>
         <div class="search-relay">
-            <i data-lucide="search" size="16"></i>
-            <form action="https://duckduckgo.com/" method="get">
-                <input type="text" name="q" placeholder="ENCRYPTED SEARCH RELAY..." autocomplete="off">
+            <i data-lucide="search" style="position:absolute; left:15px; top:15px; color:var(--silver)"></i>
+            <form action="https://duckduckgo.com/" method="get" target="_blank">
+                <input type="text" name="q" placeholder="Search the internet safely..." autocomplete="off">
             </form>
         </div>
-        <div class="clock" id="clock">00:00:00</div>
+        <div class="header-controls">
+            <button class="mode-toggle" onclick="toggleTheme()">Switch to Light Mode</button>
+            <div id="clock" style="font-weight:bold; color:var(--gold)">00:00:00</div>
+        </div>
     </header>
 
     <nav class="nav-tabs">
-        <button class="active" onclick="showSection('home', this)"><i data-lucide="terminal"></i> HOME</button>
-        <button onclick="showSection('book', this)"><i data-lucide="calendar"></i> BOOKING</button>
-        <button onclick="showSection('remote', this)"><i data-lucide="cpu"></i> REMOTE</button>
-        <button onclick="showSection('intel', this)"><i data-lucide="layers"></i> INTEL</button>
-        <button onclick="showSection('operator', this)"><i data-lucide="user"></i> PROFILE</button>
+        <button class="active" onclick="showSection('home', this)">Home</button>
+        <button onclick="showSection('book', this)">Book Help</button>
+        <button onclick="showSection('remote', this)">Remote Support</button>
+        <button onclick="showSection('operator', this)">About Dylan</button>
     </nav>
 
     <div class="wrap">
         <div class="section visible" id="home">
-            <div class="hero-name">DYLAN <span>GROW</span></div>
-            <p style="color: var(--silver); letter-spacing: 1px; margin: 15px 0 30px;">IT SUPPORT SPECIALIST // NETWORK TECHNICIAN</p>
-            <div class="card" style="border-left: 4px solid var(--gold);">
-                <p style="font-size: 0.9rem; line-height: 1.8;">CompTIA A+ certified IT professional. Expert diagnostics, enterprise endpoint security, and network infrastructure specialist.</p>
+            <h1>DYLAN GROW</h1>
+            <p style="font-size: 1.4rem; color: var(--gold);">Your Trusted IT Professional</p>
+            <div class="card">
+                <p>Hello! I am Dylan Grow. I specialize in making technology work for you. Whether you need help with your home computer or a complex network, I am here to provide clear, friendly, and expert assistance.</p>
+                <a href="#" onclick="showSection('book', document.querySelectorAll('.nav-tabs button')[1])" class="btn-large">Click Here to Schedule Help</a>
             </div>
         </div>
 
         <div class="section" id="operator">
-            <div class="contact-grid">
-                <div class="card">
-                    <div class="card-title"><i data-lucide="message-square"></i> COMMS RELAY</div>
-                    <div style="display:grid; gap:20px;">
-                        <div>
-                            <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">EMAIL //</div>
-                            <a href="mailto:DylanGrow@gmail.com" style="color:#fff; text-decoration:none;">DylanGrow@gmail.com</a>
-                        </div>
-                        <div>
-                            <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">CELL //</div>
-                            <a href="tel:2523490830" style="color:#fff; text-decoration:none;">252.349.0830</a>
-                        </div>
-                        <div style="display:flex; gap:15px; margin-top:10px;">
-                            <a href="https://linkedin.com/in/dgrow27" target="_blank" style="color:var(--silver)"><i data-lucide="linkedin"></i></a>
-                            <a href="https://github.com/flyingknee25" target="_blank" style="color:var(--silver)"><i data-lucide="github"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title"><i data-lucide="zap"></i> SKILL METRICS</div>
-                    <div class="skill-row">
-                        <div class="skill-meta"><span>COMPTIA A+ / GOOGLE IT</span><span>100%</span></div>
-                        <div class="track"><div class="fill" style="width:100%; background:var(--gold);"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-meta"><span>SALESFORCE CHAMPION</span><span>100%</span></div>
-                        <div class="track"><div class="fill" style="width:100%; background:var(--gold);"></div></div>
-                    </div>
-                    <div class="skill-row">
-                        <div class="skill-meta"><span>TCP/IP & NETWORKING</span><span>80%</span></div>
-                        <div class="track"><div class="fill" style="width:80%; background:var(--red);"></div></div>
-                    </div>
-                </div>
-            </div>
-
+            <h2>About Dylan & Contact</h2>
             <div class="card">
-                <div class="card-title"><i data-lucide="award"></i> ACTIVE CREDENTIALS</div>
-                <div class="badge-grid">
-                    <div class="badge-item"><div class="badge-icon">A+</div><div><div style="font-size:0.8rem; font-weight:bold;">CompTIA A+</div><div style="font-size:0.6rem; color:var(--silver);">Verified</div></div></div>
-                    <div class="badge-item"><div class="badge-icon">IT</div><div><div style="font-size:0.8rem; font-weight:bold;">Google IT Support</div><div style="font-size:0.6rem; color:var(--silver);">Professional Cert</div></div></div>
-                    <div class="badge-item"><div class="badge-icon">SF</div><div><div style="font-size:0.8rem; font-weight:bold;">Salesforce Champ</div><div style="font-size:0.6rem; color:var(--silver);">Innovator</div></div></div>
-                    <div class="badge-item" style="border-style:dashed; opacity:0.5;"><div class="badge-icon" style="color:var(--red); border-color:var(--red);">N+</div><div><div style="font-size:0.8rem; font-weight:bold;">Network+</div><div style="font-size:0.6rem; color:var(--red);">In Progress</div></div></div>
-                </div>
+                <p><strong>Phone:</strong> <a href="tel:2523490830" style="color:var(--gold); font-size: 1.5rem;">(252) 349-0830</a></p>
+                <p><strong>Email:</strong> <a href="mailto:DylanGrow@gmail.com" style="color:var(--gold);">DylanGrow@gmail.com</a></p>
+                <hr style="border:1px solid var(--border); margin: 20px 0;">
+                <p><strong>Experience Levels:</strong></p>
+                <div class="skill-meta">Computer & Internet Support: 100%</div>
+                <div class="track"><div class="fill" style="width:100%;"></div></div>
+                <div class="skill-meta">Security & Safety: 80%</div>
+                <div class="track"><div class="fill" style="width:80%;"></div></div>
             </div>
         </div>
 
         <div class="section" id="book">
-            <div class="card-title"><i data-lucide="clock"></i> OPERATIONAL SCHEDULER</div>
-            <div style="background:#fff; border-radius:8px; overflow:hidden; border:4px solid var(--gold);">
+            <h2>Schedule Your Appointment</h2>
+            <p>Please select a day and time that works best for you using the calendar below.</p>
+            <div style="background:#fff; border-radius:15px; overflow:hidden; border:5px solid var(--gold);">
                 <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:700px; border:none;"></iframe>
             </div>
         </div>
 
         <div class="section" id="remote">
-            <div class="card"><div class="card-title"><i data-lucide="activity"></i> QUICK ASSIST</div><p>Launch via CTRL+WIN+Q. Booking required.</p></div>
-        </div>
-
-        <div class="section" id="intel">
-            <div class="card"><div class="card-title"><i data-lucide="globe"></i> SYSTEM INTEL</div><p>[ DATA FEED ACTIVE ]</p></div>
+            <div class="card">
+                <h2>Easy Remote Support</h2>
+                <p>If we are on the phone and you need me to see your screen, please follow these three simple steps:</p>
+                <ol style="font-size: 1.2rem;">
+                    <li>Hold down the <strong>Ctrl</strong> key and the <strong>Windows logo</strong> key, then press <strong>Q</strong>.</li>
+                    <li>I will give you a <strong>6-digit code</strong>. Type it into the box that appears.</li>
+                    <li>Click the <strong>Allow</strong> button so I can help you.</li>
+                </ol>
+            </div>
         </div>
     </div>
 
     <script>
         lucide.createIcons();
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const btn = document.querySelector('.mode-toggle');
+            btn.textContent = document.body.classList.contains('light-mode') ? "Switch to Dark Mode" : "Switch to Light Mode";
+        }
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
             document.getElementById(id).classList.add('visible');
@@ -191,19 +179,19 @@
             btn.classList.add('active');
         }
         function typeWriter() {
-            const txt = 'DYLAN GROW // COMMAND CENTER';
+            const txt = 'AI anonymous';
             let i = 0;
             function run() {
                 if (i < txt.length) {
                     document.getElementById('type-text').innerHTML += txt.charAt(i++);
-                    setTimeout(run, 60);
+                    setTimeout(run, 100);
                 }
             }
             run();
         }
         function startTime() {
             const t = new Date();
-            document.getElementById('clock').textContent = t.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false});
+            document.getElementById('clock').textContent = t.toLocaleTimeString();
             setTimeout(startTime, 1000);
         }
     </script>
