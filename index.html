@@ -14,14 +14,13 @@
             --card2: #161616;
             --border: #222222;
             --silver: #888888;
+            --red: #C60C30;
             --green: #22c55e;
             --text: #e0e0e0;
         }
 
-        /* ── CUSTOM GOLD CURSOR ── */
         * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%23FFB612" stroke="black" stroke-width="1"/></svg>'), auto !important; }
 
-        /* ── CUSTOM GOLD SCROLLBAR ── */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--black); }
         ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
@@ -34,7 +33,6 @@
             overflow-x: hidden;
         }
 
-        /* ── HEADER ── */
         header {
             position: sticky; top: 0; z-index: 1000;
             background: rgba(5, 5, 5, 0.98);
@@ -45,10 +43,7 @@
 
         .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); display: flex; align-items: center; gap: 10px; }
 
-        /* ── DUCKDUCKGO SEARCH ── */
-        .search-relay {
-            flex: 1; max-width: 450px; position: relative;
-        }
+        .search-relay { flex: 1; max-width: 450px; position: relative; }
         .search-relay input {
             width: 100%; padding: 10px 15px 10px 40px;
             background: var(--card); border: 1px solid var(--border);
@@ -56,10 +51,7 @@
         }
         .search-relay i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--silver); }
 
-        /* ── NAVIGATION ── */
-        .nav-tabs {
-            display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px;
-        }
+        .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px; overflow-x: auto; }
         .nav-tabs button {
             background: none; border: none; color: var(--silver); padding: 15px 20px;
             cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
@@ -69,28 +61,31 @@
 
         .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
 
-        /* ── CARDS ── */
         .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 30px; margin-bottom: 20px; }
         .card-title { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
 
-        /* ── HERO ── */
         .hero-name { font-family: 'Bebas Neue'; font-size: 4rem; color: #fff; line-height: 0.9; }
         .hero-name span { color: var(--gold); }
 
-        /* ── SCHEDULER (FIXED) ── */
-        .booking-container { background: #fff; border-radius: 12px; overflow: hidden; border: 4px solid var(--gold); }
+        /* ── PROGRESS BARS ── */
+        .skill-row { margin-bottom: 15px; }
+        .skill-meta { display: flex; justify-content: space-between; font-size: 0.75rem; font-family: 'DM Mono'; color: var(--silver); margin-bottom: 6px; }
+        .track { background: #111; height: 8px; border-radius: 4px; overflow: hidden; border: 1px solid #222; }
+        .fill { height: 100%; border-radius: 4px; }
 
-        /* ── BUTTONS ── */
-        .btn {
-            display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: #000;
-            padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 0.8rem;
-        }
+        /* ── CREDENTIAL BADGES ── */
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .badge-item { background: var(--card2); border: 1px solid var(--border); padding: 15px; border-radius: 6px; display: flex; align-items: center; gap: 12px; }
+        .badge-icon { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.2rem; background: rgba(255,182,18,0.1); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1px solid var(--gold); }
 
         .section { display: none; }
         .section.visible { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .clock { margin-left: auto; font-family: 'DM Mono'; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
+        
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body onload="startTime(); typeWriter()">
@@ -111,7 +106,7 @@
         <button onclick="showSection('book', this)"><i data-lucide="calendar"></i> BOOKING</button>
         <button onclick="showSection('remote', this)"><i data-lucide="cpu"></i> REMOTE</button>
         <button onclick="showSection('intel', this)"><i data-lucide="layers"></i> INTEL</button>
-        <button onclick="showSection('contact', this)"><i data-lucide="phone"></i> CONTACT</button>
+        <button onclick="showSection('operator', this)"><i data-lucide="user"></i> PROFILE</button>
     </nav>
 
     <div class="wrap">
@@ -119,52 +114,71 @@
             <div class="hero-name">DYLAN <span>GROW</span></div>
             <p style="color: var(--silver); letter-spacing: 1px; margin: 15px 0 30px;">IT SUPPORT SPECIALIST // NETWORK TECHNICIAN</p>
             <div class="card" style="border-left: 4px solid var(--gold);">
-                <p style="font-size: 0.9rem; line-height: 1.8;">Expertise in complex hardware diagnostics, enterprise endpoint security, and network infrastructure. Ready to deploy solutions for your mission-critical environments.</p>
+                <p style="font-size: 0.9rem; line-height: 1.8;">CompTIA A+ certified IT professional. Expert diagnostics, enterprise endpoint security, and network infrastructure specialist.</p>
+            </div>
+        </div>
+
+        <div class="section" id="operator">
+            <div class="contact-grid">
+                <div class="card">
+                    <div class="card-title"><i data-lucide="message-square"></i> COMMS RELAY</div>
+                    <div style="display:grid; gap:20px;">
+                        <div>
+                            <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">EMAIL //</div>
+                            <a href="mailto:DylanGrow@gmail.com" style="color:#fff; text-decoration:none;">DylanGrow@gmail.com</a>
+                        </div>
+                        <div>
+                            <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">CELL //</div>
+                            <a href="tel:2523490830" style="color:#fff; text-decoration:none;">252.349.0830</a>
+                        </div>
+                        <div style="display:flex; gap:15px; margin-top:10px;">
+                            <a href="https://linkedin.com/in/dgrow27" target="_blank" style="color:var(--silver)"><i data-lucide="linkedin"></i></a>
+                            <a href="https://github.com/flyingknee25" target="_blank" style="color:var(--silver)"><i data-lucide="github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"><i data-lucide="zap"></i> SKILL METRICS</div>
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>COMPTIA A+ / GOOGLE IT</span><span>100%</span></div>
+                        <div class="track"><div class="fill" style="width:100%; background:var(--gold);"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>SALESFORCE CHAMPION</span><span>100%</span></div>
+                        <div class="track"><div class="fill" style="width:100%; background:var(--gold);"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-meta"><span>TCP/IP & NETWORKING</span><span>80%</span></div>
+                        <div class="track"><div class="fill" style="width:80%; background:var(--red);"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title"><i data-lucide="award"></i> ACTIVE CREDENTIALS</div>
+                <div class="badge-grid">
+                    <div class="badge-item"><div class="badge-icon">A+</div><div><div style="font-size:0.8rem; font-weight:bold;">CompTIA A+</div><div style="font-size:0.6rem; color:var(--silver);">Verified</div></div></div>
+                    <div class="badge-item"><div class="badge-icon">IT</div><div><div style="font-size:0.8rem; font-weight:bold;">Google IT Support</div><div style="font-size:0.6rem; color:var(--silver);">Professional Cert</div></div></div>
+                    <div class="badge-item"><div class="badge-icon">SF</div><div><div style="font-size:0.8rem; font-weight:bold;">Salesforce Champ</div><div style="font-size:0.6rem; color:var(--silver);">Innovator</div></div></div>
+                    <div class="badge-item" style="border-style:dashed; opacity:0.5;"><div class="badge-icon" style="color:var(--red); border-color:var(--red);">N+</div><div><div style="font-size:0.8rem; font-weight:bold;">Network+</div><div style="font-size:0.6rem; color:var(--red);">In Progress</div></div></div>
+                </div>
             </div>
         </div>
 
         <div class="section" id="book">
             <div class="card-title"><i data-lucide="clock"></i> OPERATIONAL SCHEDULER</div>
-            <div class="booking-container">
+            <div style="background:#fff; border-radius:8px; overflow:hidden; border:4px solid var(--gold);">
                 <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:700px; border:none;"></iframe>
             </div>
         </div>
 
         <div class="section" id="remote">
-            <div class="card">
-                <div class="card-title"><i data-lucide="activity"></i> QUICK ASSIST PROTOCOL</div>
-                <p style="color:var(--silver); margin-bottom:20px;">Native Windows remote support. Zero footprint.</p>
-                <div style="background:var(--card2); padding:20px; border-radius:8px; border:1px solid var(--border); margin-bottom:25px;">
-                    <div style="margin-bottom:10px;"><strong style="color:var(--gold);">01.</strong> CTRL + WIN + Q</div>
-                    <div style="margin-bottom:10px;"><strong style="color:var(--gold);">02.</strong> ENTER CODE</div>
-                    <div><strong style="color:var(--gold);">03.</strong> AUTHORIZE ACCESS</div>
-                </div>
-                <a href="#" onclick="showSection('book', document.querySelector('[onclick*=\'book\']'))" class="btn">INITIALIZE BOOKING</a>
-            </div>
+            <div class="card"><div class="card-title"><i data-lucide="activity"></i> QUICK ASSIST</div><p>Launch via CTRL+WIN+Q. Booking required.</p></div>
         </div>
 
         <div class="section" id="intel">
-            <div class="card">
-                <div class="card-title"><i data-lucide="globe"></i> SYSTEM INTEL</div>
-                <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:250px; border:none; margin-bottom:20px;"></iframe>
-                <p style="color:var(--silver); font-size:0.8rem;">[ DAILY FEED & REPOSITORY LINKS COMING SOON ]</p>
-            </div>
-        </div>
-
-        <div class="section" id="contact">
-            <div class="card">
-                <div class="card-title"><i data-lucide="message-square"></i> COMMS RELAY</div>
-                <div style="display:grid; gap:20px;">
-                    <div>
-                        <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">EMAIL //</div>
-                        <a href="mailto:DylanGrow@gmail.com" style="color:#fff; text-decoration:none;">DylanGrow@gmail.com</a>
-                    </div>
-                    <div>
-                        <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">CELL //</div>
-                        <a href="tel:2523490830" style="color:#fff; text-decoration:none;">252.349.0830</a>
-                    </div>
-                </div>
-            </div>
+            <div class="card"><div class="card-title"><i data-lucide="globe"></i> SYSTEM INTEL</div><p>[ DATA FEED ACTIVE ]</p></div>
         </div>
     </div>
 
