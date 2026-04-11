@@ -19,6 +19,20 @@
             --border: #272727;
         }
 
+        /* LIGHT MODE OVERRIDES */
+        body.light-mode {
+            --black: #e0e0e0;
+            --text: #1a1a1a;
+            --card: #ffffff;
+            --card2: #f5f5f5;
+            --border: #d1d1d1;
+            --silver: #4a4a4a;
+        }
+
+        body.light-mode header { background: rgba(224, 224, 224, 0.95); }
+        body.light-mode .hero-name { color: #000; }
+        body.light-mode .calendar-wrap iframe { filter: contrast(1.1); background: #fff; }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
@@ -26,6 +40,7 @@
             color: var(--text);
             font-family: 'DM Sans', sans-serif;
             min-height: 100vh;
+            transition: background 0.3s ease;
         }
 
         /* ── HEADER ── */
@@ -46,6 +61,20 @@
             color: var(--gold);
             white-space: nowrap;
             flex-shrink: 0;
+        }
+
+        .theme-toggle-btn {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-left: 10px;
         }
 
         .header-divider { width: 1px; height: 28px; background: var(--border); }
@@ -96,7 +125,7 @@
         .card {
             background: var(--card); border: 1px solid var(--border);
             border-radius: 14px; padding: 24px 26px;
-            transition: border-color .25s;
+            transition: border-color .25s, background 0.3s ease;
         }
         .card:hover { border-color: #2d2d2d; }
 
@@ -184,7 +213,7 @@
             border-radius: 10px; background: #000; display: block;
         }
 
-        /* ── ANYDESK SERVICE ── */
+        /* ── SERVICE BOX ── */
         .service-inner {
             display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start;
         }
@@ -199,7 +228,7 @@
         }
         .ad-logo {
             width: 52px; height: 52px; border-radius: 10px;
-            background: #e8132c; display: flex; align-items: center; justify-content: center;
+            background: #0078d4; display: flex; align-items: center; justify-content: center;
             flex-shrink: 0; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: #fff;
             letter-spacing: 1px;
         }
@@ -220,12 +249,12 @@
 
         .dl-btn {
             display: inline-flex; align-items: center; gap: 9px;
-            background: var(--gold); color: #0a0a0a;
+            background: #0078d4; color: #fff;
             font-weight: 700; font-size: 0.88rem; padding: 11px 22px;
             border-radius: 9px; text-decoration: none; border: none; cursor: pointer;
-            transition: background .2s; font-family: 'DM Sans', sans-serif;
+            transition: opacity .2s; font-family: 'DM Sans', sans-serif;
         }
-        .dl-btn:hover { background: var(--gold-dim); }
+        .dl-btn:hover { opacity: 0.85; }
 
         .info-chip {
             display: inline-block; margin-top: 10px;
@@ -238,6 +267,7 @@
         .calendar-wrap {
             border-radius: 10px; overflow: hidden;
             border: 1px solid var(--border);
+            background: #fff;
         }
         .calendar-wrap iframe { display: block; width: 100%; height: 600px; border: none; }
 
@@ -349,9 +379,9 @@
 </head>
 <body onload="startTime(); typeWriter()">
 
-    <!-- HEADER -->
     <header>
         <div id="type-text" class="brand"></div>
+        <button class="theme-toggle-btn" onclick="toggleTheme()">🌓 Toggle Mode</button>
         <div class="header-divider"></div>
         <div class="search-wrap">
             <form action="https://duckduckgo.com/" method="get">
@@ -363,7 +393,6 @@
         <div class="clock" id="clock">--:-- --</div>
     </header>
 
-    <!-- NAV TABS -->
     <nav class="nav-tabs">
         <button class="active" onclick="showSection('home', this)">Home</button>
         <button onclick="showSection('creds', this)">Credentials</button>
@@ -377,7 +406,6 @@
 
     <div class="wrap">
 
-        <!-- HOME -->
         <div class="section visible" id="home">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Professional Operations</div>
@@ -422,7 +450,6 @@
             </div>
         </div>
 
-        <!-- CREDENTIALS -->
         <div class="section" id="creds">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Credentials &amp; Certifications</div>
@@ -455,7 +482,6 @@
             </div>
         </div>
 
-        <!-- LINKS -->
         <div class="section" id="links">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Mission Critical Access</div>
@@ -472,7 +498,6 @@
             </div>
         </div>
 
-        <!-- WEATHER -->
         <div class="section" id="weather">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Local Environment — New Bern, NC</div>
@@ -480,57 +505,51 @@
             </div>
         </div>
 
-        <!-- REMOTE SUPPORT - ANYDESK -->
         <div class="section" id="remote">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Remote Desktop Support</div>
                 <div class="service-inner">
                     <div class="service-left">
                         <div class="ad-hero">
-                            <div class="ad-logo">AD</div>
+                            <div class="ad-logo">QA</div>
                             <div>
-                                <div class="ad-title">AnyDesk Remote Support</div>
-                                <div class="ad-sub">Cross-platform · Secure · Fast connection</div>
+                                <div class="ad-title">Microsoft Quick Assist</div>
+                                <div class="ad-sub">Native Windows · Secure · Built-in Support</div>
                             </div>
                         </div>
                         <p style="font-size:.85rem;color:var(--silver);line-height:1.65;margin-bottom:16px;">
-                            Secure, real-time remote support using AnyDesk — available on Windows, Mac, Linux, iOS, and Android. Lightweight client, encrypted sessions, and no complicated setup. Once connected, I can troubleshoot software issues, slow performance, connectivity problems, driver errors, and more.
+                            Secure, native remote support using Windows Quick Assist. No software installation is required for modern Windows systems. I use this tool to securely view or control your PC to troubleshoot software, performance, and connectivity issues in real-time.
                         </p>
                         <ul class="steps-list">
-                            <li><span class="sn">1</span>Contact me via email or use the <strong style="color:#fff">Book a Session</strong> tab to schedule</li>
-                            <li><span class="sn">2</span>Download and run AnyDesk using the button below — no install required</li>
-                            <li><span class="sn">3</span>Share your 9-digit AnyDesk ID with me at session time</li>
-                            <li><span class="sn">4</span>Accept the connection request — you stay in full control and can disconnect anytime</li>
+                            <li><span class="sn">1</span>Contact me via email or use the <strong style="color:var(--gold)">Book a Session</strong> tab to schedule</li>
+                            <li><span class="sn">2</span>Press <strong style="color:#fff">Ctrl + Windows Key + Q</strong> to launch Quick Assist</li>
+                            <li><span class="sn">3</span>Enter the 6-digit security code I provide at the start of our session</li>
+                            <li><span class="sn">4</span>Select 'Allow' to begin the session — you remain in control of the connection</li>
                         </ul>
-                        <a class="dl-btn" href="https://anydesk.com/en/downloads" target="_blank">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            Download AnyDesk
-                        </a>
-                        <span class="info-chip">Windows · Mac · Linux · iOS · Android · No permanent install needed</span>
+                        <div class="dl-btn" style="cursor:default; background:#0078d4;">
+                             Native Windows Utility (Built-in)
+                        </div>
+                        <span class="info-chip">Windows 10/11 · Secured by Microsoft · Encrypted Sessions</span>
                     </div>
                     <div class="service-right">
                         <div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px;">
-                            <div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px;">Why AnyDesk?</div>
+                            <div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px;">Why Quick Assist?</div>
                             <div style="display:flex;flex-direction:column;gap:11px;">
                                 <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
                                     <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
-                                    <span><strong style="color:#fff">Cross-platform</strong> — works on any OS, any device</span>
+                                    <span><strong style="color:#fff">Native Utility</strong> — No 3rd party downloads needed</span>
                                 </div>
                                 <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
                                     <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
-                                    <span><strong style="color:#fff">256-bit encryption</strong> — TLS 1.2 secured sessions</span>
+                                    <span><strong style="color:#fff">Secure</strong> — Uses Microsoft account authentication</span>
                                 </div>
                                 <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
                                     <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
-                                    <span><strong style="color:#fff">No admin rights</strong> needed to run as portable app</span>
+                                    <span><strong style="color:#fff">Quick Access</strong> — Just use the keyboard shortcut</span>
                                 </div>
                                 <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
                                     <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
-                                    <span><strong style="color:#fff">You're in control</strong> — revoke access instantly anytime</span>
-                                </div>
-                                <div style="display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:var(--silver);">
-                                    <span style="color:var(--green);font-size:1rem;flex-shrink:0;margin-top:-1px">✓</span>
-                                    <span><strong style="color:#fff">Ultra-low latency</strong> — fast even on slower connections</span>
+                                    <span><strong style="color:#fff">Full Control</strong> — You can end the session instantly</span>
                                 </div>
                             </div>
                         </div>
@@ -539,7 +558,6 @@
             </div>
         </div>
 
-        <!-- BOOK A SESSION - GOOGLE CALENDAR -->
         <div class="section" id="book">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Book a Support Session</div>
@@ -552,7 +570,6 @@
             </div>
         </div>
 
-        <!-- DAILY BLOG -->
         <div class="section" id="blog">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Daily Blog — Top 5 Sites</div>
@@ -563,15 +580,13 @@
                     <div class="blog-date-badge" id="blog-date">--</div>
                 </div>
                 <div class="site-cards" id="site-cards">
-                    <!-- Rendered by JS -->
-                </div>
+                    </div>
                 <div class="blog-footer">
                     <strong>Update frequency:</strong> Curated daily. Check back tomorrow for a fresh set of picks. Have a site suggestion? <a href="mailto:DylanGrow@gmail.com" style="color:var(--gold);text-decoration:none;">Drop me a line.</a>
                 </div>
             </div>
         </div>
 
-        <!-- CONTACT -->
         <div class="section" id="contact">
             <div class="card">
                 <div class="card-title"><span class="ct-bar"></span>Reach Me</div>
@@ -594,7 +609,7 @@
                                 github.com/flyingknee25
                             </a>
                             <a class="cta-btn" href="https://www.linkedin.com/in/dgrow27" target="_blank">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                                 linkedin.com/in/dgrow27
                             </a>
                         </div>
@@ -617,6 +632,11 @@
     <footer>Built by <span>Dylan Grow</span> · IT Professional · New Bern, NC</footer>
 
     <script>
+        // ── THEME TOGGLE ──
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
         // ── TYPEWRITER ──
         let i = 0;
         const txt = 'DYLAN GROW | IT OPS';
@@ -654,41 +674,40 @@
         }
 
         // ── BLOG DATA ──
-        // Edit this array daily with your top 5 picks!
         const todaysSites = [
             {
                 rank: '01',
                 name: 'TryHackMe',
                 tag: 'Security', tagClass: 'st-red',
-                desc: "Hands-on cybersecurity training with guided labs, CTF challenges, and learning paths for every skill level. My go-to for Network+ and Security+ prep outside of books. The gamified approach keeps the grind from feeling like a grind.",
+                desc: "Hands-on cybersecurity training with guided labs. My go-to for Network+ and Security+ prep.",
                 url: 'https://tryhackme.com'
             },
             {
                 rank: '02',
                 name: 'CVE Mitre',
                 tag: 'Research', tagClass: 'st-blue',
-                desc: "The authoritative database for publicly disclosed cybersecurity vulnerabilities. If you work in IT or security, knowing how to read a CVE is non-negotiable. I reference this regularly when troubleshooting endpoint security issues.",
+                desc: "The authoritative database for publicly disclosed cybersecurity vulnerabilities.",
                 url: 'https://cve.mitre.org'
             },
             {
                 rank: '03',
                 name: 'VirusTotal',
                 tag: 'Tool', tagClass: 'st-green',
-                desc: "Free online service that analyzes files, URLs, IPs, and domains for malware and suspicious behavior using 70+ antivirus engines. Essential first stop when something looks off on a client machine or in a phishing report.",
+                desc: "Free online service that analyzes files, URLs, and IPs for malware.",
                 url: 'https://www.virustotal.com'
             },
             {
                 rank: '04',
                 name: 'Azure Portal',
                 tag: 'Cloud', tagClass: 'st-blue',
-                desc: "Microsoft's cloud management hub. As I push my Azure skills forward, the portal is where I spin up VMs, configure AAD, and practice identity management. The free tier is generous enough for real lab work.",
+                desc: "Microsoft's cloud management hub for lab work and VM management.",
                 url: 'https://portal.azure.com'
             },
             {
                 rank: '05',
                 name: 'Smoothschool',
                 tag: 'Learning', tagClass: 'st-purple',
-                desc: "A learning resource I actively use and recommend. Great supplemental material to pair with certification study — especially helpful for understanding real-world application of concepts rather than just passing the exam.",
+                desc: "Great supplemental material to pair with certification study for real-world application.",
                 url: 'https://smoothschool.com'
             }
         ];
@@ -719,18 +738,6 @@
             window.location.href = 'mailto:DylanGrow@gmail.com?subject=' + subject + '&body=' + body;
             document.getElementById('cr-confirm').style.display = 'block';
         }
-        const toggleBtn = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
-
-toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    
-    if (document.body.classList.contains('light-mode')) {
-        themeIcon.innerText = '🌙';
-    } else {
-        themeIcon.innerText = '🌞';
-    }
-});
     </script>
 </body>
 </html>
