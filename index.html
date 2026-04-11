@@ -9,12 +9,12 @@
             --money-green: #15803d; 
             --dark-green: #0a4020;  
             --growth-green: #22c55e; 
-            --black: #080808;       /* Locked Dark Mode for better contrast */
+            --black: #080808;       
             --card: #121212;        
             --border: #2a2a2a;
             --silver: #a0a0a0;
             --text: #ffffff;
-            --focus-outline: #3b82f6; /* High-visibility blue for accessibility */
+            --focus-outline: #3b82f6; 
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -25,7 +25,7 @@
             outline-offset: 2px;
         }
 
-        /* ── MONEY GREEN SCROLLBAR ── */
+        /* ── THEME SCROLLBAR ── */
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: var(--black); }
         ::-webkit-scrollbar-thumb { background: var(--money-green); border-radius: 10px; border: 2px solid var(--black); }
@@ -39,11 +39,11 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.6;
             transition: all 0.3s ease;
-            font-size: 18px; /* Increased base size for readability */
+            font-size: 18px; 
             overflow-x: hidden;
         }
 
-        /* ── RESPONSIVE HEADER ── */
+        /* ── HEADER ── */
         header {
             position: sticky; top: 0; z-index: 1000;
             background: var(--black);
@@ -84,7 +84,7 @@
         .card { background: var(--card); border: 2px solid var(--border); border-radius: 15px; padding: 35px; margin-bottom: 25px; width: 100%; }
         .card-title { color: var(--money-green); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 12px; text-transform: uppercase; }
 
-        /* ── ACCESSIBLE SKILLS BARS ── */
+        /* ── SKILLS ── */
         .skill-meta { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--silver); margin-bottom: 8px; font-weight: bold; }
         .track { background: var(--dark-green); height: 18px; border-radius: 9px; overflow: hidden; margin-bottom: 25px; border: 1px solid var(--border); }
         .fill { height: 100%; background: var(--growth-green); border-radius: 9px; position: relative; }
@@ -95,6 +95,8 @@
 
         .section { display: none; }
         .section.visible { display: block; }
+
+        .weather-frame { height: 260px; border-radius: 12px; overflow: hidden; border: 2px solid var(--border); background: #000; margin-top: 25px; }
     </style>
 </head>
 <body onload="startTime(); typeWriter()">
@@ -129,7 +131,7 @@
 
         <div class="section" id="about" role="tabpanel">
             <div class="card" style="border-top: 6px solid var(--money-green);">
-                <div class="card-title">📞 Priority Communications Relay</div>
+                <div class="card-title">📞 Communications Relay & Skills</div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
                     <div>
                         <p style="font-size: 1.1rem; color: var(--silver);">Direct Line:</p>
@@ -158,17 +160,17 @@
             </div>
 
             <div class="card">
-                <div class="card-title">⚡ Growth Matrix & Skillset</div>
+                <div class="card-title">⚡ Growth Matrix</div>
                 <div class="skill-meta"><span>CompTIA A+ / Google IT Support</span><span>100%</span></div>
                 <div class="track"><div class="fill" style="width:100%;"></div></div>
                 
                 <div class="skill-meta"><span>Salesforce Administration</span><span>100%</span></div>
                 <div class="track"><div class="fill" style="width:100%;"></div></div>
 
-                <div class="skill-meta"><span>TCP/IP & Command-Line Diagnostics</span><span>85%</span></div>
+                <div class="skill-meta"><span>TCP/IP & Diagnostics</span><span>85%</span></div>
                 <div class="track"><div class="fill" style="width:85%;"></div></div>
 
-                <div class="skill-meta"><span>Network+ / Security+ (Pursuing)</span><span>65%</span></div>
+                <div class="skill-meta"><span>Net+ / Sec+ (Pursuing)</span><span>65%</span></div>
                 <div class="track"><div class="fill" style="width:65%; background: var(--red);"></div></div>
             </div>
 
@@ -189,6 +191,13 @@
             <div class="card-title">🕒 Schedule Technical Support</div>
             <div style="background:#fff; border-radius:15px; overflow:hidden; border:6px solid var(--money-green);">
                 <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:750px; border:none;" title="Booking Calendar"></iframe>
+            </div>
+
+            <div class="card">
+                <div class="card-title">🌍 Local Environment context — 28560</div>
+                <div class="weather-frame">
+                    <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:100%; border:none;" title="Weather Widget"></iframe>
+                </div>
             </div>
         </div>
     </main>
