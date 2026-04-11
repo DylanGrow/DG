@@ -719,6 +719,18 @@
             window.location.href = 'mailto:DylanGrow@gmail.com?subject=' + subject + '&body=' + body;
             document.getElementById('cr-confirm').style.display = 'block';
         }
+        const toggleBtn = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+
+toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    
+    if (document.body.classList.contains('light-mode')) {
+        themeIcon.innerText = '🌙';
+    } else {
+        themeIcon.innerText = '🌞';
+    }
+});
     </script>
 </body>
 </html>
