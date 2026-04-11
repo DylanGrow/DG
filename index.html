@@ -28,6 +28,16 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        /* ── THEME-DEFINING GOLD SCROLLBARS ── */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--gold); 
+            border-radius: 10px; 
+            border: 2px solid var(--black);
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #e6a400; }
+
         /* ── CUSTOM GOLD CURSOR ── */
         * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%23FFB612" stroke="black" stroke-width="1"/></svg>'), auto !important; }
         
@@ -38,66 +48,80 @@
             line-height: 1.6;
             margin: 0;
             transition: all 0.3s ease;
+            font-size: 18px; /* Senior Friendly Base Size */
         }
 
         /* ── HEADER ── */
         header {
             position: sticky; top: 0; z-index: 1000;
             background: var(--black);
-            border-bottom: 2px solid var(--gold);
-            padding: 10px 24px; height: 85px;
+            border-bottom: 3px solid var(--gold);
+            padding: 10px 24px; height: 90px;
             display: flex; align-items: center; justify-content: space-between;
         }
 
-        .brand { font-weight: 500; font-size: 1.4rem; color: var(--gold); }
+        .brand { font-weight: 500; font-size: 1.5rem; color: var(--gold); }
 
-        .search-relay { flex: 1; max-width: 400px; margin: 0 20px; }
+        .search-relay { flex: 1; max-width: 450px; margin: 0 20px; }
         .search-relay input {
-            width: 100%; padding: 12px 20px;
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 30px; color: var(--text); font-size: 1rem;
+            width: 100%; padding: 14px 25px;
+            background: var(--card); border: 2px solid var(--border);
+            border-radius: 35px; color: var(--text); font-size: 1rem;
         }
 
-        .system-intel { text-align: right; min-width: 180px; }
-        .clock { color: var(--gold); font-weight: bold; font-family: monospace; font-size: 1.1rem; }
-        .date-display { color: var(--silver); font-size: 0.8rem; font-family: monospace; text-transform: uppercase; margin-top: 4px; }
+        .system-intel { text-align: right; min-width: 200px; }
+        .clock { color: var(--gold); font-weight: bold; font-family: monospace; font-size: 1.2rem; }
+        .date-display { color: var(--silver); font-size: 0.85rem; font-family: monospace; text-transform: uppercase; margin-top: 4px; }
 
-        .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 10px; overflow-x: auto; }
+        /* ── NAVIGATION ── */
+        .nav-tabs { display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 5px 10px; overflow-x: auto; justify-content: center; }
         .nav-tabs button {
-            background: none; border: none; color: var(--silver); padding: 15px 20px;
-            font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.2s; white-space: nowrap;
+            background: none; border: none; color: var(--silver); padding: 15px 25px;
+            font-weight: 700; cursor: pointer; border-bottom: 4px solid transparent; transition: 0.2s; white-space: nowrap; font-size: 1rem;
         }
         .nav-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-        .wrap { max-width: 1100px; margin: 0 auto; padding: 20px; }
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 30px; margin-bottom: 20px; }
-        .card-title { color: var(--gold); font-weight: 700; font-size: 1.2rem; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-transform: uppercase; }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 30px 20px; }
+        .card { background: var(--card); border: 2px solid var(--border); border-radius: 15px; padding: 35px; margin-bottom: 25px; }
+        .card-title { color: var(--gold); font-weight: 800; font-size: 1.3rem; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 12px; text-transform: uppercase; }
 
-        /* ── SKILLS & BARS ── */
-        .skill-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--silver); margin-bottom: 8px; font-weight: bold; }
-        .track { background: #222; height: 14px; border-radius: 7px; overflow: hidden; margin-bottom: 20px; }
-        .fill { height: 100%; background: var(--gold); border-radius: 7px; }
+        /* ── SKILLS ── */
+        .skill-meta { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--silver); margin-bottom: 10px; font-weight: bold; }
+        .track { background: #222; height: 16px; border-radius: 8px; overflow: hidden; margin-bottom: 25px; border: 1px solid var(--border); }
+        .fill { height: 100%; background: var(--gold); border-radius: 8px; }
 
-        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; }
-        .badge { background: var(--card2); border: 1px solid var(--gold); padding: 15px; border-radius: 8px; text-align: center; font-weight: 800; color: var(--gold); }
-        .pursuing { border: 1px dashed var(--red); color: var(--red); opacity: 0.9; }
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        .badge { background: var(--card2); border: 2px solid var(--gold); padding: 20px; border-radius: 10px; text-align: center; font-weight: 800; color: var(--gold); }
+        .pursuing { border: 2px dashed var(--red); color: var(--red); }
 
-        /* ── WEATHER FIX ── */
-        .weather-container {
-            width: 100%; 
-            max-width: 460px; 
-            height: 150px; /* Smaller Height */
-            border-radius: 12px; 
-            overflow: hidden; 
-            border: 1px solid var(--border);
-            background: #000; /* Keeps widget readable in light mode */
-            margin: 0 auto;
+        /* ── LINKEDIN BADGE (FINAL POP FIX) ── */
+        .li-custom-card {
+            background: #0077b5;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: transform 0.2s;
         }
+        .li-custom-card:hover { transform: scale(1.03); background: #0088d1; }
 
         .section { display: none; }
-        .section.visible { display: block; }
+        .section.visible { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .sn {
+            width: 30px; height: 30px; border-radius: 50%; display: inline-flex;
+            align-items: center; justify-content: center; background: rgba(255,182,18,0.1);
+            border: 2px solid var(--gold); color: var(--gold); font-weight: 900; margin-right: 15px;
+        }
     </style>
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 </head>
 <body onload="startTime(); typeWriter()">
 
@@ -108,8 +132,8 @@
                 <input type="text" name="q" placeholder="🔍 Duck AI Search Assist..." autocomplete="off">
             </form>
         </div>
-        <div style="display:flex; align-items:center; gap:20px;">
-            <button onclick="document.body.classList.toggle('light-mode')" style="background:var(--gold); border:none; border-radius:20px; padding:8px 16px; font-weight:bold; cursor:pointer; font-size:0.8rem;">🌓 MODE</button>
+        <div style="display:flex; align-items:center; gap:25px;">
+            <button onclick="document.body.classList.toggle('light-mode')" style="background:var(--gold); border:none; border-radius:25px; padding:10px 20px; font-weight:bold; cursor:pointer; font-size:0.9rem;">🌓 MODE</button>
             <div class="system-intel">
                 <div id="clock" class="clock">00:00:00 AM</div>
                 <div id="date-display" class="date-display">APR 11, 2026</div>
@@ -126,79 +150,99 @@
 
     <div class="wrap">
         <div class="section visible" id="home">
-            <h1 style="font-size: 3.5rem; font-weight: 500; margin: 0; line-height: 1;">Dylan Grow</h1>
-            <p style="color: var(--gold); font-size: 1.3rem; font-weight:bold; margin: 15px 0 25px;">IT Support Specialist & Network Technician</p>
-            <div class="card" style="border-left: 6px solid var(--gold);">
-                <p style="font-size: 1.2rem;">Expert technical solutions provided with a personal touch. I specialize in resolving complex system issues, securing networks, and empowering users through reliable remote support.</p>
+            <h1 style="font-size: 4rem; font-weight: 500; margin: 0;">Dylan Grow</h1>
+            <p style="color: var(--gold); font-size: 1.5rem; font-weight:bold; margin: 15px 0 30px;">IT Support Specialist & Network Technician</p>
+            <div class="card" style="border-left: 8px solid var(--gold);">
+                <p style="font-size: 1.3rem;">Reliable technical support tailored for you. I fix complex computer issues and secure your digital life with expert precision.</p>
             </div>
         </div>
 
         <div class="section" id="about">
-            <div class="card" style="border-top: 5px solid var(--gold);">
-                <div class="card-title">📞 Communications Relay & Professional Identity</div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; align-items: start;">
+            <div class="card" style="border-top: 6px solid var(--gold);">
+                <div class="card-title">📞 Priority Comms Relay</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; align-items: center;">
                     <div>
-                        <p style="font-size: 1.2rem; color: var(--silver); margin-bottom: 5px;">Direct Line:</p>
-                        <p style="font-size: 1.8rem; font-weight: bold; margin-bottom: 15px;">
+                        <p style="font-size: 1.2rem; color: var(--silver);">Call or Text Me Directly:</p>
+                        <p style="font-size: 2.2rem; font-weight: bold; margin-bottom: 20px;">
                             <a href="tel:2523490830" style="color:var(--gold); text-decoration:none;">(252) 349-0830</a>
                         </p>
-                        <p style="font-size: 1.2rem; color: var(--silver); margin-bottom: 5px;">Email Correspondence:</p>
-                        <p style="font-size: 1.4rem; margin-bottom: 25px;"><a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a></p>
-                        
-                        <div class="skill-meta"><span>CompTIA A+ / Google IT Support</span><span>100%</span></div>
-                        <div class="track"><div class="fill" style="width:100%;"></div></div>
-                        <div class="skill-meta"><span>Salesforce Champion</span><span>100%</span></div>
-                        <div class="track"><div class="fill" style="width:100%;"></div></div>
-                        <div class="skill-meta"><span>Network+ / Security+ (Pursuing)</span><span>65%</span></div>
-                        <div class="track"><div class="fill" style="width:65%; background: var(--red);"></div></div>
+                        <p style="font-size: 1.2rem; color: var(--silver);">Professional Email:</p>
+                        <p style="font-size: 1.6rem; margin-bottom: 10px;"><a href="mailto:DylanGrow@gmail.com" style="color:var(--text); text-decoration:none;">DylanGrow@gmail.com</a></p>
                     </div>
                     
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                        <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="dgrow27" data-version="v1">
-                            <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/dgrow27?trk=profile-badge">Dylan G.</a>
-                        </div>
+                    <div>
+                        <a href="https://www.linkedin.com/in/dgrow27" target="_blank" class="li-custom-card">
+                            <span style="font-size: 2.5rem;">in</span>
+                            <div style="text-align: left;">
+                                <div style="font-size: 1.2rem;">View Dylan's LinkedIn Profile</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8; font-weight: 400;">Certified IT Professional & Network Tech</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                <div class="card">
+                    <div class="card-title">⚡ Skill Mastery</div>
+                    <div class="skill-meta"><span>CompTIA A+ / Google IT Support</span><span>100%</span></div>
+                    <div class="track"><div class="fill" style="width:100%;"></div></div>
+                    
+                    <div class="skill-meta"><span>Salesforce Champion</span><span>100%</span></div>
+                    <div class="track"><div class="fill" style="width:100%;"></div></div>
+
+                    <div class="skill-meta"><span>Network+ / Security+ (Pursuing)</span><span>65%</span></div>
+                    <div class="track"><div class="fill" style="width:65%; background: var(--red);"></div></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🏆 Official Credentials</div>
+                    <div class="badge-grid">
+                        <div class="badge">CompTIA A+</div>
+                        <div class="badge">Google IT</div>
+                        <div class="badge">AHA BLS</div>
+                        <div class="badge pursuing">Network+</div>
+                        <div class="badge pursuing">Security+</div>
+                        <div class="badge pursuing">Salesforce</div>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-title">🏆 Badges & Future Ambitions</div>
-                <div class="badge-grid">
-                    <div class="badge">CompTIA A+</div>
-                    <div class="badge">Google IT</div>
-                    <div class="badge">AHA BLS</div>
-                    <div class="badge pursuing">Network+</div>
-                    <div class="badge pursuing">Security+</div>
-                    <div class="badge pursuing">Salesforce</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">🌍 Local Environment Context — New Bern, NC</div>
-                <div class="weather-container">
+                <div class="card-title">🌍 Local Weather Context — 28560</div>
+                <div style="height: 180px; border-radius: 12px; overflow: hidden; border: 2px solid var(--border); background: #000;">
                     <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:100%; border:none;"></iframe>
                 </div>
             </div>
         </div>
 
         <div class="section" id="book">
-            <div class="card-title">🕒 Operational Scheduler</div>
-            <div style="background:#fff; border-radius:12px; overflow:hidden; border:4px solid var(--gold);">
-                <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:700px; border:none;"></iframe>
+            <div class="card-title">🕒 Schedule Help Now</div>
+            <div style="background:#fff; border-radius:15px; overflow:hidden; border:6px solid var(--gold);">
+                <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:750px; border:none;"></iframe>
             </div>
         </div>
 
         <div class="section" id="remote">
-            <div class="card" style="border-left: 6px solid var(--gold);">
-                <div class="card-title">📡 Quick Assist Protocol</div>
-                <p style="font-size: 1.1rem; color: var(--silver); margin-bottom: 20px;">I use the built-in Windows Quick Assist tool for secure, encrypted remote support.</p>
-                <div style="background: var(--card2); padding: 30px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 25px;">
-                    <p style="font-size: 1.1rem; margin-bottom: 10px;">1. Launch: Press <strong>Ctrl + Win + Q</strong>.</p>
-                    <p style="font-size: 1.1rem; margin-bottom: 10px;">2. Auth: Enter the <strong>6-digit code</strong> I provide.</p>
-                    <p style="font-size: 1.1rem;">3. Connect: Select <strong>'Allow'</strong>.</p>
+            <div class="card" style="border-left: 8px solid var(--gold);">
+                <div class="card-title">📡 Quick Assist Support</div>
+                <p style="font-size: 1.2rem; color: var(--silver); margin-bottom: 25px;">I use the built-in Windows **Quick Assist** tool. It is safe, encrypted, and already on your computer.</p>
+                <div style="background: var(--card2); padding: 35px; border-radius: 15px; border: 2px solid var(--border); margin-bottom: 30px;">
+                    <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+                        <span class="sn">1</span>
+                        <span style="font-size: 1.2rem;">Hold the <strong style="color: #fff;">Ctrl</strong> and <strong style="color: #fff;">Windows</strong> keys, then press <strong style="color: #fff;">Q</strong>.</span>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; margin-bottom: 25px;">
+                        <span class="sn">2</span>
+                        <span style="font-size: 1.2rem;">Enter the <strong style="color: var(--gold);">6-digit code</strong> I give you over the phone.</span>
+                    </div>
+                    <div style="display: flex; align-items: flex-start;">
+                        <span class="sn">3</span>
+                        <span style="font-size: 1.2rem;">Click <strong style="color: #fff;">'Allow'</strong> so I can start helping you.</span>
+                    </div>
                 </div>
                 <div style="text-align: center;">
-                    <button onclick="showSection('book', document.querySelectorAll('.nav-tabs button')[1])" style="background:var(--gold); color:#000; border:none; padding:15px 30px; border-radius:40px; font-weight:800; cursor:pointer;">Schedule Support Session</button>
+                    <button onclick="showSection('book', document.querySelectorAll('.nav-tabs button')[1])" style="background:var(--gold); color:#000; border:none; padding:20px 40px; border-radius:50px; font-weight:800; font-size: 1.3rem; cursor:pointer;">Click to Book Support Now</button>
                 </div>
             </div>
         </div>
