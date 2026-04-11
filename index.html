@@ -5,256 +5,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dylan Grow | IT Professional</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #FFB612;
-            --gold-dim: #cc920e;
-            --black: #0a0a0a;
-            --card: #141414;
-            --card2: #1c1c1c;
-            --red: #C60C30;
-            --silver: #9aa0a6;
+            --black: #050505;
+            --card: #0f0f0f;
+            --card2: #161616;
+            --border: #222222;
+            --silver: #888888;
             --green: #22c55e;
-            --text: #f0f0f0;
-            --border: #272727;
+            --text: #e0e0e0;
         }
 
         /* ── CUSTOM GOLD CURSOR ── */
         * { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="5" cy="5" r="4" fill="%23FFB612" stroke="black" stroke-width="1"/></svg>'), auto !important; }
 
         /* ── CUSTOM GOLD SCROLLBAR ── */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { 
-            background: var(--gold); 
-            border-radius: 10px; 
-        }
-
-        /* LIGHT MODE OVERRIDES */
-        body.light-mode {
-            --black: #e0e0e0;
-            --text: #1a1a1a;
-            --card: #ffffff;
-            --card2: #f5f5f5;
-            --border: #d1d1d1;
-            --silver: #4a4a4a;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
         body {
             background: var(--black);
             color: var(--text);
             font-family: 'DM Sans', sans-serif;
-            min-height: 100vh;
-            transition: background 0.3s ease;
+            margin: 0;
+            overflow-x: hidden;
         }
 
         /* ── HEADER ── */
         header {
             position: sticky; top: 0; z-index: 1000;
-            background: rgba(10,10,10,0.95);
-            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.98);
             border-bottom: 1px solid var(--border);
-            padding: 0 24px; height: 60px;
-            display: flex; align-items: center; gap: 20px;
+            padding: 0 24px; height: 65px;
+            display: flex; align-items: center; gap: 25px;
         }
 
-        .brand {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.4rem; letter-spacing: 2px;
-            color: var(--gold); display: flex; align-items: center; gap: 10px;
-        }
+        .brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); display: flex; align-items: center; gap: 10px; }
 
-        .theme-toggle-btn {
-            background: var(--gold); color: #000; border: none;
-            padding: 6px 12px; border-radius: 6px;
-            font-family: 'DM Mono', monospace; font-size: 0.7rem;
-            font-weight: 700; cursor: pointer; text-transform: uppercase;
+        /* ── DUCKDUCKGO SEARCH ── */
+        .search-relay {
+            flex: 1; max-width: 450px; position: relative;
         }
-
-        .clock {
-            margin-left: auto; font-family: 'DM Mono', monospace; 
-            font-size: 0.8rem; color: var(--silver);
+        .search-relay input {
+            width: 100%; padding: 10px 15px 10px 40px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 6px; color: var(--text); font-family: 'DM Mono'; font-size: 0.8rem;
         }
+        .search-relay i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--silver); }
 
         /* ── NAVIGATION ── */
         .nav-tabs {
-            display: flex; background: var(--card); border-bottom: 1px solid var(--border);
-            padding: 0 24px; overflow-x: auto;
+            display: flex; background: var(--card); border-bottom: 1px solid var(--border); padding: 0 24px;
         }
         .nav-tabs button {
-            background: none; border: none; color: var(--silver);
-            padding: 14px 20px; cursor: pointer; font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
-            border-bottom: 2px solid transparent; transition: 0.2s;
-            white-space: nowrap;
+            background: none; border: none; color: var(--silver); padding: 15px 20px;
+            cursor: pointer; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
+            border-bottom: 2px solid transparent; transition: 0.3s; white-space: nowrap;
         }
-        .nav-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .nav-tabs button.active { color: var(--gold); border-bottom-color: var(--gold); background: rgba(255, 182, 18, 0.05); }
 
-        /* ── LAYOUT ── */
-        .wrap { max-width: 1140px; margin: 0 auto; padding: 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+        .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
 
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color .25s; }
-        .card:hover { border-color: #2d2d2d; }
+        /* ── CARDS ── */
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 30px; margin-bottom: 20px; }
+        .card-title { font-family: 'Bebas Neue'; color: var(--gold); font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
 
-        .card-title {
-            font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 2px;
-            color: var(--gold); text-transform: uppercase;
-            padding-bottom: 12px; margin-bottom: 18px;
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: 10px;
-        }
-
-        .sn {
-            width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-            background: rgba(255,182,18,.1); border: 1px solid var(--gold);
-            color: var(--gold); font-size: 0.7rem; font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; letter-spacing: 4px; color: #fff; line-height: 1; }
+        /* ── HERO ── */
+        .hero-name { font-family: 'Bebas Neue'; font-size: 4rem; color: #fff; line-height: 0.9; }
         .hero-name span { color: var(--gold); }
 
-        .btn-action {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: var(--gold); color: #000; padding: 12px 24px;
-            border-radius: 8px; text-decoration: none; font-weight: 800;
-            margin-top: 15px; transition: 0.2s; font-family: 'DM Sans';
+        /* ── SCHEDULER (FIXED) ── */
+        .booking-container { background: #fff; border-radius: 12px; overflow: hidden; border: 4px solid var(--gold); }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: #000;
+            padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: 800; text-transform: uppercase; font-size: 0.8rem;
         }
-        .btn-action:hover { background: #fff; }
 
-        /* ── SECTION VISIBILITY ── */
         .section { display: none; }
-        .section.visible { display: flex; flex-direction: column; gap: 20px; }
+        .section.visible { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        iframe { border-radius: 10px; width: 100%; border: 1px solid var(--border); background: #000; }
-        footer { text-align: center; padding: 28px; font-size: 0.75rem; color: var(--silver); border-top: 1px solid var(--border); }
+        .clock { margin-left: auto; font-family: 'DM Mono'; color: var(--gold); font-size: 0.9rem; font-weight: bold; }
     </style>
 </head>
 <body onload="startTime(); typeWriter()">
 
     <header>
-        <div class="brand"><i data-lucide="shield-check"></i> <div id="type-text"></div></div>
-        <button class="theme-toggle-btn" onclick="toggleTheme()">🌓 Mode</button>
-        <div class="clock" id="clock">--:-- --</div>
+        <div class="brand"><i data-lucide="shield"></i> <span id="type-text"></span></div>
+        <div class="search-relay">
+            <i data-lucide="search" size="16"></i>
+            <form action="https://duckduckgo.com/" method="get">
+                <input type="text" name="q" placeholder="ENCRYPTED SEARCH RELAY..." autocomplete="off">
+            </form>
+        </div>
+        <div class="clock" id="clock">00:00:00</div>
     </header>
 
     <nav class="nav-tabs">
-        <button class="active" onclick="showSection('home', this)"><i data-lucide="layout"></i> Home</button>
-        <button onclick="showSection('book', this)"><i data-lucide="calendar-check"></i> Book Session</button>
-        <button onclick="showSection('remote', this)"><i data-lucide="terminal"></i> Remote Support</button>
-        <button onclick="showSection('intel', this)"><i data-lucide="database"></i> System Intel</button>
-        <button onclick="showSection('contact', this)"><i data-lucide="send"></i> Contact</button>
+        <button class="active" onclick="showSection('home', this)"><i data-lucide="terminal"></i> HOME</button>
+        <button onclick="showSection('book', this)"><i data-lucide="calendar"></i> BOOKING</button>
+        <button onclick="showSection('remote', this)"><i data-lucide="cpu"></i> REMOTE</button>
+        <button onclick="showSection('intel', this)"><i data-lucide="layers"></i> INTEL</button>
+        <button onclick="showSection('contact', this)"><i data-lucide="phone"></i> CONTACT</button>
     </nav>
 
     <div class="wrap">
         <div class="section visible" id="home">
-            <div class="card">
-                <div class="hero-name">DYLAN <span>GROW</span></div>
-                <p style="color: var(--silver); margin-top: 10px;">IT Support Specialist · Network Technician · New Bern, NC</p>
-                <div style="display:flex; gap:10px; margin-top:20px;">
-                    <span style="background:rgba(34,197,94,0.1); border:1px solid var(--green); color:var(--green); font-size:0.7rem; padding:4px 10px; border-radius:4px; font-weight:bold;">● STATUS: ONLINE</span>
-                    <span style="background:rgba(255,182,18,0.1); border:1px solid var(--gold); color:var(--gold); font-size:0.7rem; padding:4px 10px; border-radius:4px; font-weight:bold;">A+ CERTIFIED</span>
-                </div>
+            <div class="hero-name">DYLAN <span>GROW</span></div>
+            <p style="color: var(--silver); letter-spacing: 1px; margin: 15px 0 30px;">IT SUPPORT SPECIALIST // NETWORK TECHNICIAN</p>
+            <div class="card" style="border-left: 4px solid var(--gold);">
+                <p style="font-size: 0.9rem; line-height: 1.8;">Expertise in complex hardware diagnostics, enterprise endpoint security, and network infrastructure. Ready to deploy solutions for your mission-critical environments.</p>
             </div>
         </div>
 
         <div class="section" id="book">
-            <div class="card">
-                <div class="card-title"><i data-lucide="clock"></i> Mission Scheduling</div>
-                <div class="calendar-wrap">
-                    <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="height: 600px;"></iframe>
-                </div>
+            <div class="card-title"><i data-lucide="clock"></i> OPERATIONAL SCHEDULER</div>
+            <div class="booking-container">
+                <iframe src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="width:100%; height:700px; border:none;"></iframe>
             </div>
         </div>
 
         <div class="section" id="remote">
-            <div class="card" style="border-left: 4px solid var(--gold);">
-                <div class="card-title"><i data-lucide="monitor-dot"></i> Remote Engagement Protocol</div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-                    <div>
-                        <h3 style="font-family: 'Bebas Neue'; color: #fff; margin-bottom: 15px;">Quick Assist Deployment</h3>
-                        <p style="color: var(--silver); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-                            Utilizing native Windows security for encrypted, zero-install remote troubleshooting.
-                        </p>
-                        <div style="background: var(--card2); padding: 20px; border-radius: 10px; border: 1px solid var(--border);">
-                            <ul style="list-style: none; padding: 0; color: var(--text); font-size: 0.85rem;">
-                                <li style="margin-bottom: 12px; display: flex; gap: 12px;"><span class="sn">1</span><span>Press <strong style="color: #fff;">Ctrl + Win + Q</strong>.</span></li>
-                                <li style="margin-bottom: 12px; display: flex; gap: 12px;"><span class="sn">2</span><span>Input the <strong style="color: var(--gold);">Security Code</strong> provided at start.</span></li>
-                                <li style="margin-bottom: 0; display: flex; gap: 12px;"><span class="sn">3</span><span>Select <strong style="color: #fff;">'Allow'</strong> to begin session.</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; justify-content: center;">
-                        <div style="border: 1px dashed var(--border); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                            <h4 style="font-size: 0.8rem; color: var(--silver); text-transform: uppercase; margin-bottom: 10px;">System Readiness</h4>
-                            <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 8px;">
-                                <span><i data-lucide="check" size="14" style="color:var(--green)"></i> Windows 10/11 Home/Pro</span>
-                                <span><i data-lucide="check" size="14" style="color:var(--green)"></i> Active Internet Link</span>
-                            </div>
-                        </div>
-                        <a href="#" onclick="showSection('book', document.querySelector('[onclick*=\'book\']'))" class="btn-action">
-                            <i data-lucide="calendar-plus"></i> Initialize Booking
-                        </a>
-                    </div>
+            <div class="card">
+                <div class="card-title"><i data-lucide="activity"></i> QUICK ASSIST PROTOCOL</div>
+                <p style="color:var(--silver); margin-bottom:20px;">Native Windows remote support. Zero footprint.</p>
+                <div style="background:var(--card2); padding:20px; border-radius:8px; border:1px solid var(--border); margin-bottom:25px;">
+                    <div style="margin-bottom:10px;"><strong style="color:var(--gold);">01.</strong> CTRL + WIN + Q</div>
+                    <div style="margin-bottom:10px;"><strong style="color:var(--gold);">02.</strong> ENTER CODE</div>
+                    <div><strong style="color:var(--gold);">03.</strong> AUTHORIZE ACCESS</div>
                 </div>
+                <a href="#" onclick="showSection('book', document.querySelector('[onclick*=\'book\']'))" class="btn">INITIALIZE BOOKING</a>
             </div>
         </div>
 
         <div class="section" id="intel">
             <div class="card">
-                <div class="card-title"><i data-lucide="cloud-lightning"></i> Local Environment</div>
-                <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="height: 250px;"></iframe>
-            </div>
-            <div class="card">
-                <div class="card-title"><i data-lucide="link"></i> Critical Intelligence Links</div>
-                <p style="color: var(--silver); font-size: 0.85rem;">Resource repository and daily intelligence feeds will be cataloged here.</p>
+                <div class="card-title"><i data-lucide="globe"></i> SYSTEM INTEL</div>
+                <iframe src="https://www.meteoblue.com/en/weather/widget/three/new-bern_united-states_4481944?geoloc=fixed&tempunit=FAHRENHEIT&layout=dark" style="width:100%; height:250px; border:none; margin-bottom:20px;"></iframe>
+                <p style="color:var(--silver); font-size:0.8rem;">[ DAILY FEED & REPOSITORY LINKS COMING SOON ]</p>
             </div>
         </div>
 
         <div class="section" id="contact">
             <div class="card">
-                <div class="card-title"><i data-lucide="user"></i> Contact Operator</div>
-                <p style="color: var(--silver);">Communications Relay: <a href="mailto:DylanGrow@gmail.com" style="color:var(--gold); text-decoration:none;">DylanGrow@gmail.com</a></p>
-                <div style="margin-top:20px; display:flex; gap:15px;">
-                    <a href="https://linkedin.com/in/dgrow27" target="_blank" style="color:var(--silver)"><i data-lucide="linkedin"></i></a>
-                    <a href="https://github.com/flyingknee25" target="_blank" style="color:var(--silver)"><i data-lucide="github"></i></a>
+                <div class="card-title"><i data-lucide="message-square"></i> COMMS RELAY</div>
+                <div style="display:grid; gap:20px;">
+                    <div>
+                        <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">EMAIL //</div>
+                        <a href="mailto:DylanGrow@gmail.com" style="color:#fff; text-decoration:none;">DylanGrow@gmail.com</a>
+                    </div>
+                    <div>
+                        <div style="color:var(--gold); font-family:'DM Mono'; font-size:0.7rem;">CELL //</div>
+                        <a href="tel:2523490830" style="color:#fff; text-decoration:none;">252.349.0830</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>Built by <span>Dylan Grow</span> · Command Center v2.0</footer>
-
     <script>
         lucide.createIcons();
-
-        function toggleTheme() { document.body.classList.toggle('light-mode'); }
-
         function showSection(id, btn) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
             document.getElementById(id).classList.add('visible');
             document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
-
         function typeWriter() {
-            const txt = 'DYLAN GROW | COMMAND CENTER';
+            const txt = 'DYLAN GROW // COMMAND CENTER';
             let i = 0;
             function run() {
                 if (i < txt.length) {
                     document.getElementById('type-text').innerHTML += txt.charAt(i++);
-                    setTimeout(run, 50);
+                    setTimeout(run, 60);
                 }
             }
             run();
         }
-
         function startTime() {
             const t = new Date();
-            document.getElementById('clock').textContent = t.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            document.getElementById('clock').textContent = t.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit', hour12: false});
             setTimeout(startTime, 1000);
         }
     </script>
