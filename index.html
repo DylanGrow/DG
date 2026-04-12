@@ -874,7 +874,7 @@ function typeLoop() {
   if (!del && ci < full.length) ci++;
   else if (del && ci > 0) ci--;
   else { del = !del; if (!del) pi++; }
-  setTimeout(typeLoop, del ? 45 : (ci === full.length ? 1400 : 90));
+  setTimeout(typeLoop, del ? 80 : (ci === full.length ? 2500 : 120));
 }
 typeLoop();
 
