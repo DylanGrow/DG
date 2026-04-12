@@ -36,18 +36,18 @@ html.light{
   *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='6' fill='%2322c55e'/%3E%3Ccircle cx='14' cy='14' r='10' fill='none' stroke='%2322c55e' stroke-width='1.5' stroke-opacity='.4'/%3E%3C/svg%3E") 14 14,auto}
 }
 
-/* FIXED: float animation only triggers on hover via .float-hover class */
+/* FIXED: float animation — gentler, less bounce */
 @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
 @keyframes pulse-ring{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.15)}}
 @keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(2);opacity:0}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 @keyframes scan{0%{top:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .ping{animation:ping 1.2s cubic-bezier(0,0,.2,1) infinite}
 .pulse{animation:pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite}
-/* Badges: no float by default, slow float only on hover */
+/* Badges: no float by default, gentle slow float only on hover */
 .float-hover{animation:none;transition:transform .3s ease}
-.float-hover:hover{animation:float 2.5s ease-in-out infinite}
+.float-hover:hover{animation:float 3.5s ease-in-out infinite}
 .scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(34,197,94,.6),transparent);animation:scan 2.5s ease-in-out infinite}
 
 .mesh-fixed{position:fixed;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(at 20% 30%,rgba(34,197,94,.12) 0,transparent 50%),radial-gradient(at 80% 20%,rgba(34,197,94,.07) 0,transparent 50%)}
@@ -139,8 +139,8 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .cred-card-glow{position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;filter:blur(30px);opacity:0;transition:opacity .3s;pointer-events:none}
 .cred-card:hover .cred-card-glow{opacity:1}
 .small-badge{width:100px;height:100px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;position:relative;overflow:hidden;margin-bottom:12px;transition:transform .3s ease}
-/* Hover-only float for small badges */
-.small-badge:hover{animation:float 2.5s ease-in-out infinite}
+/* Hover-only gentle float for small badges */
+.small-badge:hover{animation:float 3.5s ease-in-out infinite}
 .cred-name{font-size:14px;font-weight:700}
 .cred-sub{font-size:11px;color:var(--text-d);margin-top:2px}
 .verify-link{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--green);text-decoration:none;margin-top:8px;justify-content:center}
@@ -177,7 +177,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .booking-wrap{border-radius:24px;overflow:hidden;border:1px solid var(--border);background:var(--bg-card)}
 .booking-iframe-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:16px;padding:32px;text-align:center}
 
-/* DUCKDUCKGO AI SEARCH */
+/* AI SEARCH */
 .search-section{margin-bottom:32px}
 .search-box-wrap{position:relative;max-width:680px}
 .search-input{width:100%;height:52px;padding:0 52px 0 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;font-size:15px;color:var(--text);outline:none;transition:all .2s;font-family:inherit}
@@ -458,7 +458,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </span>
           </div>
 
-          <!-- CompTIA A+ Hero — badge-icon-wrap uses float-hover now -->
+          <!-- CompTIA A+ Hero -->
           <div class="cred-hero">
             <div class="cred-hero-glow" style="width:300px;height:300px;top:-100px;left:10%;background:rgba(34,197,94,.12)"></div>
             <div class="cred-hero-glow" style="width:200px;height:200px;bottom:-60px;right:10%;background:rgba(34,197,94,.07)"></div>
@@ -497,7 +497,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
           </div>
 
-          <!-- Other badges — small-badge uses CSS hover float -->
+          <!-- Other badges -->
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
             <div class="cred-card">
               <div class="cred-card-glow" style="background:rgba(96,165,250,.15)"></div>
@@ -551,37 +551,37 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
         <p style="margin-top:6px;font-size:14px;color:var(--text-d)">End-to-end IT support for businesses across Eastern NC and remote clients nationwide.</p>
       </div>
 
-      <!-- DuckDuckGo AI Search -->
+      <!-- AI Tech Search — powered by Claude -->
       <div class="search-section">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px">🦆</div>
+          <div style="width:28px;height:28px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px">🤖</div>
           <div>
             <div style="font-size:14px;font-weight:700">Ask a Tech Question</div>
-            <div style="font-size:11px;color:var(--text-d)">Powered by DuckDuckGo AI Chat — no tracking, no account needed</div>
+            <div style="font-size:11px;color:var(--text-d)">AI-powered answers to your IT questions</div>
           </div>
         </div>
         <div class="search-box-wrap">
-          <input class="search-input" id="ddg-input" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text"/>
-          <button class="search-btn" id="ddg-btn" title="Ask DuckDuckGo AI">
+          <input class="search-input" id="ai-input" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text"/>
+          <button class="search-btn" id="ai-btn" title="Ask AI">
             <svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="16"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
-        <div class="search-results hidden" id="ddg-results">
+        <div class="search-results hidden" id="ai-results">
           <div class="search-result-header">
-            <span>🦆</span> DuckDuckGo AI Answer
+            <span>🤖</span> AI Answer
           </div>
-          <div id="ddg-body">
-            <div class="search-loading" id="ddg-loading">
+          <div id="ai-body">
+            <div class="search-loading" id="ai-loading">
               <div class="search-dot"></div>
               <div class="search-dot"></div>
               <div class="search-dot"></div>
               <span>Thinking…</span>
             </div>
-            <div class="search-result-body hidden" id="ddg-answer"></div>
+            <div class="search-result-body hidden" id="ai-answer"></div>
           </div>
           <div style="padding:10px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text-d);display:flex;align-items:center;justify-content:space-between">
-            <span>Results via DuckDuckGo AI — no personal data stored</span>
-            <a href="https://duckduckgo.com/?q=" id="ddg-link" rel="noopener" style="color:var(--green);font-size:11px;font-weight:600;text-decoration:none" target="_blank">Search on DDG ↗</a>
+            <span>Need hands-on help? Dylan can fix it in person or remotely.</span>
+            <button class="btn-outline" data-tab-target="booking" style="height:28px;font-size:11px;padding:0 12px">Book a Session ↗</button>
           </div>
         </div>
       </div>
@@ -822,48 +822,25 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// ── TYPEWRITER — fixed: types full word, holds 3s, then deletes
+// ── TYPEWRITER
 const tw = document.getElementById('typewriter');
 const phrases = ['Dylan Grow', 'IT Specialist', 'Network Pro', 'Problem Solver'];
-let pi = 0;       // phrase index
-let ci = 0;       // char index
-let deleting = false;
-let holding = false;
+let pi = 0, ci = 0, deleting = false, holding = false;
 
 function typeLoop() {
   const full = phrases[pi % phrases.length];
-
   if (holding) {
-    // Full word displayed — pause 3 seconds then start deleting
-    holding = false;
-    deleting = true;
-    setTimeout(typeLoop, 3000);
-    return;
+    holding = false; deleting = true;
+    setTimeout(typeLoop, 3000); return;
   }
-
   if (!deleting) {
-    // Typing forward
-    ci++;
-    tw.textContent = full.slice(0, ci);
-    if (ci === full.length) {
-      // Just finished typing the full word — hold before deleting
-      holding = true;
-      setTimeout(typeLoop, 80);
-    } else {
-      setTimeout(typeLoop, 120);
-    }
+    ci++; tw.textContent = full.slice(0, ci);
+    if (ci === full.length) { holding = true; setTimeout(typeLoop, 80); }
+    else { setTimeout(typeLoop, 120); }
   } else {
-    // Deleting backward
-    ci--;
-    tw.textContent = full.slice(0, ci);
-    if (ci === 0) {
-      // Fully deleted — move to next phrase
-      deleting = false;
-      pi++;
-      setTimeout(typeLoop, 400);
-    } else {
-      setTimeout(typeLoop, 70);
-    }
+    ci--; tw.textContent = full.slice(0, ci);
+    if (ci === 0) { deleting = false; pi++; setTimeout(typeLoop, 400); }
+    else { setTimeout(typeLoop, 70); }
   }
 }
 typeLoop();
@@ -985,69 +962,63 @@ fetchWeather();
 document.getElementById('weather-retry').addEventListener('click', fetchWeather);
 setInterval(fetchWeather, 10 * 60 * 1000);
 
-// ── DuckDuckGo AI Search
-const ddgInput = document.getElementById('ddg-input');
-const ddgBtn   = document.getElementById('ddg-btn');
-const ddgResults = document.getElementById('ddg-results');
-const ddgLoading = document.getElementById('ddg-loading');
-const ddgAnswer  = document.getElementById('ddg-answer');
-const ddgLink    = document.getElementById('ddg-link');
+// ── AI Tech Search (Anthropic Claude API)
+const aiInput   = document.getElementById('ai-input');
+const aiBtn     = document.getElementById('ai-btn');
+const aiResults = document.getElementById('ai-results');
+const aiLoading = document.getElementById('ai-loading');
+const aiAnswer  = document.getElementById('ai-answer');
 
-async function runDDGSearch() {
-  const q = ddgInput.value.trim();
+async function runAISearch() {
+  const q = aiInput.value.trim();
   if (!q) return;
-  ddgResults.classList.remove('hidden');
-  ddgLoading.classList.remove('hidden');
-  ddgAnswer.classList.add('hidden');
-  ddgAnswer.innerHTML = '';
-  ddgLink.href = 'https://duckduckgo.com/?q=' + encodeURIComponent(q);
-  ddgLink.textContent = 'Search DDG for "' + q.slice(0, 30) + (q.length > 30 ? '…' : '') + '" ↗';
+
+  aiResults.classList.remove('hidden');
+  aiLoading.classList.remove('hidden');
+  aiAnswer.classList.add('hidden');
+  aiAnswer.innerHTML = '';
+  aiBtn.disabled = true;
 
   try {
-    // Use DuckDuckGo AI Chat API
-    const res = await fetch('https://duckduckgo.com/duckchat/v1/chat', {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-vqd-4': '4-' + Math.random().toString(36).slice(2) },
-      body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: q }] })
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 600,
+        system: `You are a helpful IT support assistant on the website of Dylan Grow, a CompTIA A+ certified IT specialist based in New Bern, NC. Answer the user's IT question clearly and concisely in plain English — no jargon unless necessary. Keep answers practical and actionable. If the issue is complex, recommend they book a session with Dylan. Format with short paragraphs, no markdown headers.`,
+        messages: [{ role: 'user', content: q }]
+      })
     });
 
-    if (!res.ok) throw new Error('DDG API ' + res.status);
+    if (!res.ok) throw new Error('API ' + res.status);
+    const data = await res.json();
+    const text = data.content?.[0]?.text || 'No answer returned.';
 
-    // Stream the response
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let fullText = '';
-    ddgLoading.classList.add('hidden');
-    ddgAnswer.classList.remove('hidden');
+    aiLoading.classList.add('hidden');
+    aiAnswer.classList.remove('hidden');
+    // Render with line breaks
+    aiAnswer.innerHTML = text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>');
+    aiAnswer.innerHTML = '<p>' + aiAnswer.innerHTML + '</p>';
 
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value, { stream: true });
-      const lines = chunk.split('\n');
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const data = line.slice(6);
-          if (data === '[DONE]') break;
-          try {
-            const json = JSON.parse(data);
-            const delta = json.choices?.[0]?.delta?.content || '';
-            fullText += delta;
-            ddgAnswer.innerHTML = fullText.replace(/\n/g, '<br>');
-          } catch {}
-        }
-      }
-    }
-    if (!fullText) throw new Error('No content');
   } catch (err) {
-    ddgLoading.classList.add('hidden');
-    ddgAnswer.classList.remove('hidden');
-    ddgAnswer.innerHTML = `<span style="color:var(--text-d)">Could not reach DuckDuckGo AI — <a href="https://duckduckgo.com/?q=${encodeURIComponent(q)}&ia=chat" target="_blank" rel="noopener" style="color:var(--green)">open in DuckDuckGo directly ↗</a></span>`;
+    console.warn('AI Search error:', err);
+    aiLoading.classList.add('hidden');
+    aiAnswer.classList.remove('hidden');
+    aiAnswer.innerHTML = `<span style="color:var(--text-d)">Couldn't reach the AI right now — <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)">email Dylan directly</a> or <a href="tel:2523490830" style="color:var(--green)">call (252) 349-0830</a>.</span>`;
+  } finally {
+    aiBtn.disabled = false;
   }
 }
 
-ddgBtn.addEventListener('click', runDDGSearch);
-ddgInput.addEventListener('keydown', e => { if (e.key === 'Enter') runDDGSearch(); });
+aiBtn.addEventListener('click', runAISearch);
+aiInput.addEventListener('keydown', e => { if (e.key === 'Enter') runAISearch(); });
 </script>
 </body>
 </html>
