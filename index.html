@@ -6,21 +6,14 @@
 <title>Dylan Grow — IT Support &amp; Network Specialist</title>
 <meta name="description" content="CompTIA A+ Certified IT Professional specializing in enterprise support, networking, and secure infrastructure."/>
 <meta name="theme-color" content="#22c55e"/>
-<meta property="og:title" content="Dylan Grow"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://dylangrow.com"/>
-<meta property="og:description" content="Professional portfolio and certifications"/>
 <link rel="canonical" href="https://dylangrow.com/"/>
 <meta name="robots" content="index, follow"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Dylan Grow","url":"https://dylangrow.com","sameAs":["https://www.linkedin.com/in/dgrow27"]}</script>
 <style>
-/* ── Reset & Base ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;color-scheme:dark;font-size:16px}
 body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow-x:hidden}
 .mono{font-family:ui-monospace,"Cascadia Code","Fira Code","JetBrains Mono",monospace}
-
-/* ── Themes ── */
 :root{
   --bg:#050507;--bg-el:#0f0f12;--bg-card:#111114;--bg-card2:#18181c;
   --border:#27272a;--border-l:#3f3f46;
@@ -35,32 +28,28 @@ html.light{
   --text:#0f172a;--text-m:#475569;--text-d:#94a3b8;
   --green:#15803d;--green-d:#166534;--green-dim:rgba(21,128,61,.08);--green-border:rgba(21,128,61,.2)
 }
-
-/* ── Scrollbar ── */
 ::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:var(--bg-el)}
 ::-webkit-scrollbar-thumb{background:var(--green);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--green-d)}
-
-/* ── Custom cursor ── */
 @media(hover:hover) and (pointer:fine){
   *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='6' fill='%2322c55e'/%3E%3Ccircle cx='14' cy='14' r='10' fill='none' stroke='%2322c55e' stroke-width='1.5' stroke-opacity='.4'/%3E%3C/svg%3E") 14 14,auto}
 }
 
-/* ── Animations ── */
+/* FIXED: float animation only triggers on hover via .float-hover class */
 @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
 @keyframes pulse-ring{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.15)}}
 @keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(2);opacity:0}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes scan{0%{top:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
 .ping{animation:ping 1.2s cubic-bezier(0,0,.2,1) infinite}
 .pulse{animation:pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite}
-.float{animation:float 3s ease-in-out infinite}
+/* Badges: no float by default, slow float only on hover */
+.float-hover{animation:none;transition:transform .3s ease}
+.float-hover:hover{animation:float 2.5s ease-in-out infinite}
 .scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(34,197,94,.6),transparent);animation:scan 2.5s ease-in-out infinite}
 
-/* ── Layout ── */
 .mesh-fixed{position:fixed;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(at 20% 30%,rgba(34,197,94,.12) 0,transparent 50%),radial-gradient(at 80% 20%,rgba(34,197,94,.07) 0,transparent 50%)}
 .container{max-width:1400px;margin:0 auto;padding:0 1rem}
 @media(min-width:640px){.container{padding:0 1.5rem}}
@@ -68,38 +57,32 @@ html.light{
 .hidden{display:none!important}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 
-/* ── Header ── */
-.site-header{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(39,39,42,.5);background:rgba(5,5,7,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-html.light .site-header{background:rgba(248,250,252,.85);border-color:rgba(226,232,240,.6)}
-.header-inner{display:flex;align-items:center;height:64px;gap:12px}
-
-/* Brand */
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(39,39,42,.5);background:rgba(5,5,7,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+html.light .site-header{background:rgba(248,250,252,.9);border-color:rgba(226,232,240,.6)}
+.header-inner{display:flex;align-items:center;height:64px;gap:10px}
 .brand-logo{width:36px;height:36px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#000;box-shadow:0 0 20px rgba(34,197,94,.3);flex-shrink:0}
 .brand-text{display:none}
-@media(min-width:560px){.brand-text{display:block}}
-.brand-name{font-family:ui-monospace,monospace;font-weight:700;font-size:14px;line-height:1}
-.brand-sub{font-size:10px;color:var(--text-d);letter-spacing:.05em;margin-top:2px}
-
-/* Desktop nav */
+@media(min-width:420px){.brand-text{display:block}}
+.brand-name{font-family:ui-monospace,monospace;font-weight:700;font-size:13px;line-height:1}
+.brand-sub{font-size:9px;color:var(--text-d);letter-spacing:.05em;margin-top:2px}
 .nav-tabs{display:none;align-items:center;gap:2px;margin-left:8px;background:var(--bg-card);padding:4px;border-radius:10px;flex-shrink:0}
 @media(min-width:768px){.nav-tabs{display:flex}}
 .tab-btn{padding:6px 14px;font-size:13px;font-weight:500;border-radius:7px;border:none;background:none;color:var(--text-m);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center}
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{color:var(--green);background:var(--bg-el);box-shadow:0 1px 4px rgba(0,0,0,.2)}
-
-/* Mobile nav */
 .mob-tabs{display:flex;border-top:1px solid rgba(39,39,42,.5)}
 @media(min-width:768px){.mob-tabs{display:none}}
-.mob-tab-btn{flex:1;padding:10px 4px;font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--text-d);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.mob-tab-btn{flex:1;padding:10px 4px;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text-d);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
 .mob-tab-btn.active{color:var(--green);border-bottom-color:var(--green)}
 
-/* Clock */
-.clock-wrap{display:none;align-items:center;gap:12px;font-size:11px;font-weight:500;flex-shrink:0}
-@media(min-width:1200px){.clock-wrap{display:flex}}
-.clock-date{color:var(--text-d);line-height:1}
-.clock-time{font-family:ui-monospace,monospace;color:var(--green);line-height:1;margin-top:2px}
+/* CLOCK — always visible, 12hr + date */
+.clock-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.clock-block{text-align:right;line-height:1.3}
+.clock-date-str{font-size:10px;color:var(--text-d);display:block}
+.clock-time-str{font-family:ui-monospace,monospace;font-size:13px;font-weight:700;color:var(--green);display:block}
+@media(max-width:479px){.clock-date-str{display:none}.clock-time-str{font-size:12px}}
 
-/* Theme toggle */
 .theme-btn{flex-shrink:0;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;color:var(--text-m);transition:border-color .15s}
 .theme-btn:hover{border-color:var(--green-border)}
 .icon-sun{display:none}
@@ -107,15 +90,13 @@ html.light .site-header{background:rgba(248,250,252,.85);border-color:rgba(226,2
 html.dark .icon-sun{display:block}
 html.dark .icon-moon{display:none}
 
-/* ── Typography helpers ── */
+/* TYPOGRAPHY */
 .gradient-text{background:linear-gradient(105deg,#22c55e 0%,#4ade80 35%,#bbf7d0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-name{font-size:clamp(36px,9vw,120px)}
 
-/* ── Components ── */
+/* COMPONENTS */
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:24px;transition:all .2s}
 .card:hover{border-color:var(--border-l);transform:translateY(-2px)}
-.card-green:hover{border-color:var(--green-border)}
-
 .btn-green{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--green);color:#000;font-weight:600;font-size:14px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;text-decoration:none}
 .btn-green:hover{background:var(--green-d);box-shadow:0 0 30px rgba(34,197,94,.35);transform:translateY(-1px)}
 .btn-dark{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:#18181b;color:#fff;font-weight:600;font-size:14px;border-radius:12px;border:none;cursor:pointer;transition:opacity .2s;text-decoration:none}
@@ -123,35 +104,26 @@ html.light .btn-dark{background:#f1f5f9;color:#0f172a}
 .btn-dark:hover{opacity:.85}
 .btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 20px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:500;color:var(--text);background:none;cursor:pointer;text-decoration:none;transition:all .15s}
 .btn-outline:hover{border-color:var(--green-border);color:var(--green)}
-
 .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .pill-green{background:var(--green-dim);border:1px solid var(--green-border);color:var(--green)}
 .tag{display:inline-flex;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:500}
 .tag-zinc{background:var(--bg-card2);color:var(--text-m)}
 .tag-green{background:var(--green-dim);color:var(--green)}
-
-/* Form fields */
 .field-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d);margin-bottom:6px}
 .field-input{width:100%;height:44px;padding:0 14px;background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);outline:none;transition:all .15s;font-family:inherit}
 .field-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
 .field-textarea{width:100%;padding:12px 14px;background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);outline:none;transition:all .15s;resize:vertical;font-family:inherit}
 .field-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
-
-/* Contact items */
 .contact-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:all .15s}
 .contact-item:hover{border-color:var(--green-border);background:var(--green-dim)}
 .contact-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;background:var(--bg-card2);flex-shrink:0;transition:all .15s}
 .contact-item:hover .contact-icon{background:var(--green);color:#000}
-
-/* Availability badge */
 #avail-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px}
-
-/* Weather */
 .weather-stat{text-align:center}
 .weather-stat-val{font-size:13px;font-weight:600;font-family:ui-monospace,monospace}
 .weather-stat-lbl{font-size:10px;color:var(--text-d);margin-top:2px}
 
-/* Credential cards */
+/* CREDENTIAL CARDS */
 .cred-hero{position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#09130d 0%,#0d1a10 40%,#050507 100%);border:1px solid var(--green-border);padding:28px 32px;margin-bottom:16px;box-shadow:0 0 60px rgba(34,197,94,.06)}
 html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8fafc)}
 .cred-hero-glow{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
@@ -166,13 +138,15 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .cred-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.15)}
 .cred-card-glow{position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;filter:blur(30px);opacity:0;transition:opacity .3s;pointer-events:none}
 .cred-card:hover .cred-card-glow{opacity:1}
-.small-badge{width:100px;height:100px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;position:relative;overflow:hidden;margin-bottom:12px}
+.small-badge{width:100px;height:100px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;position:relative;overflow:hidden;margin-bottom:12px;transition:transform .3s ease}
+/* Hover-only float for small badges */
+.small-badge:hover{animation:float 2.5s ease-in-out infinite}
 .cred-name{font-size:14px;font-weight:700}
 .cred-sub{font-size:11px;color:var(--text-d);margin-top:2px}
 .verify-link{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--green);text-decoration:none;margin-top:8px;justify-content:center}
 .verify-link:hover{text-decoration:underline}
 
-/* Tech stack */
+/* TECH STACK */
 .tech-section{margin-top:40px}
 .tech-category{margin-bottom:28px}
 .tech-category-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-d);margin-bottom:12px;display:flex;align-items:center;gap:8px}
@@ -182,7 +156,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .tech-pill:hover{border-color:var(--green-border);background:var(--green-dim);transform:translateY(-2px)}
 .tech-pill-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 
-/* Blog */
+/* BLOG */
 .blog-grid{display:grid;gap:16px;margin-top:20px}
 @media(min-width:640px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.blog-grid{grid-template-columns:repeat(3,1fr)}}
@@ -199,20 +173,39 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .blog-modal{background:var(--bg-el);border:1px solid var(--border);border-radius:24px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;padding:32px}
 .blog-modal-close{float:right;background:var(--bg-card2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--text-m);margin-bottom:16px}
 
-/* Booking */
+/* BOOKING */
 .booking-wrap{border-radius:24px;overflow:hidden;border:1px solid var(--border);background:var(--bg-card)}
 .booking-iframe-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:16px;padding:32px;text-align:center}
 
-/* Footer */
+/* DUCKDUCKGO AI SEARCH */
+.search-section{margin-bottom:32px}
+.search-box-wrap{position:relative;max-width:680px}
+.search-input{width:100%;height:52px;padding:0 52px 0 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;font-size:15px;color:var(--text);outline:none;transition:all .2s;font-family:inherit}
+.search-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+.search-input::placeholder{color:var(--text-d)}
+.search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;background:var(--green);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.search-btn:hover{background:var(--green-d)}
+.search-btn svg{color:#000}
+.search-results{margin-top:16px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);overflow:hidden}
+.search-result-header{padding:12px 18px;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d);display:flex;align-items:center;gap:8px}
+.search-result-body{padding:18px;font-size:14px;line-height:1.8;color:var(--text-m)}
+.search-result-body a{color:var(--green);text-decoration:none}
+.search-result-body a:hover{text-decoration:underline}
+.search-loading{display:flex;align-items:center;gap:8px;padding:18px;font-size:13px;color:var(--text-d)}
+.search-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s infinite}
+.search-dot:nth-child(2){animation-delay:.15s}
+.search-dot:nth-child(3){animation-delay:.3s}
+
+/* FOOTER */
 .site-footer{border-top:1px solid rgba(39,39,42,.5);padding:32px 0;margin-top:48px}
 
-/* Grids */
+/* GRIDS */
 .about-grid{display:grid;gap:24px}
 @media(min-width:1024px){.about-grid{grid-template-columns:320px 1fr}}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:639px){.grid-2{grid-template-columns:1fr}}
 
-/* Utilities */
+/* UTILITIES */
 .flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}
 .gap-2{gap:8px}.gap-3{gap:12px}.gap-4{gap:16px}.flex-1{flex:1}.flex-wrap{flex-wrap:wrap}
 .shrink-0{flex-shrink:0}.min-w-0{min-width:0}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -224,22 +217,19 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .space-y-3>*+*{margin-top:12px}
 .border-t{border-top:1px solid var(--border)}
 
-/* Typewriter cursor on brand */
+/* Typewriter cursor */
 #typewriter{display:inline-block}
 #typewriter::after{content:'';border-right:2px solid var(--green);animation:blink 1s step-end infinite;margin-left:1px}
 </style>
 </head>
 <body>
 
-<!-- Background mesh -->
 <div class="mesh-fixed" style="background-image:radial-gradient(at 20% 30%,rgba(34,197,94,.13) 0,transparent 50%),radial-gradient(at 80% 20%,rgba(34,197,94,.08) 0,transparent 50%),radial-gradient(at 50% 80%,rgba(34,197,94,.06) 0,transparent 50%)"></div>
 
-<!-- ════ HEADER ════ -->
+<!-- HEADER -->
 <header class="site-header" id="site-header">
   <div class="container">
     <div class="header-inner">
-
-      <!-- Brand -->
       <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;min-width:0">
         <div class="brand-logo">DG</div>
         <div class="brand-text min-w-0">
@@ -248,7 +238,6 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
         </div>
       </div>
 
-      <!-- Desktop Nav -->
       <nav aria-label="Main navigation" class="nav-tabs">
         <button class="tab-btn" data-tab="home">Home</button>
         <button class="tab-btn" data-tab="about">About</button>
@@ -258,25 +247,22 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 
       <div class="flex-1"></div>
 
-      <!-- Live Clock (large screens) -->
+      <!-- CLOCK: always visible, 12hr format with date -->
       <div class="clock-wrap">
-        <div style="text-align:right">
-          <div class="clock-date text-dim" id="live-date"></div>
-          <div class="clock-time mono" id="live-clock"></div>
+        <div class="clock-block">
+          <span class="clock-date-str" id="live-date"></span>
+          <span class="clock-time-str mono" id="live-clock"></span>
         </div>
-        <div style="width:1px;height:28px;background:var(--border)"></div>
+        <div style="width:1px;height:28px;background:var(--border);margin-left:8px"></div>
       </div>
 
-      <!-- Theme toggle -->
       <button aria-label="Toggle theme" class="theme-btn" id="theme-toggle">
         <svg class="icon-sun" fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
         <svg class="icon-moon" fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
       </button>
-
-    </div><!-- /header-inner -->
+    </div>
   </div>
 
-  <!-- Mobile nav strip -->
   <div class="mob-tabs" role="tablist">
     <button class="mob-tab-btn" data-tab="home">HOME</button>
     <button class="mob-tab-btn" data-tab="about">ABOUT</button>
@@ -285,10 +271,10 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
   </div>
 </header>
 
-<!-- ════ MAIN ════ -->
+<!-- MAIN -->
 <main class="container" id="main-content" style="padding-top:32px;padding-bottom:48px;position:relative">
 
-  <!-- ════ HOME ════ -->
+  <!-- HOME -->
   <section class="tab-pane" id="home" style="min-height:75vh;display:flex;flex-direction:column;justify-content:center">
     <div style="max-width:900px">
       <div class="pill pill-green" style="margin-bottom:28px">
@@ -318,7 +304,6 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
         </div>
       </div>
 
-      <!-- Stats -->
       <div style="margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--border);padding-top:28px">
         <div>
           <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,28px)">24/7</div>
@@ -340,13 +325,10 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
     </div>
   </section>
 
-  <!-- ════ ABOUT ════ -->
+  <!-- ABOUT -->
   <section class="tab-pane hidden" id="about">
     <div class="about-grid">
-
-      <!-- LEFT: Contact + Weather -->
       <div style="display:flex;flex-direction:column;gap:16px">
-
         <!-- Contact card -->
         <div class="card" style="border-radius:24px;padding:24px">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
@@ -359,7 +341,6 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               <span id="status-text" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d)">Checking…</span>
             </div>
           </div>
-
           <div class="space-y-3">
             <a class="contact-item" href="tel:2523490830">
               <div class="contact-icon" style="color:var(--text-m)">
@@ -380,12 +361,10 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               </div>
             </a>
           </div>
-
           <div class="grid-2" style="margin-top:16px">
             <button id="vcard-btn" style="height:40px;border-radius:10px;background:var(--bg-card2);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s">💾 Save Contact</button>
             <a class="btn-outline" href="https://www.linkedin.com/in/dgrow27" rel="noopener" target="_blank">LinkedIn ↗</a>
           </div>
-
           <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
             <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
               <span style="color:var(--text-d)">Business Hours (ET)</span>
@@ -396,7 +375,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               <span class="mono font-semibold text-green">24/7 On-Call</span>
             </div>
           </div>
-        </div><!-- /contact card -->
+        </div>
 
         <!-- Weather widget -->
         <div class="card" id="weather-widget" style="border-radius:24px;padding:20px">
@@ -407,14 +386,12 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
             <button id="weather-retry" style="font-size:11px;color:var(--green);background:none;border:none;cursor:pointer;opacity:.7">↻ Refresh</button>
           </div>
-
           <div id="weather-loading" style="display:flex;align-items:center;gap:6px;padding:8px 0">
             <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .0s infinite"></div>
             <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .15s infinite"></div>
             <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .3s infinite"></div>
             <span style="font-size:12px;color:var(--text-d);margin-left:4px">Fetching…</span>
           </div>
-
           <div id="weather-data" style="display:none">
             <div style="display:flex;align-items:center;justify-content:space-between">
               <div>
@@ -433,15 +410,12 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
             <div style="margin-top:8px;font-size:10px;color:var(--text-d);text-align:right">Updated <span id="w-time">--</span></div>
           </div>
-
           <div id="weather-error" style="display:none;padding:8px 0;font-size:12px;color:var(--text-d)">Weather unavailable — check connection.</div>
-        </div><!-- /weather -->
+        </div>
+      </div>
 
-      </div><!-- /left col -->
-
-      <!-- RIGHT: Contact Form + Credentials -->
+      <!-- RIGHT COL -->
       <div style="display:flex;flex-direction:column;gap:32px">
-
         <!-- Contact Form -->
         <div class="card" style="border-radius:24px;padding:28px">
           <h2 style="font-size:26px;font-weight:700;letter-spacing:-.01em">Let's solve it.</h2>
@@ -484,7 +458,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </span>
           </div>
 
-          <!-- CompTIA A+ Hero -->
+          <!-- CompTIA A+ Hero — badge-icon-wrap uses float-hover now -->
           <div class="cred-hero">
             <div class="cred-hero-glow" style="width:300px;height:300px;top:-100px;left:10%;background:rgba(34,197,94,.12)"></div>
             <div class="cred-hero-glow" style="width:200px;height:200px;bottom:-60px;right:10%;background:rgba(34,197,94,.07)"></div>
@@ -493,7 +467,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
                 <div class="badge-ring-glow" style="background:rgba(34,197,94,.25)"></div>
                 <div class="badge-ring-border">
                   <a href="https://www.credly.com/badges/d20c1749-5008-4f7f-8ed3-f2a8a62624ec" rel="noopener" style="text-decoration:none" target="_blank" title="Verify CompTIA A+ on Credly">
-                    <div class="badge-icon-wrap float" style="background:linear-gradient(135deg,#e8002d 0%,#c00020 100%)">
+                    <div class="badge-icon-wrap float-hover" style="background:linear-gradient(135deg,#e8002d 0%,#c00020 100%)">
                       <div class="badge-shine"></div>
                       <svg fill="white" height="44" viewBox="0 0 24 24" width="44"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
                       <span style="color:white;font-size:10px;font-weight:800;letter-spacing:.1em">A+</span>
@@ -523,13 +497,12 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
           </div>
 
-          <!-- Other badges row -->
+          <!-- Other badges — small-badge uses CSS hover float -->
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
-            <!-- Google IT -->
             <div class="cred-card">
               <div class="cred-card-glow" style="background:rgba(96,165,250,.15)"></div>
               <a href="https://www.credly.com/badges/b1bd6f1b-d97f-4de0-b1ca-19f2302f9dac" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;width:100%" target="_blank">
-                <div class="small-badge float" style="background:linear-gradient(135deg,#4285f4,#1a56db)">
+                <div class="small-badge" style="background:linear-gradient(135deg,#4285f4,#1a56db)">
                   <div class="badge-shine"></div>
                   <svg fill="none" height="36" viewBox="0 0 48 48" width="36"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="white"/></svg>
                   <span style="color:white;font-size:8px;font-weight:800;letter-spacing:.1em">GOOGLE</span>
@@ -540,11 +513,10 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               </a>
             </div>
 
-            <!-- AHA CPR -->
             <div class="cred-card">
               <div class="cred-card-glow" style="background:rgba(220,38,38,.12)"></div>
               <a href="https://ecards.heart.org/student/eCards?cid=27A0B783-E702-4FFA-A008-D63D2DFA5C10" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;width:100%" target="_blank">
-                <div class="small-badge float" style="background:linear-gradient(135deg,#dc2626,#991b1b)">
+                <div class="small-badge" style="background:linear-gradient(135deg,#dc2626,#991b1b)">
                   <div class="badge-shine"></div>
                   <span style="font-size:32px">❤️</span>
                   <span style="color:white;font-size:8px;font-weight:800;letter-spacing:.08em">AHA</span>
@@ -555,7 +527,6 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               </a>
             </div>
 
-            <!-- Network+ coming soon -->
             <div class="cred-card" style="opacity:.6">
               <div class="small-badge" style="background:linear-gradient(135deg,#7c3aed,#4c1d95)">
                 <div class="badge-shine"></div>
@@ -568,17 +539,51 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
           </div>
         </div>
-
-      </div><!-- /right col -->
-    </div><!-- /about-grid -->
+      </div>
+    </div>
   </section>
 
-  <!-- ════ WORK ════ -->
+  <!-- WORK -->
   <section class="tab-pane hidden" id="work">
     <div style="max-width:1100px">
       <div style="margin-bottom:32px">
         <h2 style="font-size:clamp(26px,6vw,44px);font-weight:900;letter-spacing:-.02em">What I do.</h2>
         <p style="margin-top:6px;font-size:14px;color:var(--text-d)">End-to-end IT support for businesses across Eastern NC and remote clients nationwide.</p>
+      </div>
+
+      <!-- DuckDuckGo AI Search -->
+      <div class="search-section">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <div style="width:28px;height:28px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px">🦆</div>
+          <div>
+            <div style="font-size:14px;font-weight:700">Ask a Tech Question</div>
+            <div style="font-size:11px;color:var(--text-d)">Powered by DuckDuckGo AI Chat — no tracking, no account needed</div>
+          </div>
+        </div>
+        <div class="search-box-wrap">
+          <input class="search-input" id="ddg-input" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text"/>
+          <button class="search-btn" id="ddg-btn" title="Ask DuckDuckGo AI">
+            <svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="16"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="search-results hidden" id="ddg-results">
+          <div class="search-result-header">
+            <span>🦆</span> DuckDuckGo AI Answer
+          </div>
+          <div id="ddg-body">
+            <div class="search-loading" id="ddg-loading">
+              <div class="search-dot"></div>
+              <div class="search-dot"></div>
+              <div class="search-dot"></div>
+              <span>Thinking…</span>
+            </div>
+            <div class="search-result-body hidden" id="ddg-answer"></div>
+          </div>
+          <div style="padding:10px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text-d);display:flex;align-items:center;justify-content:space-between">
+            <span>Results via DuckDuckGo AI — no personal data stored</span>
+            <a href="https://duckduckgo.com/?q=" id="ddg-link" rel="noopener" style="color:var(--green);font-size:11px;font-weight:600;text-decoration:none" target="_blank">Search on DDG ↗</a>
+          </div>
+        </div>
       </div>
 
       <!-- Tech stack -->
@@ -676,7 +681,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
     </div>
   </section>
 
-  <!-- ════ BOOKING ════ -->
+  <!-- BOOKING -->
   <section class="tab-pane hidden" id="booking">
     <div style="max-width:1100px">
       <div style="margin-bottom:24px">
@@ -690,21 +695,8 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
           <span style="color:var(--text-d)">or email <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)">DylanGrow@gmail.com</a></span>
         </div>
       </div>
-
-      <!-- Google Calendar embed with adblock fallback -->
       <div class="booking-wrap">
-        <iframe
-          frameborder="0"
-          height="720"
-          id="cal-iframe"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true"
-          style="border:0;display:block"
-          title="Book a time with Dylan Grow"
-          width="100%">
-        </iframe>
-        <!-- Fallback if calendar is blocked by browser/adblock -->
+        <iframe frameborder="0" height="720" id="cal-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="border:0;display:block" title="Book a time with Dylan Grow" width="100%"></iframe>
         <div class="booking-iframe-msg" id="cal-fallback" style="display:none">
           <div style="font-size:3rem">📅</div>
           <div>
@@ -720,10 +712,9 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
       </div>
     </div>
   </section>
-
 </main>
 
-<!-- ════ FOOTER ════ -->
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="container" style="text-align:center;font-size:13px">
     <div style="margin-bottom:8px;opacity:.6">© <span id="year"></span> Dylan Grow · IT Support &amp; Network Specialist · New Bern, NC</div>
@@ -735,7 +726,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
   </div>
 </footer>
 
-<!-- ════ BLOG MODAL ════ -->
+<!-- BLOG MODAL -->
 <div class="blog-modal-overlay hidden" id="blog-overlay" onclick="if(event.target===this)closeBlog()">
   <div class="blog-modal">
     <button class="blog-modal-close" onclick="closeBlog()">✕ Close</button>
@@ -743,7 +734,6 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
   </div>
 </div>
 
-<!-- ════ SCRIPTS ════ -->
 <script>
 // ── Blog posts
 const blogPosts = [
@@ -752,70 +742,38 @@ const blogPosts = [
     body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">When a customer or vendor connects to your main Wi-Fi, they're on the same network as your computers, printers, servers, and POS systems. One infected personal device can spread to everything.</p>
 <h4 style="margin-top:20px;font-weight:700">What a guest network does</h4>
 <p style="color:var(--text-d);line-height:1.8;margin-top:8px;font-size:15px">A guest VLAN isolates visitors so they can reach the internet but can't touch your business devices. Modern routers (especially Ubiquiti and TP-Link Omada) make this a 10-minute setup.</p>
-<ul style="color:var(--text-d);line-height:2;margin-top:8px;padding-left:20px;font-size:15px">
-  <li>Blocks malware spreading from guest devices</li><li>Protects POS and accounting systems</li><li>Required for PCI compliance if you take cards</li><li>Keeps your network fast (bandwidth separation)</li>
-</ul>
+<ul style="color:var(--text-d);line-height:2;margin-top:8px;padding-left:20px;font-size:15px"><li>Blocks malware spreading from guest devices</li><li>Protects POS and accounting systems</li><li>Required for PCI compliance if you take cards</li><li>Keeps your network fast (bandwidth separation)</li></ul>
 <p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> If you're not running a separate guest network, your business is one infected smartphone away from a serious problem. I can set this up in under an hour.</p>`
   },
   {
     tag:'Backup & Recovery', title:'The 3-2-1 Backup Rule: What It Is and Why You Need It',
     body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">The 3-2-1 rule: keep <strong>3 copies</strong> of your data, on <strong>2 different media types</strong>, with <strong>1 copy offsite</strong>.</p>
-<ul style="color:var(--text-d);line-height:2;margin-top:16px;padding-left:20px;font-size:15px">
-  <li><strong>Copy 1:</strong> Your live working files (PC or server)</li><li><strong>Copy 2:</strong> A local external drive or NAS</li><li><strong>Copy 3:</strong> Cloud storage (Backblaze, OneDrive, or similar)</li>
-</ul>
+<ul style="color:var(--text-d);line-height:2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Copy 1:</strong> Your live working files (PC or server)</li><li><strong>Copy 2:</strong> A local external drive or NAS</li><li><strong>Copy 3:</strong> Cloud storage (Backblaze, OneDrive, or similar)</li></ul>
 <p style="color:var(--text-d);line-height:1.8;margin-top:16px;font-size:15px">Ransomware attacks encrypt your local files AND connected drives simultaneously. The only thing that saves you is an offsite copy that wasn't connected when the attack hit.</p>
 <p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> I can set up automated 3-2-1 backups for your business in one visit — cloud + local, fully automated, tested monthly.</p>`
   },
   {
     tag:'Performance', title:'Is Your PC Actually Slow, or Just Needs a Tune-Up?',
     body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Before you spend $800 on a new computer, run through this checklist. Nine times out of ten, slowness has a fixable cause.</p>
-<ol style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px">
-  <li><strong>Storage:</strong> If your hard drive is over 85% full, everything slows to a crawl.</li>
-  <li><strong>RAM:</strong> 8GB is the minimum for Windows 11. Running Chrome + Office + Teams on 4GB is painful.</li>
-  <li><strong>Startup programs:</strong> Open Task Manager → Startup tab. Disable everything non-essential.</li>
-  <li><strong>Malware:</strong> Background adware silently eats CPU and RAM.</li>
-  <li><strong>Thermal throttling:</strong> Dust-clogged fans cause CPUs to slow to avoid overheating.</li>
-</ol>
+<ol style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Storage:</strong> If your hard drive is over 85% full, everything slows to a crawl.</li><li><strong>RAM:</strong> 8GB is the minimum for Windows 11. Running Chrome + Office + Teams on 4GB is painful.</li><li><strong>Startup programs:</strong> Open Task Manager → Startup tab. Disable everything non-essential.</li><li><strong>Malware:</strong> Background adware silently eats CPU and RAM.</li><li><strong>Thermal throttling:</strong> Dust-clogged fans cause CPUs to slow to avoid overheating.</li></ol>
 <p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> A $150 tune-up often makes a 5-year-old PC feel new. Call me before you buy a replacement.</p>`
   },
   {
     tag:'Phishing', title:'How to Spot a Phishing Email Before It Costs You',
     body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Phishing emails now look disturbingly legitimate. Here are the real red flags — beyond the obvious spelling errors.</p>
-<ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px">
-  <li><strong>Sender domain mismatch:</strong> "support@micros0ft-help.com" vs "support@microsoft.com"</li>
-  <li><strong>Urgency pressure:</strong> "Your account will be suspended in 24 hours." Legitimate services don't work like this.</li>
-  <li><strong>Unexpected attachments:</strong> An invoice you didn't request, a shipping notice for something you didn't order.</li>
-  <li><strong>Generic greetings:</strong> "Dear Customer" instead of your name — often a mass campaign.</li>
-  <li><strong>Mismatched links:</strong> Hover any link before clicking. The URL shown and actual destination rarely match in phishing.</li>
-</ul>
+<ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Sender domain mismatch:</strong> "support@micros0ft-help.com" vs "support@microsoft.com"</li><li><strong>Urgency pressure:</strong> "Your account will be suspended in 24 hours." Legitimate services don't work like this.</li><li><strong>Unexpected attachments:</strong> An invoice you didn't request, a shipping notice for something you didn't order.</li><li><strong>Generic greetings:</strong> "Dear Customer" instead of your name — often a mass campaign.</li><li><strong>Mismatched links:</strong> Hover any link before clicking. The URL shown and actual destination rarely match in phishing.</li></ul>
 <p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> When in doubt, call the company directly using a number from their real website. I also offer staff phishing awareness training.</p>`
   },
   {
     tag:'Remote Work', title:'Setting Up Secure Remote Access for Your Team',
     body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Remote access isn't one-size-fits-all. The right solution depends on what your team needs to access and how sensitive that data is.</p>
-<ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px">
-  <li><strong>Business VPN:</strong> Best for teams needing access to shared drives, local servers, or office printers.</li>
-  <li><strong>Remote Desktop (RDP):</strong> Best when employees need their full office PC from home.</li>
-  <li><strong>Cloud apps (M365, Google Workspace):</strong> Best for document collaboration with no on-premise infrastructure.</li>
-  <li><strong>Zero Trust / Cloudflare Access:</strong> Best for high-security environments — per-app access control.</li>
-</ul>
+<ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Business VPN:</strong> Best for teams needing access to shared drives, local servers, or office printers.</li><li><strong>Remote Desktop (RDP):</strong> Best when employees need their full office PC from home.</li><li><strong>Cloud apps (M365, Google Workspace):</strong> Best for document collaboration with no on-premise infrastructure.</li><li><strong>Zero Trust / Cloudflare Access:</strong> Best for high-security environments — per-app access control.</li></ul>
 <p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> I'll assess your setup and recommend the right option — then configure it securely.</p>`
   },
   {
     tag:'Maintenance', title:'The Monthly IT Checklist Every Small Business Should Run',
     body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Set a calendar reminder for the first Monday of each month and run through these 10 items.</p>
-<ol style="color:var(--text-d);line-height:2.4;margin-top:16px;padding-left:20px;font-size:15px">
-  <li>✅ Check Windows/macOS updates — install pending ones</li>
-  <li>✅ Verify backup ran last night (check the log or test a restore)</li>
-  <li>✅ Review user accounts — remove anyone who left the company</li>
-  <li>✅ Check disk space on servers and key machines (&lt;85% is healthy)</li>
-  <li>✅ Run antivirus scan on at least one machine</li>
-  <li>✅ Test UPS battery backup units (press test button)</li>
-  <li>✅ Review any failed login alerts or unusual activity</li>
-  <li>✅ Update router/firewall firmware if available</li>
-  <li>✅ Clear old temp files and browser caches on shared machines</li>
-  <li>✅ Confirm offsite backup is current and accessible</li>
-</ol>
+<ol style="color:var(--text-d);line-height:2.4;margin-top:16px;padding-left:20px;font-size:15px"><li>✅ Check Windows/macOS updates — install pending ones</li><li>✅ Verify backup ran last night (check the log or test a restore)</li><li>✅ Review user accounts — remove anyone who left the company</li><li>✅ Check disk space on servers and key machines (&lt;85% is healthy)</li><li>✅ Run antivirus scan on at least one machine</li><li>✅ Test UPS battery backup units (press test button)</li><li>✅ Review any failed login alerts or unusual activity</li><li>✅ Update router/firewall firmware if available</li><li>✅ Clear old temp files and browser caches on shared machines</li><li>✅ Confirm offsite backup is current and accessible</li></ol>
 <p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> Ask about my monthly managed IT plans. Flat rate — no surprise bills.</p>`
   }
 ];
@@ -824,8 +782,7 @@ function openBlog(i) {
   const p = blogPosts[i];
   document.getElementById('blog-modal-content').innerHTML =
     `<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">${p.tag}</span>
-    <h2 style="font-size:22px;font-weight:800;margin:8px 0 20px;letter-spacing:-.01em;line-height:1.3">${p.title}</h2>
-    ${p.body}`;
+    <h2 style="font-size:22px;font-weight:800;margin:8px 0 20px;letter-spacing:-.01em;line-height:1.3">${p.title}</h2>${p.body}`;
   document.getElementById('blog-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
@@ -853,7 +810,7 @@ themeToggle.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'light' : 'dark');
 });
 
-// ── Live Clock (Eastern Time)
+// ── CLOCK: 12-hour with date, always visible
 function updateClock() {
   const now = new Date();
   const et = { timeZone: 'America/New_York' };
@@ -862,23 +819,56 @@ function updateClock() {
   document.getElementById('live-date').textContent =
     new Intl.DateTimeFormat('en-US', { ...et, weekday: 'short', month: 'short', day: 'numeric' }).format(now);
 }
-updateClock(); setInterval(updateClock, 1000);
+updateClock();
+setInterval(updateClock, 1000);
 
-// ── Typewriter (brand name cycling)
+// ── TYPEWRITER — fixed: types full word, holds 3s, then deletes
 const tw = document.getElementById('typewriter');
 const phrases = ['Dylan Grow', 'IT Specialist', 'Network Pro', 'Problem Solver'];
-let pi = 0, ci = 0, del = false;
+let pi = 0;       // phrase index
+let ci = 0;       // char index
+let deleting = false;
+let holding = false;
+
 function typeLoop() {
   const full = phrases[pi % phrases.length];
-  tw.textContent = full.slice(0, ci);
-  if (!del && ci < full.length) ci++;
-  else if (del && ci > 0) ci--;
-  else { del = !del; if (!del) pi++; }
-  setTimeout(typeLoop, del ? 80 : (ci === full.length ? 2500 : 120));
+
+  if (holding) {
+    // Full word displayed — pause 3 seconds then start deleting
+    holding = false;
+    deleting = true;
+    setTimeout(typeLoop, 3000);
+    return;
+  }
+
+  if (!deleting) {
+    // Typing forward
+    ci++;
+    tw.textContent = full.slice(0, ci);
+    if (ci === full.length) {
+      // Just finished typing the full word — hold before deleting
+      holding = true;
+      setTimeout(typeLoop, 80);
+    } else {
+      setTimeout(typeLoop, 120);
+    }
+  } else {
+    // Deleting backward
+    ci--;
+    tw.textContent = full.slice(0, ci);
+    if (ci === 0) {
+      // Fully deleted — move to next phrase
+      deleting = false;
+      pi++;
+      setTimeout(typeLoop, 400);
+    } else {
+      setTimeout(typeLoop, 70);
+    }
+  }
 }
 typeLoop();
 
-// ── Tab Navigation (the fixed version)
+// ── Tab Navigation
 const tabBtns = document.querySelectorAll('.tab-btn');
 const mobBtns = document.querySelectorAll('.mob-tab-btn');
 const panes   = document.querySelectorAll('.tab-pane');
@@ -890,17 +880,15 @@ function setActive(name) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   history.replaceState(null, '', '#' + name);
 }
-
 tabBtns.forEach(b => b.addEventListener('click', () => setActive(b.dataset.tab)));
 mobBtns.forEach(b => b.addEventListener('click', () => setActive(b.dataset.tab)));
 document.querySelectorAll('[data-tab-target]').forEach(b => b.addEventListener('click', () => setActive(b.dataset.tabTarget)));
 
-// Init from URL hash or default to home
 const validTabs = ['home', 'about', 'work', 'booking'];
 const initTab = validTabs.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
 setActive(initTab);
 
-// ── Availability badge (business hours ET)
+// ── Availability badge
 function checkAvailability() {
   const et   = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
   const day  = et.getDay(), hour = et.getHours() + et.getMinutes() / 60;
@@ -930,7 +918,7 @@ document.getElementById('vcard-btn').addEventListener('click', () => {
   document.body.appendChild(a); a.click(); a.remove();
 });
 
-// ── Contact form (Google Apps Script — no-cors)
+// ── Contact form
 const form = document.getElementById('contact-form');
 const fst  = document.getElementById('form-status');
 form.addEventListener('submit', async e => {
@@ -954,38 +942,24 @@ form.addEventListener('submit', async e => {
 
 // ── Calendar iframe adblock fallback
 (function() {
-  const iframe   = document.getElementById('cal-iframe');
+  const iframe = document.getElementById('cal-iframe');
   const fallback = document.getElementById('cal-fallback');
   if (!iframe) return;
   let loaded = false;
   iframe.addEventListener('load', () => { loaded = true; });
-  setTimeout(() => {
-    if (!loaded) { iframe.style.display = 'none'; fallback.style.display = 'flex'; }
-  }, 5000);
+  setTimeout(() => { if (!loaded) { iframe.style.display = 'none'; fallback.style.display = 'flex'; } }, 5000);
   iframe.addEventListener('error', () => { iframe.style.display = 'none'; fallback.style.display = 'flex'; });
 })();
 
-// ── Weather (Open-Meteo — no API key, no tracking, adblock-safe)
+// ── Weather
 const LAT = 35.1085, LON = -77.0441;
-const weatherIconMap = {
-  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
-  51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
-  71:'❄️',73:'❄️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',
-  85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'
-};
-const weatherDescMap = {
-  0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',
-  45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
-  61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',
-  75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Rain showers',82:'Violent showers',
-  85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm w/ hail',99:'Heavy thunderstorm'
-};
-
+const weatherIconMap = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+const weatherDescMap = {0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Rain showers',82:'Violent showers',85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm w/ hail',99:'Heavy thunderstorm'};
 async function fetchWeather() {
   const el = id => document.getElementById(id);
   el('weather-loading').style.display = 'flex';
-  el('weather-data').style.display   = 'none';
-  el('weather-error').style.display  = 'none';
+  el('weather-data').style.display = 'none';
+  el('weather-error').style.display = 'none';
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
     const res = await fetch(url);
@@ -1000,16 +974,80 @@ async function fetchWeather() {
     el('w-icon').textContent  = weatherIconMap[code] || '🌡️';
     el('w-time').textContent  = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }).format(new Date());
     el('weather-loading').style.display = 'none';
-    el('weather-data').style.display    = 'block';
+    el('weather-data').style.display = 'block';
   } catch(err) {
     console.warn('Weather:', err);
     el('weather-loading').style.display = 'none';
-    el('weather-error').style.display   = 'block';
+    el('weather-error').style.display = 'block';
   }
 }
 fetchWeather();
 document.getElementById('weather-retry').addEventListener('click', fetchWeather);
 setInterval(fetchWeather, 10 * 60 * 1000);
+
+// ── DuckDuckGo AI Search
+const ddgInput = document.getElementById('ddg-input');
+const ddgBtn   = document.getElementById('ddg-btn');
+const ddgResults = document.getElementById('ddg-results');
+const ddgLoading = document.getElementById('ddg-loading');
+const ddgAnswer  = document.getElementById('ddg-answer');
+const ddgLink    = document.getElementById('ddg-link');
+
+async function runDDGSearch() {
+  const q = ddgInput.value.trim();
+  if (!q) return;
+  ddgResults.classList.remove('hidden');
+  ddgLoading.classList.remove('hidden');
+  ddgAnswer.classList.add('hidden');
+  ddgAnswer.innerHTML = '';
+  ddgLink.href = 'https://duckduckgo.com/?q=' + encodeURIComponent(q);
+  ddgLink.textContent = 'Search DDG for "' + q.slice(0, 30) + (q.length > 30 ? '…' : '') + '" ↗';
+
+  try {
+    // Use DuckDuckGo AI Chat API
+    const res = await fetch('https://duckduckgo.com/duckchat/v1/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-vqd-4': '4-' + Math.random().toString(36).slice(2) },
+      body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'user', content: q }] })
+    });
+
+    if (!res.ok) throw new Error('DDG API ' + res.status);
+
+    // Stream the response
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let fullText = '';
+    ddgLoading.classList.add('hidden');
+    ddgAnswer.classList.remove('hidden');
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split('\n');
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const data = line.slice(6);
+          if (data === '[DONE]') break;
+          try {
+            const json = JSON.parse(data);
+            const delta = json.choices?.[0]?.delta?.content || '';
+            fullText += delta;
+            ddgAnswer.innerHTML = fullText.replace(/\n/g, '<br>');
+          } catch {}
+        }
+      }
+    }
+    if (!fullText) throw new Error('No content');
+  } catch (err) {
+    ddgLoading.classList.add('hidden');
+    ddgAnswer.classList.remove('hidden');
+    ddgAnswer.innerHTML = `<span style="color:var(--text-d)">Could not reach DuckDuckGo AI — <a href="https://duckduckgo.com/?q=${encodeURIComponent(q)}&ia=chat" target="_blank" rel="noopener" style="color:var(--green)">open in DuckDuckGo directly ↗</a></span>`;
+  }
+}
+
+ddgBtn.addEventListener('click', runDDGSearch);
+ddgInput.addEventListener('keydown', e => { if (e.key === 'Enter') runDDGSearch(); });
 </script>
 </body>
 </html>
