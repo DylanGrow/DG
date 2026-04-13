@@ -6,7 +6,10 @@
 <title>Dylan Grow — IT Support &amp; Network Specialist</title>
 <meta name="description" content="CompTIA A+ Certified IT Professional specializing in enterprise support, networking, and secure infrastructure."/>
 <meta name="theme-color" content="#22c55e"/>
-<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
 <link rel="canonical" href="https://dylangrow.com/"/>
 <meta name="robots" content="index, follow"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Dylan Grow","url":"https://dylangrow.com","sameAs":["https://www.linkedin.com/in/dgrow27"]}</script>
@@ -246,7 +249,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .search-box-wrap{position:relative;max-width:680px}
 .search-input{width:100%;height:56px;padding:0 58px 0 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;font-size:16px;color:var(--text);outline:none;transition:all .2s;font-family:inherit}
 .search-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.15)}
-.search-input::placeholder{color:var(--text-d)}
+.search-input::placeholder{color:var(--text-d);transition:color 0.2s}
 .search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:40px;height:40px;background:var(--green);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0;min-height:40px}
 .search-btn:hover{background:var(--green-d)}
 .search-btn svg{color:#000}
@@ -450,7 +453,6 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
           </div>
         </div>
-
       </div>
 
       <div style="display:flex;flex-direction:column;gap:32px">
@@ -591,6 +593,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             <span style="color:var(--text-d)">or email <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)" aria-label="Email Dylan">DylanGrow@gmail.com</a></span>
           </div>
         </div>
+
         <div class="card" id="weather-widget" style="border-radius:24px;padding:22px;width:100%;max-width:340px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
             <div>
@@ -626,6 +629,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
           <div id="weather-error" style="display:none;padding:8px 0;font-size:13px;color:var(--text-d)" role="alert">Weather unavailable — check connection.</div>
         </div>
       </div>
+
       <div class="booking-wrap">
         <iframe frameborder="0" height="720" id="cal-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="border:0;display:block" title="Book a time with Dylan Grow" width="100%" aria-label="Google Calendar booking"></iframe>
         <div class="booking-iframe-msg" id="cal-fallback" style="display:none" role="alert">
@@ -772,17 +776,16 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
           <div aria-hidden="true" style="width:30px;height:30px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px">🤖</div>
           <div>
             <div style="font-size:15px;font-weight:700">Ask a Tech Question</div>
-            <div style="font-size:12px;color:var(--text-d)">AI-powered answers — searches securely via DuckDuckGo AI</div>
+            <div style="font-size:12px;color:var(--text-d)">Searches securely via DuckDuckGo AI</div>
           </div>
         </div>
-        <form action="https://duckduckgo.com/" method="get" target="_blank" class="search-box-wrap" role="search">
-          <input type="hidden" name="ia" value="chat">
+        <div class="search-box-wrap" role="search">
           <label for="ai-input" class="sr-only">Type your IT question</label>
-          <input class="search-input" id="ai-input" name="q" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text" aria-label="Type your IT question here" required/>
-          <button type="submit" class="search-btn" id="ai-btn" aria-label="Submit your tech question">
+          <input class="search-input" id="ai-input" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text" aria-label="Type your IT question here"/>
+          <button class="search-btn" id="ai-btn" aria-label="Submit your tech question">
             <svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-        </form>
+        </div>
       </div>
 
       <div class="tech-section">
@@ -1184,6 +1187,58 @@ async function fetchWeather(){
 fetchWeather();
 document.getElementById('weather-retry').addEventListener('click',fetchWeather);
 setInterval(fetchWeather,10*60*1000);
+
+// ═══════════════════════════════════════════
+// AI SEARCH — DUCKDUCKGO CLIPBOARD INJECT
+// ═══════════════════════════════════════════
+const aiInput = document.getElementById('ai-input');
+const aiBtn = document.getElementById('ai-btn');
+
+function runDuckSearch() {
+  const q = aiInput.value.trim();
+  if (!q) return;
+  
+  // 1. Open the Duck AI tab synchronously to prevent aggressive popup blockers
+  const aiWindow = window.open('https://duckduckgo.com/chat', '_blank', 'noopener,noreferrer');
+  
+  // 2. We use the modern clipboard API, falling back if it's denied
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(q).then(() => {
+      aiInput.value = '';
+      aiInput.placeholder = 'Copied! Hit Ctrl+V (Paste) into Duck AI ➔';
+      setTimeout(() => { aiInput.placeholder = 'e.g. Why is my Wi-Fi slow? How do I set up a VPN?'; }, 4000);
+    }).catch(() => {
+      // Fallback if clipboard fails: Try standard URL parameters
+      if(aiWindow) aiWindow.location.href = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&ia=chat`;
+    });
+  } else {
+    // 3. Fallback for non-HTTPS local environments
+    try {
+      const textArea = document.createElement("textarea");
+      textArea.value = q;
+      textArea.style.position = "fixed";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      
+      aiInput.value = '';
+      aiInput.placeholder = 'Copied! Hit Ctrl+V (Paste) into Duck AI ➔';
+      setTimeout(() => { aiInput.placeholder = 'e.g. Why is my Wi-Fi slow? How do I set up a VPN?'; }, 4000);
+    } catch(e) {
+      if(aiWindow) aiWindow.location.href = `https://duckduckgo.com/?q=${encodeURIComponent(q)}&ia=chat`;
+    }
+  }
+}
+
+aiBtn.addEventListener('click', runDuckSearch);
+aiInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    runDuckSearch();
+  }
+});
 
 // ═══════════════════════════════════════════
 // CUSTOM CURSOR + SPARK TRAIL
