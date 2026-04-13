@@ -3,6 +3,17 @@
 //  All local, zero external dependencies
 // ═══════════════════════════════════════════
 
+// ── DuckDuckGo search — opens in new tab, retains typed text
+const ddgInput = document.getElementById('ddg-input');
+if (ddgInput) {
+  ddgInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const q = ddgInput.value.trim();
+      if (q) window.open('https://duckduckgo.com/?q=' + encodeURIComponent(q), '_blank');
+    }
+  });
+}
+
 // ── Blog post content
 const blogPosts = [
   {
@@ -156,10 +167,20 @@ let pi = 0, ci = 0, deleting = false;
 function typeLoop() {
   const full = phrases[pi % phrases.length];
   twEl.textContent = full.slice(0, ci);
-  if (!deleting && ci < full.length)      ci++;
-  else if (deleting && ci > 0)            ci--;
-  else { deleting = !deleting; if (!deleting) pi++; }
-  setTimeout(typeLoop, deleting ? 45 : (ci === full.length ? 1400 : 90));
+  if (!deleting && ci < full.length) {
+    ci++;
+    setTimeout(typeLoop, 80);        // typing speed
+  } else if (!deleting && ci === full.length) {
+    deleting = true;
+    setTimeout(typeLoop, 2200);      // hold the full phrase before deleting
+  } else if (deleting && ci > 0) {
+    ci--;
+    setTimeout(typeLoop, 60);        // delete speed
+  } else {
+    deleting = false;
+    pi++;
+    setTimeout(typeLoop, 400);       // pause after erased before typing next
+  }
 }
 typeLoop();
 
