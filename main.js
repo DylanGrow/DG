@@ -1,14 +1,13 @@
-// Ensure DOM is fully loaded before executing
 document.addEventListener('DOMContentLoaded', () => {
-    // Duck.ai search - retains query in box after search
-    const duckInput = document.getElementById('duck-ai-q');
-    if (duckInput) {
-        const form = duckInput.closest('form');
-        form.addEventListener('submit', () => {
-            const val = duckInput.value;
-            setTimeout(() => { 
-                duckInput.value = val; 
-                duckInput.focus(); 
+  const duckInput = document.getElementById('duck-ai-q');
+  if (duckInput) {
+    const form = duckInput.closest('form');
+    form.addEventListener('submit', () => {
+      const val = duckInput.value;
+      setTimeout(() => { duckInput.value = val; duckInput.focus(); }, 50);
+    });
+  }
+});
             }, 50);
         });
     }
