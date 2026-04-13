@@ -10,17 +10,21 @@
 <meta name="robots" content="index, follow"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Dylan Grow","url":"https://dylangrow.com","sameAs":["https://www.linkedin.com/in/dgrow27"]}</script>
 <style>
+/* ── RESET & BASE ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;color-scheme:dark;font-size:16px}
-body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow-x:hidden}
+html{scroll-behavior:smooth;color-scheme:dark;font-size:18px}
+body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow-x:hidden}
 .mono{font-family:ui-monospace,"Cascadia Code","Fira Code","JetBrains Mono",monospace}
+
+/* ── DESIGN TOKENS ── */
 :root{
   --bg:#050507;--bg-el:#0f0f12;--bg-card:#111114;--bg-card2:#18181c;
   --border:#27272a;--border-l:#3f3f46;
   --text:#f4f4f5;--text-m:#a1a1aa;--text-d:#71717a;
   --green:#22c55e;--green-d:#16a34a;--green-dim:rgba(34,197,94,.12);--green-border:rgba(34,197,94,.22);
   --red:#dc2626;--red-dim:rgba(220,38,38,.1);--red-border:rgba(220,38,38,.3);
-  --blue-dim:rgba(96,165,250,.08);--blue-border:rgba(96,165,250,.25);--blue:#60a5fa
+  --blue-dim:rgba(96,165,250,.08);--blue-border:rgba(96,165,250,.25);--blue:#60a5fa;
+  --focus-ring:0 0 0 3px rgba(34,197,94,.55);
 }
 html.light{
   --bg:#f8fafc;--bg-el:#ffffff;--bg-card:#ffffff;--bg-card2:#f1f5f9;
@@ -28,102 +32,142 @@ html.light{
   --text:#0f172a;--text-m:#475569;--text-d:#94a3b8;
   --green:#15803d;--green-d:#166534;--green-dim:rgba(21,128,61,.08);--green-border:rgba(21,128,61,.2)
 }
+
+/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:var(--bg-el)}
 ::-webkit-scrollbar-thumb{background:var(--green);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--green-d)}
+
+/* ── ACCESSIBILITY: FOCUS RINGS ── */
+:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:6px}
+a:focus-visible,button:focus-visible{box-shadow:var(--focus-ring)}
+.tab-btn:focus-visible,.mob-tab-btn:focus-visible{box-shadow:var(--focus-ring)}
+
+/* ── SKIP LINK ── */
+.skip-link{position:absolute;top:-100px;left:16px;background:var(--green);color:#000;padding:10px 18px;border-radius:0 0 10px 10px;font-weight:700;font-size:14px;text-decoration:none;z-index:9999;transition:top .15s}
+.skip-link:focus{top:0}
+
+/* ── CUSTOM CURSOR ── */
 @media(hover:hover) and (pointer:fine){
-  *{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='6' fill='%2322c55e'/%3E%3Ccircle cx='14' cy='14' r='10' fill='none' stroke='%2322c55e' stroke-width='1.5' stroke-opacity='.4'/%3E%3C/svg%3E") 14 14,auto}
+  *{cursor:none!important}
+  #cursor-dot,#cursor-ring{position:fixed;pointer-events:none;z-index:9998;border-radius:50%;transition:opacity .3s}
+  #cursor-dot{width:8px;height:8px;background:var(--green);top:0;left:0;transform:translate(-50%,-50%)}
+  #cursor-ring{width:32px;height:32px;border:1.5px solid rgba(34,197,94,.5);top:0;left:0;transform:translate(-50%,-50%);transition:transform .12s ease,border-color .2s,width .2s,height .2s}
+  body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:44px;height:44px;border-color:var(--green)}
 }
 
-/* FIXED: float animation — gentler, less bounce */
+/* ── ANIMATIONS ── */
 @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
 @keyframes pulse-ring{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.7;transform:scale(1.15)}}
 @keyframes ping{0%{transform:scale(1);opacity:.75}100%{transform:scale(2);opacity:0}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-@keyframes scan{0%{top:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+@keyframes breathe{0%,100%{box-shadow:0 0 20px rgba(34,197,94,.3),0 0 40px rgba(34,197,94,.1)}50%{box-shadow:0 0 35px rgba(34,197,94,.6),0 0 70px rgba(34,197,94,.25)}}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sparkle{0%{opacity:1;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(0) translate(var(--dx),var(--dy))}}
+@keyframes gridPulse{0%,100%{opacity:.03}50%{opacity:.07}}
+
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 .ping{animation:ping 1.2s cubic-bezier(0,0,.2,1) infinite}
 .pulse{animation:pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite}
-/* Badges: no float by default, gentle slow float only on hover */
 .float-hover{animation:none;transition:transform .3s ease}
 .float-hover:hover{animation:float 3.5s ease-in-out infinite}
-.scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(34,197,94,.6),transparent);animation:scan 2.5s ease-in-out infinite}
+.small-badge:hover{animation:float 3.5s ease-in-out infinite}
 
-.mesh-fixed{position:fixed;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(at 20% 30%,rgba(34,197,94,.12) 0,transparent 50%),radial-gradient(at 80% 20%,rgba(34,197,94,.07) 0,transparent 50%)}
-.container{max-width:1400px;margin:0 auto;padding:0 1rem}
-@media(min-width:640px){.container{padding:0 1.5rem}}
-@media(min-width:1024px){.container{padding:0 2rem}}
+/* ── CINEMATIC LAYER ── */
+#cinematic-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.mesh-glow{position:absolute;border-radius:50%;filter:blur(80px);animation:pulse-ring 6s ease-in-out infinite}
+.mesh-glow:nth-child(1){width:600px;height:600px;top:-200px;left:-100px;background:rgba(34,197,94,.07)}
+.mesh-glow:nth-child(2){width:400px;height:400px;top:30%;right:-100px;background:rgba(34,197,94,.05);animation-delay:-2s}
+.mesh-glow:nth-child(3){width:300px;height:300px;bottom:10%;left:20%;background:rgba(34,197,94,.04);animation-delay:-4s}
+#grid-overlay{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(34,197,94,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,.04) 1px,transparent 1px);
+  background-size:48px 48px;animation:gridPulse 8s ease-in-out infinite}
+#scan-overlay{position:fixed;top:0;left:0;right:0;height:2px;pointer-events:none;z-index:1;
+  background:linear-gradient(90deg,transparent,rgba(34,197,94,.4),transparent);
+  animation:scanline 8s linear infinite;opacity:.4}
+#particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+/* ── LAYOUT ── */
+.container{max-width:1400px;margin:0 auto;padding:0 1.25rem;position:relative;z-index:2}
+@media(min-width:640px){.container{padding:0 1.75rem}}
+@media(min-width:1024px){.container{padding:0 2.5rem}}
 .hidden{display:none!important}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
 
-/* HEADER */
-.site-header{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(39,39,42,.5);background:rgba(5,5,7,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-html.light .site-header{background:rgba(248,250,252,.9);border-color:rgba(226,232,240,.6)}
-.header-inner{display:flex;align-items:center;height:64px;gap:10px}
-.brand-logo{width:36px;height:36px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#000;box-shadow:0 0 20px rgba(34,197,94,.3);flex-shrink:0}
+/* ── HEADER ── */
+.site-header{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(39,39,42,.5);background:rgba(5,5,7,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+html.light .site-header{background:rgba(248,250,252,.92);border-color:rgba(226,232,240,.6)}
+.header-inner{display:flex;align-items:center;height:68px;gap:10px}
+.brand-logo{width:40px;height:40px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#000;flex-shrink:0;animation:breathe 4s ease-in-out infinite}
 .brand-text{display:none}
 @media(min-width:420px){.brand-text{display:block}}
-.brand-name{font-family:ui-monospace,monospace;font-weight:700;font-size:13px;line-height:1}
-.brand-sub{font-size:9px;color:var(--text-d);letter-spacing:.05em;margin-top:2px}
+.brand-name{font-family:ui-monospace,monospace;font-weight:700;font-size:14px;line-height:1}
+.brand-sub{font-size:10px;color:var(--text-d);letter-spacing:.05em;margin-top:2px}
 .nav-tabs{display:none;align-items:center;gap:2px;margin-left:8px;background:var(--bg-card);padding:4px;border-radius:10px;flex-shrink:0}
 @media(min-width:768px){.nav-tabs{display:flex}}
-.tab-btn{padding:6px 14px;font-size:13px;font-weight:500;border-radius:7px;border:none;background:none;color:var(--text-m);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center}
+.tab-btn{padding:8px 16px;font-size:14px;font-weight:500;border-radius:7px;border:none;background:none;color:var(--text-m);cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;min-height:40px}
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{color:var(--green);background:var(--bg-el);box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .mob-tabs{display:flex;border-top:1px solid rgba(39,39,42,.5)}
 @media(min-width:768px){.mob-tabs{display:none}}
-.mob-tab-btn{flex:1;padding:10px 4px;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text-d);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.mob-tab-btn{flex:1;padding:12px 4px;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--text-d);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;min-height:48px}
 .mob-tab-btn.active{color:var(--green);border-bottom-color:var(--green)}
 
-/* CLOCK — always visible, 12hr + date */
+/* ── CLOCK ── */
 .clock-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .clock-block{text-align:right;line-height:1.3}
-.clock-date-str{font-size:10px;color:var(--text-d);display:block}
-.clock-time-str{font-family:ui-monospace,monospace;font-size:13px;font-weight:700;color:var(--green);display:block}
+.clock-date-str{font-size:11px;color:var(--text-d);display:block}
+.clock-time-str{font-family:ui-monospace,monospace;font-size:14px;font-weight:700;color:var(--green);display:block}
 @media(max-width:479px){.clock-date-str{display:none}.clock-time-str{font-size:12px}}
 
-.theme-btn{flex-shrink:0;width:34px;height:34px;display:grid;place-items:center;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;color:var(--text-m);transition:border-color .15s}
+/* ── THEME BUTTON ── */
+.theme-btn{flex-shrink:0;width:40px;height:40px;display:grid;place-items:center;border-radius:8px;background:var(--bg-card);border:1px solid var(--border);cursor:pointer;color:var(--text-m);transition:border-color .15s;min-height:40px}
 .theme-btn:hover{border-color:var(--green-border)}
-.icon-sun{display:none}
-.icon-moon{display:block}
-html.dark .icon-sun{display:block}
-html.dark .icon-moon{display:none}
+.icon-sun{display:none}.icon-moon{display:block}
+html.dark .icon-sun{display:block}html.dark .icon-moon{display:none}
 
-/* TYPOGRAPHY */
+/* ── TYPOGRAPHY ── */
 .gradient-text{background:linear-gradient(105deg,#22c55e 0%,#4ade80 35%,#bbf7d0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-name{font-size:clamp(36px,9vw,120px)}
+.hero-name{font-size:clamp(40px,9vw,120px)}
 
-/* COMPONENTS */
-.card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:24px;transition:all .2s}
+/* ── TAB TRANSITION ── */
+.tab-pane{animation:fadeSlideIn .35s ease both}
+.tab-pane.hidden{display:none!important}
+
+/* ── COMPONENTS ── */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px;transition:all .2s}
 .card:hover{border-color:var(--border-l);transform:translateY(-2px)}
-.btn-green{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--green);color:#000;font-weight:600;font-size:14px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-green:hover{background:var(--green-d);box-shadow:0 0 30px rgba(34,197,94,.35);transform:translateY(-1px)}
-.btn-dark{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:#18181b;color:#fff;font-weight:600;font-size:14px;border-radius:12px;border:none;cursor:pointer;transition:opacity .2s;text-decoration:none}
+.btn-green{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:var(--green);color:#000;font-weight:700;font-size:16px;border-radius:12px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;min-height:52px}
+.btn-green:hover{background:var(--green-d);box-shadow:0 0 30px rgba(34,197,94,.4);transform:translateY(-1px)}
+.btn-dark{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#18181b;color:#fff;font-weight:700;font-size:16px;border-radius:12px;border:none;cursor:pointer;transition:opacity .2s;text-decoration:none;min-height:52px}
 html.light .btn-dark{background:#f1f5f9;color:#0f172a}
 .btn-dark:hover{opacity:.85}
-.btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 20px;border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:500;color:var(--text);background:none;cursor:pointer;text-decoration:none;transition:all .15s}
+.btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:48px;padding:0 22px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-weight:500;color:var(--text);background:none;cursor:pointer;text-decoration:none;transition:all .15s;min-height:48px}
 .btn-outline:hover{border-color:var(--green-border);color:var(--green)}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .pill-green{background:var(--green-dim);border:1px solid var(--green-border);color:var(--green)}
-.tag{display:inline-flex;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:500}
+.tag{display:inline-flex;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:500}
 .tag-zinc{background:var(--bg-card2);color:var(--text-m)}
 .tag-green{background:var(--green-dim);color:var(--green)}
-.field-label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d);margin-bottom:6px}
-.field-input{width:100%;height:44px;padding:0 14px;background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);outline:none;transition:all .15s;font-family:inherit}
-.field-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
-.field-textarea{width:100%;padding:12px 14px;background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);outline:none;transition:all .15s;resize:vertical;font-family:inherit}
-.field-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
-.contact-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:all .15s}
+.field-label{display:block;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d);margin-bottom:8px}
+.field-input{width:100%;height:52px;padding:0 16px;background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;font-size:16px;color:var(--text);outline:none;transition:all .15s;font-family:inherit}
+.field-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+.field-textarea{width:100%;padding:14px 16px;background:var(--bg-card2);border:1px solid var(--border);border-radius:12px;font-size:16px;color:var(--text);outline:none;transition:all .15s;resize:vertical;font-family:inherit}
+.field-textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+.contact-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;border:1px solid var(--border);text-decoration:none;color:inherit;transition:all .15s;min-height:64px}
 .contact-item:hover{border-color:var(--green-border);background:var(--green-dim)}
-.contact-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:8px;background:var(--bg-card2);flex-shrink:0;transition:all .15s}
+.contact-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;background:var(--bg-card2);flex-shrink:0;transition:all .15s}
 .contact-item:hover .contact-icon{background:var(--green);color:#000}
-#avail-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px}
+#avail-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px}
 .weather-stat{text-align:center}
-.weather-stat-val{font-size:13px;font-weight:600;font-family:ui-monospace,monospace}
-.weather-stat-lbl{font-size:10px;color:var(--text-d);margin-top:2px}
+.weather-stat-val{font-size:14px;font-weight:600;font-family:ui-monospace,monospace}
+.weather-stat-lbl{font-size:11px;color:var(--text-d);margin-top:2px}
 
-/* CREDENTIAL CARDS */
+/* ── CREDENTIAL CARDS ── */
 .cred-hero{position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#09130d 0%,#0d1a10 40%,#050507 100%);border:1px solid var(--green-border);padding:28px 32px;margin-bottom:16px;box-shadow:0 0 60px rgba(34,197,94,.06)}
 html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8fafc)}
 .cred-hero-glow{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
@@ -139,73 +183,101 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .cred-card-glow{position:absolute;top:0;right:0;width:80px;height:80px;border-radius:50%;filter:blur(30px);opacity:0;transition:opacity .3s;pointer-events:none}
 .cred-card:hover .cred-card-glow{opacity:1}
 .small-badge{width:100px;height:100px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;position:relative;overflow:hidden;margin-bottom:12px;transition:transform .3s ease}
-/* Hover-only gentle float for small badges */
-.small-badge:hover{animation:float 3.5s ease-in-out infinite}
-.cred-name{font-size:14px;font-weight:700}
-.cred-sub{font-size:11px;color:var(--text-d);margin-top:2px}
-.verify-link{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--green);text-decoration:none;margin-top:8px;justify-content:center}
+.cred-name{font-size:15px;font-weight:700}
+.cred-sub{font-size:12px;color:var(--text-d);margin-top:2px}
+.verify-link{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--green);text-decoration:none;margin-top:8px;justify-content:center}
 .verify-link:hover{text-decoration:underline}
 
-/* TECH STACK */
+/* ── TECH STACK ── */
 .tech-section{margin-top:40px}
 .tech-category{margin-bottom:28px}
-.tech-category-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-d);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.tech-category-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-d);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .tech-category-label::after{content:'';flex:1;height:1px;background:var(--border)}
 .tech-grid{display:flex;flex-wrap:wrap;gap:8px}
-.tech-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);font-size:13px;font-weight:500;transition:all .2s}
+.tech-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg-card);font-size:14px;font-weight:500;transition:all .2s}
 .tech-pill:hover{border-color:var(--green-border);background:var(--green-dim);transform:translateY(-2px)}
-.tech-pill-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.tech-pill-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
 
-/* BLOG */
+/* ── BLOG ── */
 .blog-grid{display:grid;gap:16px;margin-top:20px}
 @media(min-width:640px){.blog-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.blog-grid{grid-template-columns:repeat(3,1fr)}}
-.blog-card{border-radius:20px;border:1px solid var(--border);background:var(--bg-card);padding:22px;display:flex;flex-direction:column;gap:10px;transition:all .25s;cursor:pointer;position:relative;overflow:hidden}
+.blog-card{border-radius:20px;border:1px solid var(--border);background:var(--bg-card);padding:24px;display:flex;flex-direction:column;gap:10px;transition:all .25s;cursor:pointer;position:relative;overflow:hidden}
 .blog-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-dim),transparent);opacity:0;transition:opacity .2s}
 .blog-card:hover{transform:translateY(-3px);border-color:var(--green-border);box-shadow:0 16px 40px rgba(0,0,0,.12)}
 .blog-card:hover::before{opacity:1}
-.blog-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green)}
-.blog-title{font-size:16px;font-weight:700;line-height:1.35;position:relative}
-.blog-desc{font-size:13px;color:var(--text-m);line-height:1.6;position:relative}
-.blog-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--text-d);position:relative}
+.blog-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green)}
+.blog-title{font-size:17px;font-weight:700;line-height:1.35;position:relative}
+.blog-desc{font-size:14px;color:var(--text-m);line-height:1.6;position:relative}
+.blog-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-d);position:relative}
 .blog-read{color:var(--green);font-weight:600}
-.blog-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
-.blog-modal{background:var(--bg-el);border:1px solid var(--border);border-radius:24px;max-width:680px;width:100%;max-height:85vh;overflow-y:auto;padding:32px}
-.blog-modal-close{float:right;background:var(--bg-card2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--text-m);margin-bottom:16px}
+.blog-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.blog-modal{background:var(--bg-el);border:1px solid var(--border);border-radius:24px;max-width:700px;width:100%;max-height:88vh;overflow-y:auto;padding:36px}
+.blog-modal-close{float:right;background:var(--bg-card2);border:1px solid var(--border);border-radius:8px;padding:8px 16px;cursor:pointer;font-size:14px;color:var(--text-m);margin-bottom:16px;min-height:40px}
 
-/* BOOKING */
-.booking-wrap{border-radius:24px;overflow:hidden;border:1px solid var(--border);background:var(--bg-card)}
-.booking-iframe-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:16px;padding:32px;text-align:center}
+/* ── PROJECTS GALLERY ── */
+.gallery-grid{display:grid;gap:16px;margin-top:20px}
+@media(min-width:500px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1200px){.gallery-grid{grid-template-columns:repeat(4,1fr)}}
+.gallery-card{border-radius:18px;border:1px solid var(--border);background:var(--bg-card);overflow:hidden;cursor:pointer;transition:all .25s;position:relative}
+.gallery-card:hover{transform:translateY(-4px);border-color:var(--green-border);box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.gallery-img{width:100%;aspect-ratio:4/3;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;font-size:3rem}
+.gallery-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.gallery-card:hover .gallery-img img{transform:scale(1.06)}
+.gallery-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--bg-card2),var(--bg-el));position:relative;overflow:hidden}
+.gallery-placeholder::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-dim),transparent);opacity:.5}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);opacity:0;transition:opacity .25s;display:flex;align-items:flex-end;padding:14px}
+.gallery-card:hover .gallery-overlay{opacity:1}
+.gallery-info{padding:14px 16px}
+.gallery-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:4px}
+.gallery-title{font-size:14px;font-weight:700;line-height:1.3}
+.gallery-sub{font-size:12px;color:var(--text-d);margin-top:3px}
+.lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px)}
+.lightbox-inner{max-width:860px;width:100%;position:relative}
+.lightbox-img{width:100%;border-radius:16px;background:var(--bg-card2);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:5rem}
+.lightbox-img img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.lightbox-caption{margin-top:16px;text-align:center}
+.lightbox-close{position:absolute;top:-48px;right:0;background:var(--bg-card2);border:1px solid var(--border);border-radius:8px;padding:8px 16px;cursor:pointer;font-size:14px;color:var(--text-m);min-height:40px}
+.lightbox-close:hover{border-color:var(--green-border);color:var(--green)}
+.lightbox-nav{display:flex;gap:10px;justify-content:center;margin-top:12px}
+.lightbox-nav button{background:var(--bg-card2);border:1px solid var(--border);border-radius:8px;padding:10px 20px;cursor:pointer;font-size:14px;color:var(--text);min-height:44px;transition:all .15s}
+.lightbox-nav button:hover{border-color:var(--green-border);color:var(--green)}
+.upload-hint{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;margin-top:20px;color:var(--text-d);font-size:14px}
 
-/* AI SEARCH */
+/* ── AI SEARCH ── */
 .search-section{margin-bottom:32px}
 .search-box-wrap{position:relative;max-width:680px}
-.search-input{width:100%;height:52px;padding:0 52px 0 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;font-size:15px;color:var(--text);outline:none;transition:all .2s;font-family:inherit}
-.search-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+.search-input{width:100%;height:56px;padding:0 58px 0 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;font-size:16px;color:var(--text);outline:none;transition:all .2s;font-family:inherit}
+.search-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.15)}
 .search-input::placeholder{color:var(--text-d)}
-.search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;background:var(--green);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0}
+.search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:40px;height:40px;background:var(--green);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;flex-shrink:0;min-height:40px}
 .search-btn:hover{background:var(--green-d)}
 .search-btn svg{color:#000}
 .search-results{margin-top:16px;border-radius:16px;border:1px solid var(--border);background:var(--bg-card);overflow:hidden}
-.search-result-header{padding:12px 18px;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d);display:flex;align-items:center;gap:8px}
-.search-result-body{padding:18px;font-size:14px;line-height:1.8;color:var(--text-m)}
+.search-result-header{padding:14px 20px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d);display:flex;align-items:center;gap:8px}
+.search-result-body{padding:20px;font-size:16px;line-height:1.8;color:var(--text-m)}
 .search-result-body a{color:var(--green);text-decoration:none}
 .search-result-body a:hover{text-decoration:underline}
-.search-loading{display:flex;align-items:center;gap:8px;padding:18px;font-size:13px;color:var(--text-d)}
-.search-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s infinite}
+.search-loading{display:flex;align-items:center;gap:8px;padding:20px;font-size:14px;color:var(--text-d)}
+.search-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-ring 1s infinite}
 .search-dot:nth-child(2){animation-delay:.15s}
 .search-dot:nth-child(3){animation-delay:.3s}
 
-/* FOOTER */
-.site-footer{border-top:1px solid rgba(39,39,42,.5);padding:32px 0;margin-top:48px}
+/* ── BOOKING ── */
+.booking-wrap{border-radius:24px;overflow:hidden;border:1px solid var(--border);background:var(--bg-card)}
+.booking-iframe-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:16px;padding:32px;text-align:center}
 
-/* GRIDS */
+/* ── FOOTER ── */
+.site-footer{border-top:1px solid rgba(39,39,42,.5);padding:36px 0;margin-top:48px;position:relative;z-index:2}
+
+/* ── GRIDS ── */
 .about-grid{display:grid;gap:24px}
-@media(min-width:1024px){.about-grid{grid-template-columns:320px 1fr}}
+@media(min-width:1024px){.about-grid{grid-template-columns:340px 1fr}}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:639px){.grid-2{grid-template-columns:1fr}}
 
-/* UTILITIES */
+/* ── UTILITIES ── */
 .flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}
 .gap-2{gap:8px}.gap-3{gap:12px}.gap-4{gap:16px}.flex-1{flex:1}.flex-wrap{flex-wrap:wrap}
 .shrink-0{flex-shrink:0}.min-w-0{min-width:0}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -214,71 +286,89 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 .relative{position:relative}.absolute{position:absolute}.rounded-full{border-radius:999px}
 .mt-2{margin-top:8px}.mt-3{margin-top:12px}.mt-4{margin-top:16px}.mt-6{margin-top:24px}.mt-8{margin-top:32px}
 .mb-2{margin-bottom:8px}.mb-4{margin-bottom:16px}.mb-6{margin-bottom:24px}
-.space-y-3>*+*{margin-top:12px}
-.border-t{border-top:1px solid var(--border)}
+.space-y-3>*+*{margin-top:14px}.border-t{border-top:1px solid var(--border)}
 
-/* Typewriter cursor */
+/* ── TYPEWRITER CURSOR ── */
 #typewriter{display:inline-block}
 #typewriter::after{content:'';border-right:2px solid var(--green);animation:blink 1s step-end infinite;margin-left:1px}
+
+/* ── CURSOR TRAIL SPARK ── */
+.spark{position:fixed;pointer-events:none;z-index:9997;width:5px;height:5px;border-radius:50%;background:var(--green);transform-origin:center}
 </style>
 </head>
 <body>
 
-<div class="mesh-fixed" style="background-image:radial-gradient(at 20% 30%,rgba(34,197,94,.13) 0,transparent 50%),radial-gradient(at 80% 20%,rgba(34,197,94,.08) 0,transparent 50%),radial-gradient(at 50% 80%,rgba(34,197,94,.06) 0,transparent 50%)"></div>
+<!-- SKIP LINK -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- CUSTOM CURSOR -->
+<div aria-hidden="true" id="cursor-dot"></div>
+<div aria-hidden="true" id="cursor-ring"></div>
+
+<!-- CINEMATIC BACKGROUND -->
+<div aria-hidden="true" id="cinematic-bg">
+  <div class="mesh-glow"></div>
+  <div class="mesh-glow"></div>
+  <div class="mesh-glow"></div>
+</div>
+<div aria-hidden="true" id="grid-overlay"></div>
+<div aria-hidden="true" id="scan-overlay"></div>
+<canvas aria-hidden="true" id="particle-canvas"></canvas>
 
 <!-- HEADER -->
 <header class="site-header" id="site-header">
   <div class="container">
     <div class="header-inner">
       <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;min-width:0">
-        <div class="brand-logo">DG</div>
+        <div aria-hidden="true" class="brand-logo">DG</div>
         <div class="brand-text min-w-0">
-          <div class="brand-name mono" id="typewriter"></div>
+          <div aria-label="Dylan Grow" class="brand-name mono" id="typewriter" role="text"></div>
           <div class="brand-sub">IT PROFESSIONAL</div>
         </div>
       </div>
 
-      <nav aria-label="Main navigation" class="nav-tabs">
-        <button class="tab-btn" data-tab="home">Home</button>
-        <button class="tab-btn" data-tab="about">About</button>
-        <button class="tab-btn" data-tab="work">Work</button>
-        <button class="tab-btn" data-tab="booking">Booking</button>
+      <nav aria-label="Main navigation" class="nav-tabs" role="tablist">
+        <button aria-controls="home" aria-selected="true" class="tab-btn" data-tab="home" role="tab">Home</button>
+        <button aria-controls="about" aria-selected="false" class="tab-btn" data-tab="about" role="tab">About</button>
+        <button aria-controls="booking" aria-selected="false" class="tab-btn" data-tab="booking" role="tab">Booking</button>
+        <button aria-controls="projects" aria-selected="false" class="tab-btn" data-tab="projects" role="tab">Projects</button>
+        <button aria-controls="work" aria-selected="false" class="tab-btn" data-tab="work" role="tab">Work</button>
       </nav>
 
       <div class="flex-1"></div>
 
-      <!-- CLOCK: always visible, 12hr format with date -->
       <div class="clock-wrap">
         <div class="clock-block">
-          <span class="clock-date-str" id="live-date"></span>
-          <span class="clock-time-str mono" id="live-clock"></span>
+          <span aria-live="off" class="clock-date-str" id="live-date"></span>
+          <span aria-live="off" class="clock-time-str mono" id="live-clock"></span>
         </div>
-        <div style="width:1px;height:28px;background:var(--border);margin-left:8px"></div>
+        <div aria-hidden="true" style="width:1px;height:28px;background:var(--border);margin-left:8px"></div>
       </div>
 
-      <button aria-label="Toggle theme" class="theme-btn" id="theme-toggle">
-        <svg class="icon-sun" fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
-        <svg class="icon-moon" fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      <button aria-label="Toggle light/dark theme" class="theme-btn" id="theme-toggle">
+        <svg class="icon-sun" fill="none" height="18" stroke="currentColor" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        <svg class="icon-moon" fill="none" height="18" stroke="currentColor" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
       </button>
     </div>
   </div>
 
-  <div class="mob-tabs" role="tablist">
-    <button class="mob-tab-btn" data-tab="home">HOME</button>
-    <button class="mob-tab-btn" data-tab="about">ABOUT</button>
-    <button class="mob-tab-btn" data-tab="work">WORK</button>
-    <button class="mob-tab-btn" data-tab="booking">BOOKING</button>
+  <div class="mob-tabs" role="tablist" aria-label="Page sections">
+    <button aria-controls="home" class="mob-tab-btn" data-tab="home" role="tab">HOME</button>
+    <button aria-controls="about" class="mob-tab-btn" data-tab="about" role="tab">ABOUT</button>
+    <button aria-controls="booking" class="mob-tab-btn" data-tab="booking" role="tab">BOOK</button>
+    <button aria-controls="projects" class="mob-tab-btn" data-tab="projects" role="tab">PROJECTS</button>
+    <button aria-controls="work" class="mob-tab-btn" data-tab="work" role="tab">WORK</button>
   </div>
 </header>
 
 <!-- MAIN -->
-<main class="container" id="main-content" style="padding-top:32px;padding-bottom:48px;position:relative">
+<main class="container" id="main-content" style="padding-top:36px;padding-bottom:56px;position:relative">
 
-  <!-- HOME -->
-  <section class="tab-pane" id="home" style="min-height:75vh;display:flex;flex-direction:column;justify-content:center">
+  <!-- ═══ HOME ═══ -->
+  <section aria-label="Home" class="tab-pane" id="home" role="tabpanel" style="min-height:75vh;display:flex;flex-direction:column;justify-content:center">
     <div style="max-width:900px">
       <div class="pill pill-green" style="margin-bottom:28px">
-        <span style="position:relative;display:flex;width:8px;height:8px">
+        <span style="position:relative;display:flex;width:8px;height:8px" aria-hidden="true">
           <span class="ping" style="position:absolute;inset:0;border-radius:50%;background:var(--green);opacity:.75"></span>
           <span style="position:relative;width:8px;height:8px;border-radius:50%;background:var(--green)"></span>
         </span>
@@ -292,85 +382,86 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
 
       <div style="margin-top:28px;display:flex;flex-direction:column;gap:20px">
         <div>
-          <p style="font-size:clamp(18px,3vw,26px);font-weight:300;color:var(--text-m);letter-spacing:-.01em">IT Support &amp; Network Specialist</p>
-          <p style="margin-top:12px;font-size:14px;line-height:1.8;color:var(--text-d);max-width:520px">CompTIA A+ certified. I fix critical systems, secure networks, and keep businesses running in Eastern NC and across the US via remote support.</p>
+          <p style="font-size:clamp(20px,3vw,28px);font-weight:300;color:var(--text-m);letter-spacing:-.01em">IT Support &amp; Network Specialist</p>
+          <p style="margin-top:14px;font-size:16px;line-height:1.8;color:var(--text-d);max-width:540px">CompTIA A+ certified. I fix critical systems, secure networks, and keep businesses running in Eastern NC and across the US via remote support.</p>
         </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button class="btn-green" data-tab-target="booking">
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <button class="btn-green" data-tab-target="booking" aria-label="Book a session with Dylan">
             Book Now
-            <svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M13 7l5 5m0 0l-5 5m5-5H6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+            <svg fill="none" height="18" stroke="currentColor" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M13 7l5 5m0 0l-5 5m5-5H6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
           </button>
-          <a class="btn-dark" href="tel:2523490830">Call Now</a>
+          <a class="btn-dark" href="tel:2523490830" aria-label="Call Dylan at (252) 349-0830">Call Now</a>
         </div>
       </div>
 
-      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--border);padding-top:28px">
-        <div>
-          <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,28px)">24/7</div>
-          <div style="font-size:11px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Emergency Response</div>
+      <!-- STAT COUNTERS — animated on load -->
+      <div style="margin-top:52px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;border-top:1px solid var(--border);padding-top:32px" role="list">
+        <div role="listitem">
+          <div class="mono font-black text-green stat-val" data-target="24" data-suffix="/7" style="font-size:clamp(22px,4vw,32px)">0</div>
+          <div style="font-size:12px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:6px">Emergency Response</div>
         </div>
-        <div>
-          <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,28px)">&lt;1hr</div>
-          <div style="font-size:11px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Avg Response</div>
+        <div role="listitem">
+          <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,32px)">&lt;1hr</div>
+          <div style="font-size:12px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:6px">Avg Response</div>
         </div>
-        <div>
-          <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,28px)">A+</div>
-          <div style="font-size:11px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">CompTIA Certified</div>
+        <div role="listitem">
+          <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,32px)">A+</div>
+          <div style="font-size:12px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:6px">CompTIA Certified</div>
         </div>
-        <div>
-          <div class="mono font-black text-green" style="font-size:clamp(22px,4vw,28px)">100%</div>
-          <div style="font-size:11px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:4px">Client Retention</div>
+        <div role="listitem">
+          <div class="mono font-black text-green stat-val" data-target="100" data-suffix="%" style="font-size:clamp(22px,4vw,32px)">0</div>
+          <div style="font-size:12px;color:var(--text-d);text-transform:uppercase;letter-spacing:.05em;margin-top:6px">Client Retention</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="tab-pane hidden" id="about">
+  <!-- ═══ ABOUT ═══ -->
+  <section aria-label="About Dylan Grow" class="tab-pane hidden" id="about" role="tabpanel">
     <div class="about-grid">
       <div style="display:flex;flex-direction:column;gap:16px">
         <!-- Contact card -->
-        <div class="card" style="border-radius:24px;padding:24px">
+        <div class="card" style="border-radius:24px;padding:28px">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
             <div>
-              <h2 style="font-size:18px;font-weight:700">Contact</h2>
-              <p style="font-size:12px;color:var(--text-d);margin-top:2px">New Bern, NC · Remote US</p>
+              <h2 style="font-size:20px;font-weight:700">Contact</h2>
+              <p style="font-size:13px;color:var(--text-d);margin-top:2px">New Bern, NC · Remote US</p>
             </div>
-            <div id="avail-badge" style="background:var(--bg-card2);border:1px solid var(--border)">
-              <span id="status-dot" style="width:7px;height:7px;border-radius:50%;background:var(--text-d);flex-shrink:0"></span>
-              <span id="status-text" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d)">Checking…</span>
+            <div id="avail-badge" style="background:var(--bg-card2);border:1px solid var(--border)" aria-live="polite">
+              <span id="status-dot" style="width:8px;height:8px;border-radius:50%;background:var(--text-d);flex-shrink:0" aria-hidden="true"></span>
+              <span id="status-text" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-d)">Checking…</span>
             </div>
           </div>
           <div class="space-y-3">
-            <a class="contact-item" href="tel:2523490830">
-              <div class="contact-icon" style="color:var(--text-m)">
-                <svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+            <a class="contact-item" href="tel:2523490830" aria-label="Call Dylan at (252) 349-0830">
+              <div class="contact-icon" style="color:var(--text-m)" aria-hidden="true">
+                <svg fill="none" height="18" stroke="currentColor" viewBox="0 0 24 24" width="18"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
               </div>
               <div class="min-w-0">
-                <div style="font-size:10px;color:var(--text-d);text-transform:uppercase;letter-spacing:.06em">Phone</div>
-                <div style="font-weight:500;font-size:14px">(252) 349-0830</div>
+                <div style="font-size:11px;color:var(--text-d);text-transform:uppercase;letter-spacing:.06em">Phone</div>
+                <div style="font-weight:600;font-size:16px">(252) 349-0830</div>
               </div>
             </a>
-            <a class="contact-item" href="mailto:DylanGrow@gmail.com">
-              <div class="contact-icon" style="color:var(--text-m)">
-                <svg fill="none" height="16" stroke="currentColor" viewBox="0 0 24 24" width="16"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+            <a class="contact-item" href="mailto:DylanGrow@gmail.com" aria-label="Email Dylan at DylanGrow@gmail.com">
+              <div class="contact-icon" style="color:var(--text-m)" aria-hidden="true">
+                <svg fill="none" height="18" stroke="currentColor" viewBox="0 0 24 24" width="18"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
               </div>
               <div class="min-w-0">
-                <div style="font-size:10px;color:var(--text-d);text-transform:uppercase;letter-spacing:.06em">Email</div>
-                <div class="truncate" style="font-weight:500;font-size:13px">DylanGrow@gmail.com</div>
+                <div style="font-size:11px;color:var(--text-d);text-transform:uppercase;letter-spacing:.06em">Email</div>
+                <div class="truncate" style="font-weight:600;font-size:15px">DylanGrow@gmail.com</div>
               </div>
             </a>
           </div>
-          <div class="grid-2" style="margin-top:16px">
-            <button id="vcard-btn" style="height:40px;border-radius:10px;background:var(--bg-card2);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s">💾 Save Contact</button>
-            <a class="btn-outline" href="https://www.linkedin.com/in/dgrow27" rel="noopener" target="_blank">LinkedIn ↗</a>
+          <div class="grid-2" style="margin-top:18px">
+            <button id="vcard-btn" aria-label="Download Dylan's contact card" style="height:48px;border-radius:10px;background:var(--bg-card2);border:1px solid var(--border);color:var(--text);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s">💾 Save Contact</button>
+            <a class="btn-outline" href="https://www.linkedin.com/in/dgrow27" rel="noopener" target="_blank" aria-label="Dylan's LinkedIn profile (opens in new tab)">LinkedIn ↗</a>
           </div>
-          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
-            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px">
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--border)">
+            <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px">
               <span style="color:var(--text-d)">Business Hours (ET)</span>
               <span class="mono" style="font-weight:500">8:00–18:00</span>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:12px">
+            <div style="display:flex;justify-content:space-between;font-size:14px">
               <span style="color:var(--text-d)">Emergency</span>
               <span class="mono font-semibold text-green">24/7 On-Call</span>
             </div>
@@ -378,68 +469,68 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
         </div>
 
         <!-- Weather widget -->
-        <div class="card" id="weather-widget" style="border-radius:24px;padding:20px">
+        <div class="card" id="weather-widget" style="border-radius:24px;padding:22px">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
             <div>
-              <div style="font-size:13px;font-weight:600">🌤 Local Weather</div>
-              <div style="font-size:11px;color:var(--text-d);margin-top:1px">New Bern, NC</div>
+              <div style="font-size:14px;font-weight:600">🌤 Local Weather</div>
+              <div style="font-size:12px;color:var(--text-d);margin-top:1px">New Bern, NC</div>
             </div>
-            <button id="weather-retry" style="font-size:11px;color:var(--green);background:none;border:none;cursor:pointer;opacity:.7">↻ Refresh</button>
+            <button id="weather-retry" aria-label="Refresh weather" style="font-size:12px;color:var(--green);background:none;border:none;cursor:pointer;opacity:.7;min-height:40px;padding:0 8px">↻ Refresh</button>
           </div>
-          <div id="weather-loading" style="display:flex;align-items:center;gap:6px;padding:8px 0">
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .0s infinite"></div>
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .15s infinite"></div>
-            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .3s infinite"></div>
-            <span style="font-size:12px;color:var(--text-d);margin-left:4px">Fetching…</span>
+          <div id="weather-loading" style="display:flex;align-items:center;gap:6px;padding:8px 0" aria-live="polite" aria-label="Loading weather">
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .0s infinite" aria-hidden="true"></div>
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .15s infinite" aria-hidden="true"></div>
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 1s .3s infinite" aria-hidden="true"></div>
+            <span style="font-size:13px;color:var(--text-d);margin-left:4px">Fetching…</span>
           </div>
-          <div id="weather-data" style="display:none">
+          <div id="weather-data" style="display:none" aria-live="polite">
             <div style="display:flex;align-items:center;justify-content:space-between">
               <div>
                 <div style="display:flex;align-items:flex-end;gap:4px">
-                  <span class="mono font-black text-green" id="w-temp" style="font-size:38px;line-height:1">--</span>
-                  <span style="font-size:16px;color:var(--text-d);margin-bottom:4px">°F</span>
+                  <span class="mono font-black text-green" id="w-temp" style="font-size:42px;line-height:1">--</span>
+                  <span style="font-size:18px;color:var(--text-d);margin-bottom:4px">°F</span>
                 </div>
-                <p id="w-desc" style="font-size:12px;color:var(--text-d);margin-top:2px">--</p>
+                <p id="w-desc" style="font-size:13px;color:var(--text-d);margin-top:2px">--</p>
               </div>
-              <div id="w-icon" style="font-size:2.5rem;line-height:1">🌤️</div>
+              <div id="w-icon" style="font-size:3rem;line-height:1" aria-hidden="true">🌤️</div>
             </div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
               <div class="weather-stat"><div class="weather-stat-val" id="w-feels">--°</div><div class="weather-stat-lbl">Feels like</div></div>
               <div class="weather-stat"><div class="weather-stat-val" id="w-humid">--%</div><div class="weather-stat-lbl">Humidity</div></div>
               <div class="weather-stat"><div class="weather-stat-val" id="w-wind">-- mph</div><div class="weather-stat-lbl">Wind</div></div>
             </div>
-            <div style="margin-top:8px;font-size:10px;color:var(--text-d);text-align:right">Updated <span id="w-time">--</span></div>
+            <div style="margin-top:8px;font-size:11px;color:var(--text-d);text-align:right">Updated <span id="w-time">--</span></div>
           </div>
-          <div id="weather-error" style="display:none;padding:8px 0;font-size:12px;color:var(--text-d)">Weather unavailable — check connection.</div>
+          <div id="weather-error" style="display:none;padding:8px 0;font-size:13px;color:var(--text-d)" role="alert">Weather unavailable — check connection.</div>
         </div>
       </div>
 
       <!-- RIGHT COL -->
       <div style="display:flex;flex-direction:column;gap:32px">
         <!-- Contact Form -->
-        <div class="card" style="border-radius:24px;padding:28px">
-          <h2 style="font-size:26px;font-weight:700;letter-spacing:-.01em">Let's solve it.</h2>
-          <p style="margin-top:6px;font-size:14px;color:var(--text-d)">Describe the issue — I typically respond within 60 minutes during business hours.</p>
-          <form id="contact-form" style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px" novalidate>
+        <div class="card" style="border-radius:24px;padding:32px">
+          <h2 style="font-size:28px;font-weight:700;letter-spacing:-.01em">Let's solve it.</h2>
+          <p style="margin-top:8px;font-size:15px;color:var(--text-d)">Describe the issue — I typically respond within 60 minutes during business hours.</p>
+          <form id="contact-form" style="margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px" novalidate aria-label="Contact Dylan form">
             <div style="display:flex;flex-direction:column">
-              <label class="field-label">Name</label>
-              <input class="field-input" name="name" placeholder="Your name" required/>
+              <label class="field-label" for="cf-name">Name</label>
+              <input class="field-input" id="cf-name" name="name" placeholder="Your name" required autocomplete="name"/>
             </div>
             <div style="display:flex;flex-direction:column">
-              <label class="field-label">Email</label>
-              <input class="field-input" name="email" placeholder="you@company.com" required type="email"/>
+              <label class="field-label" for="cf-email">Email</label>
+              <input class="field-input" id="cf-email" name="email" placeholder="you@company.com" required type="email" autocomplete="email"/>
             </div>
             <div style="display:flex;flex-direction:column;grid-column:span 2">
-              <label class="field-label">Company / Phone (optional)</label>
-              <input class="field-input" name="phone" placeholder="Company name or callback number"/>
+              <label class="field-label" for="cf-phone">Company / Phone (optional)</label>
+              <input class="field-input" id="cf-phone" name="phone" placeholder="Company name or callback number" autocomplete="tel"/>
             </div>
             <div style="display:flex;flex-direction:column;grid-column:span 2">
-              <label class="field-label">What's broken?</label>
-              <textarea class="field-textarea" name="message" placeholder="Network down? PC won't boot? Need new setup? Give me details..." required rows="5"></textarea>
+              <label class="field-label" for="cf-message">What's broken?</label>
+              <textarea class="field-textarea" id="cf-message" name="message" placeholder="Network down? PC won't boot? Need new setup? Give me details..." required rows="5"></textarea>
             </div>
-            <div style="grid-column:span 2;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:4px">
-              <button class="btn-green" type="submit">Send Message</button>
-              <p id="form-status" style="font-size:13px;color:var(--text-d)"></p>
+            <div style="grid-column:span 2;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:4px">
+              <button class="btn-green" type="submit" aria-label="Send your message to Dylan">Send Message</button>
+              <p id="form-status" style="font-size:14px;color:var(--text-d)" aria-live="polite"></p>
             </div>
             <input name="source" type="hidden" value="dylangrow.com"/>
           </form>
@@ -449,27 +540,27 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
             <div>
-              <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em">Verified Credentials</h3>
-              <p style="font-size:12px;color:var(--text-d);margin-top:2px">Click any badge to verify on Credly</p>
+              <h3 style="font-size:22px;font-weight:800;letter-spacing:-.01em">Verified Credentials</h3>
+              <p style="font-size:13px;color:var(--text-d);margin-top:2px">Click any badge to verify on Credly</p>
             </div>
-            <span class="pill pill-green">
-              <span class="pulse" style="width:6px;height:6px;border-radius:50%;background:var(--green)"></span>
+            <span class="pill pill-green" aria-label="Credentials are live verified">
+              <span class="pulse" style="width:6px;height:6px;border-radius:50%;background:var(--green)" aria-hidden="true"></span>
               Live Verified
             </span>
           </div>
 
           <!-- CompTIA A+ Hero -->
-          <div class="cred-hero">
-            <div class="cred-hero-glow" style="width:300px;height:300px;top:-100px;left:10%;background:rgba(34,197,94,.12)"></div>
-            <div class="cred-hero-glow" style="width:200px;height:200px;bottom:-60px;right:10%;background:rgba(34,197,94,.07)"></div>
+          <div class="cred-hero" aria-label="CompTIA A+ Primary Certification">
+            <div class="cred-hero-glow" style="width:300px;height:300px;top:-100px;left:10%;background:rgba(34,197,94,.12)" aria-hidden="true"></div>
+            <div class="cred-hero-glow" style="width:200px;height:200px;bottom:-60px;right:10%;background:rgba(34,197,94,.07)" aria-hidden="true"></div>
             <div class="cred-hero-inner">
-              <div class="badge-ring shrink-0">
+              <div class="badge-ring shrink-0" aria-hidden="true">
                 <div class="badge-ring-glow" style="background:rgba(34,197,94,.25)"></div>
                 <div class="badge-ring-border">
-                  <a href="https://www.credly.com/badges/d20c1749-5008-4f7f-8ed3-f2a8a62624ec" rel="noopener" style="text-decoration:none" target="_blank" title="Verify CompTIA A+ on Credly">
+                  <a href="https://www.credly.com/badges/d20c1749-5008-4f7f-8ed3-f2a8a62624ec" rel="noopener" style="text-decoration:none" target="_blank" aria-label="Verify CompTIA A+ certification on Credly (opens in new tab)">
                     <div class="badge-icon-wrap float-hover" style="background:linear-gradient(135deg,#e8002d 0%,#c00020 100%)">
                       <div class="badge-shine"></div>
-                      <svg fill="white" height="44" viewBox="0 0 24 24" width="44"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+                      <svg fill="white" height="44" viewBox="0 0 24 24" width="44" aria-hidden="true"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
                       <span style="color:white;font-size:10px;font-weight:800;letter-spacing:.1em">A+</span>
                     </div>
                   </a>
@@ -477,21 +568,21 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               </div>
               <div style="flex:1">
                 <div class="pill pill-green" style="margin-bottom:12px">
-                  <svg fill="currentColor" height="12" viewBox="0 0 20 20" width="12"><path clip-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"/></svg>
+                  <svg fill="currentColor" height="12" viewBox="0 0 20 20" width="12" aria-hidden="true"><path clip-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" fill-rule="evenodd"/></svg>
                   Primary Certification
                 </div>
-                <h4 style="font-size:clamp(20px,3vw,26px);font-weight:900;letter-spacing:-.02em;color:#fff">CompTIA A+</h4>
-                <p style="font-size:13px;color:rgba(255,255,255,.5);margin-top:2px">Core 1 (220-1101) &amp; Core 2 (220-1102)</p>
-                <p style="margin-top:10px;font-size:13px;color:rgba(255,255,255,.4);line-height:1.6;max-width:420px">The industry-standard certification validating hardware, software, networking, and security skills across enterprise environments.</p>
+                <h4 style="font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:-.02em;color:#fff">CompTIA A+</h4>
+                <p style="font-size:14px;color:rgba(255,255,255,.5);margin-top:2px">Core 1 (220-1101) &amp; Core 2 (220-1102)</p>
+                <p style="margin-top:10px;font-size:14px;color:rgba(255,255,255,.4);line-height:1.7;max-width:420px">The industry-standard certification validating hardware, software, networking, and security skills across enterprise environments.</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
                   <span class="tag tag-green">Hardware</span>
                   <span class="tag tag-green">Networking</span>
                   <span class="tag tag-green">Security</span>
                   <span class="tag tag-green">Troubleshooting</span>
                 </div>
-                <a class="verify-link" href="https://www.credly.com/badges/d20c1749-5008-4f7f-8ed3-f2a8a62624ec" rel="noopener" style="margin-top:14px;display:inline-flex" target="_blank">
+                <a class="verify-link" href="https://www.credly.com/badges/d20c1749-5008-4f7f-8ed3-f2a8a62624ec" rel="noopener" style="margin-top:14px;display:inline-flex" target="_blank" aria-label="Verify CompTIA A+ on Credly (opens in new tab)">
                   Verify on Credly
-                  <svg fill="none" height="12" stroke="currentColor" viewBox="0 0 24 24" width="12"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+                  <svg fill="none" height="12" stroke="currentColor" viewBox="0 0 24 24" width="12" aria-hidden="true"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
                 </a>
               </div>
             </div>
@@ -500,11 +591,11 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
           <!-- Other badges -->
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
             <div class="cred-card">
-              <div class="cred-card-glow" style="background:rgba(96,165,250,.15)"></div>
-              <a href="https://www.credly.com/badges/b1bd6f1b-d97f-4de0-b1ca-19f2302f9dac" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;width:100%" target="_blank">
-                <div class="small-badge" style="background:linear-gradient(135deg,#4285f4,#1a56db)">
+              <div class="cred-card-glow" style="background:rgba(96,165,250,.15)" aria-hidden="true"></div>
+              <a href="https://www.credly.com/badges/b1bd6f1b-d97f-4de0-b1ca-19f2302f9dac" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;width:100%" target="_blank" aria-label="Verify Google IT Support certificate on Credly (opens in new tab)">
+                <div class="small-badge" style="background:linear-gradient(135deg,#4285f4,#1a56db)" aria-hidden="true">
                   <div class="badge-shine"></div>
-                  <svg fill="none" height="36" viewBox="0 0 48 48" width="36"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="white"/></svg>
+                  <svg fill="none" height="36" viewBox="0 0 48 48" width="36" aria-hidden="true"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="white"/></svg>
                   <span style="color:white;font-size:8px;font-weight:800;letter-spacing:.1em">GOOGLE</span>
                 </div>
                 <div class="cred-name">Google IT Support</div>
@@ -514,11 +605,11 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
             </div>
 
             <div class="cred-card">
-              <div class="cred-card-glow" style="background:rgba(220,38,38,.12)"></div>
-              <a href="https://ecards.heart.org/student/eCards?cid=27A0B783-E702-4FFA-A008-D63D2DFA5C10" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;width:100%" target="_blank">
-                <div class="small-badge" style="background:linear-gradient(135deg,#dc2626,#991b1b)">
+              <div class="cred-card-glow" style="background:rgba(220,38,38,.12)" aria-hidden="true"></div>
+              <a href="https://ecards.heart.org/student/eCards?cid=27A0B783-E702-4FFA-A008-D63D2DFA5C10" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;width:100%" target="_blank" aria-label="Verify CPR/AED certification from American Heart Association (opens in new tab)">
+                <div class="small-badge" style="background:linear-gradient(135deg,#dc2626,#991b1b)" aria-hidden="true">
                   <div class="badge-shine"></div>
-                  <span style="font-size:32px">❤️</span>
+                  <span style="font-size:32px" aria-hidden="true">❤️</span>
                   <span style="color:white;font-size:8px;font-weight:800;letter-spacing:.08em">AHA</span>
                 </div>
                 <div class="cred-name">CPR / AED</div>
@@ -527,15 +618,15 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
               </a>
             </div>
 
-            <div class="cred-card" style="opacity:.6">
-              <div class="small-badge" style="background:linear-gradient(135deg,#7c3aed,#4c1d95)">
+            <div class="cred-card" style="opacity:.6" aria-label="CompTIA Network+ certification in progress">
+              <div class="small-badge" style="background:linear-gradient(135deg,#7c3aed,#4c1d95)" aria-hidden="true">
                 <div class="badge-shine"></div>
-                <svg fill="white" height="36" viewBox="0 0 24 24" width="36"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+                <svg fill="white" height="36" viewBox="0 0 24 24" width="36" aria-hidden="true"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
                 <span style="color:white;font-size:8px;font-weight:800;letter-spacing:.08em">N+</span>
               </div>
               <div class="cred-name">Network+</div>
               <div class="cred-sub">In Progress</div>
-              <span style="font-size:11px;color:var(--text-d);margin-top:8px">Coming Soon</span>
+              <span style="font-size:12px;color:var(--text-d);margin-top:8px">Coming Soon</span>
             </div>
           </div>
         </div>
@@ -543,165 +634,27 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
     </div>
   </section>
 
-  <!-- WORK -->
-  <section class="tab-pane hidden" id="work">
-    <div style="max-width:1100px">
-      <div style="margin-bottom:32px">
-        <h2 style="font-size:clamp(26px,6vw,44px);font-weight:900;letter-spacing:-.02em">What I do.</h2>
-        <p style="margin-top:6px;font-size:14px;color:var(--text-d)">End-to-end IT support for businesses across Eastern NC and remote clients nationwide.</p>
-      </div>
-
-      <!-- AI Tech Search — powered by Claude -->
-      <div class="search-section">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px">🤖</div>
-          <div>
-            <div style="font-size:14px;font-weight:700">Ask a Tech Question</div>
-            <div style="font-size:11px;color:var(--text-d)">AI-powered answers to your IT questions</div>
-          </div>
-        </div>
-        <div class="search-box-wrap">
-          <input class="search-input" id="ai-input" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text"/>
-          <button class="search-btn" id="ai-btn" title="Ask AI">
-            <svg fill="none" height="16" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="16"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-        <div class="search-results hidden" id="ai-results">
-          <div class="search-result-header">
-            <span>🤖</span> AI Answer
-          </div>
-          <div id="ai-body">
-            <div class="search-loading" id="ai-loading">
-              <div class="search-dot"></div>
-              <div class="search-dot"></div>
-              <div class="search-dot"></div>
-              <span>Thinking…</span>
-            </div>
-            <div class="search-result-body hidden" id="ai-answer"></div>
-          </div>
-          <div style="padding:10px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text-d);display:flex;align-items:center;justify-content:space-between">
-            <span>Need hands-on help? Dylan can fix it in person or remotely.</span>
-            <button class="btn-outline" data-tab-target="booking" style="height:28px;font-size:11px;padding:0 12px">Book a Session ↗</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tech stack -->
-      <div class="tech-section">
-        <div class="tech-category">
-          <div class="tech-category-label">Networking</div>
-          <div class="tech-grid">
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)">🌐</div>TCP/IP &amp; DNS</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,200,255,.1)">📡</div>Wi-Fi Setup &amp; Optimization</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,150,0,.1)">🔒</div>VPN Configuration</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(200,50,200,.1)">🛡️</div>Firewall &amp; Security</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)">📶</div>Ubiquiti / TP-Link Omada</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,100,255,.1)">🔌</div>Structured Cabling</div>
-          </div>
-        </div>
-        <div class="tech-category">
-          <div class="tech-category-label">Operating Systems &amp; Cloud</div>
-          <div class="tech-grid">
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,150,255,.1)">🪟</div>Windows 10 / 11 / Server</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(200,200,200,.1)">🍎</div>macOS</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,150,0,.1)">☁️</div>Microsoft 365</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)">🔷</div>Azure AD / Entra ID</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,200,255,.1)">📦</div>Google Workspace</div>
-          </div>
-        </div>
-        <div class="tech-category">
-          <div class="tech-category-label">Hardware &amp; Repair</div>
-          <div class="tech-grid">
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)">💾</div>Data Recovery</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,200,0,.1)">⚡</div>Hardware Upgrades</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(200,50,50,.1)">🛡️</div>Virus &amp; Malware Removal</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,200,255,.1)">🖨️</div>Printers &amp; Peripherals</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,100,100,.1)">🔧</div>Rack &amp; Server Builds</div>
-          </div>
-        </div>
-        <div class="tech-category">
-          <div class="tech-category-label">Remote &amp; Management</div>
-          <div class="tech-grid">
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)">🖥️</div>Remote Desktop / RDP</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(0,180,120,.1)">🤝</div>TeamViewer / AnyDesk</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,100,255,.1)">📋</div>IT Documentation</div>
-            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,150,0,.1)">💼</div>Vendor Management</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blog -->
-      <div style="margin-top:48px">
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px">
-          <div>
-            <h3 style="font-size:20px;font-weight:800;letter-spacing:-.01em">IT Tips &amp; Insights</h3>
-            <p style="font-size:13px;color:var(--text-d);margin-top:3px">Quick answers to common business IT questions</p>
-          </div>
-          <span class="pill pill-green" style="flex-shrink:0">Free Advice</span>
-        </div>
-        <div class="blog-grid">
-          <div class="blog-card" onclick="openBlog(0)">
-            <div class="blog-tag">Security</div>
-            <div class="blog-title">Why Your Business Wi-Fi Should Have a Guest Network</div>
-            <div class="blog-desc">Mixing personal devices with business systems on the same network is one of the most common — and costly — security mistakes small businesses make.</div>
-            <div class="blog-footer"><span>2 min read</span><span class="blog-read">Read →</span></div>
-          </div>
-          <div class="blog-card" onclick="openBlog(1)">
-            <div class="blog-tag">Backup &amp; Recovery</div>
-            <div class="blog-title">The 3-2-1 Backup Rule: What It Is and Why You Need It</div>
-            <div class="blog-desc">Most small businesses lose critical data not from hackers — but from a single hard drive failure with no backup in place.</div>
-            <div class="blog-footer"><span>3 min read</span><span class="blog-read">Read →</span></div>
-          </div>
-          <div class="blog-card" onclick="openBlog(2)">
-            <div class="blog-tag">Performance</div>
-            <div class="blog-title">Is Your PC Actually Slow, or Just Needs a Tune-Up?</div>
-            <div class="blog-desc">Before spending money on a new computer, check these five things. Most "slow" computers just need a proper cleanup — not a replacement.</div>
-            <div class="blog-footer"><span>3 min read</span><span class="blog-read">Read →</span></div>
-          </div>
-          <div class="blog-card" onclick="openBlog(3)">
-            <div class="blog-tag">Phishing</div>
-            <div class="blog-title">How to Spot a Phishing Email Before It Costs You</div>
-            <div class="blog-desc">Phishing attacks now account for over 80% of reported security incidents. These are the real red flags your team needs to know.</div>
-            <div class="blog-footer"><span>4 min read</span><span class="blog-read">Read →</span></div>
-          </div>
-          <div class="blog-card" onclick="openBlog(4)">
-            <div class="blog-tag">Remote Work</div>
-            <div class="blog-title">Setting Up Secure Remote Access for Your Team</div>
-            <div class="blog-desc">VPNs, remote desktop, and cloud tools each solve a different problem. Here's how to choose the right setup for your business.</div>
-            <div class="blog-footer"><span>4 min read</span><span class="blog-read">Read →</span></div>
-          </div>
-          <div class="blog-card" onclick="openBlog(5)">
-            <div class="blog-tag">Maintenance</div>
-            <div class="blog-title">The Monthly IT Checklist Every Small Business Should Run</div>
-            <div class="blog-desc">This 10-minute monthly checklist catches 90% of issues before they become emergencies — or worse.</div>
-            <div class="blog-footer"><span>5 min read</span><span class="blog-read">Read →</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOOKING -->
-  <section class="tab-pane hidden" id="booking">
+  <!-- ═══ BOOKING ═══ -->
+  <section aria-label="Book a session" class="tab-pane hidden" id="booking" role="tabpanel">
     <div style="max-width:1100px">
       <div style="margin-bottom:24px">
-        <h2 style="font-size:clamp(26px,6vw,44px);font-weight:900;letter-spacing:-.02em">Book time.</h2>
-        <p style="margin-top:6px;font-size:14px;color:var(--text-d)">Pick a 30-minute slot. You'll get a confirmation email instantly.</p>
-        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;margin-top:12px">
-          <a class="btn-outline" href="tel:2523490830" style="height:36px;font-size:12px">
-            <svg fill="none" height="14" stroke="currentColor" style="color:var(--green)" viewBox="0 0 24 24" width="14"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        <h2 style="font-size:clamp(28px,6vw,46px);font-weight:900;letter-spacing:-.02em">Book time.</h2>
+        <p style="margin-top:8px;font-size:16px;color:var(--text-d)">Pick a 30-minute slot. You'll get a confirmation email instantly.</p>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;font-size:14px;margin-top:14px">
+          <a class="btn-outline" href="tel:2523490830" aria-label="Call Dylan at (252) 349-0830">
+            <svg fill="none" height="16" stroke="currentColor" style="color:var(--green)" viewBox="0 0 24 24" width="16" aria-hidden="true"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
             Call instead
           </a>
-          <span style="color:var(--text-d)">or email <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)">DylanGrow@gmail.com</a></span>
+          <span style="color:var(--text-d)">or email <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)" aria-label="Email Dylan">DylanGrow@gmail.com</a></span>
         </div>
       </div>
       <div class="booking-wrap">
-        <iframe frameborder="0" height="720" id="cal-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="border:0;display:block" title="Book a time with Dylan Grow" width="100%"></iframe>
-        <div class="booking-iframe-msg" id="cal-fallback" style="display:none">
-          <div style="font-size:3rem">📅</div>
+        <iframe frameborder="0" height="720" id="cal-iframe" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" style="border:0;display:block" title="Book a time with Dylan Grow" width="100%" aria-label="Google Calendar booking"></iframe>
+        <div class="booking-iframe-msg" id="cal-fallback" style="display:none" role="alert">
+          <div style="font-size:3rem" aria-hidden="true">📅</div>
           <div>
-            <h3 style="font-size:20px;font-weight:700;margin-bottom:8px">Calendar Blocked by Browser</h3>
-            <p style="font-size:14px;color:var(--text-d);max-width:380px;margin:0 auto">Your browser or extension is blocking Google Calendar. Use one of these alternatives:</p>
+            <h3 style="font-size:22px;font-weight:700;margin-bottom:8px">Calendar Blocked by Browser</h3>
+            <p style="font-size:15px;color:var(--text-d);max-width:380px;margin:0 auto">Your browser or extension is blocking Google Calendar. Use one of these alternatives:</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px">
             <a class="btn-green" href="https://calendar.google.com/calendar/appointments/AcZssZ2ZD_NtbA3NWtl_jKw3ZoV8-0AcSt-dLZJT4So=?gv=true" rel="noopener" style="justify-content:center" target="_blank">Open Calendar in New Tab ↗</a>
@@ -712,313 +665,697 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
       </div>
     </div>
   </section>
+
+  <!-- ═══ PROJECTS ═══ -->
+  <section aria-label="Project gallery" class="tab-pane hidden" id="projects" role="tabpanel">
+    <div style="max-width:1200px">
+      <div style="margin-bottom:28px">
+        <h2 style="font-size:clamp(28px,6vw,46px);font-weight:900;letter-spacing:-.02em">Real installs.</h2>
+        <p style="margin-top:8px;font-size:16px;color:var(--text-d)">Setups, builds, and fixes from across Eastern NC and beyond.</p>
+      </div>
+
+      <!-- Filter pills -->
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px" role="group" aria-label="Filter projects by category">
+        <button class="gallery-filter active" data-filter="all" aria-pressed="true" style="padding:8px 18px;border-radius:999px;border:1px solid var(--green-border);background:var(--green-dim);color:var(--green);font-size:13px;font-weight:700;cursor:pointer;min-height:40px">All</button>
+        <button class="gallery-filter" data-filter="network" aria-pressed="false" style="padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:none;color:var(--text-m);font-size:13px;font-weight:700;cursor:pointer;min-height:40px;transition:all .15s">Network</button>
+        <button class="gallery-filter" data-filter="pc" aria-pressed="false" style="padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:none;color:var(--text-m);font-size:13px;font-weight:700;cursor:pointer;min-height:40px;transition:all .15s">PC Builds</button>
+        <button class="gallery-filter" data-filter="server" aria-pressed="false" style="padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:none;color:var(--text-m);font-size:13px;font-weight:700;cursor:pointer;min-height:40px;transition:all .15s">Server</button>
+        <button class="gallery-filter" data-filter="cable" aria-pressed="false" style="padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:none;color:var(--text-m);font-size:13px;font-weight:700;cursor:pointer;min-height:40px;transition:all .15s">Cabling</button>
+      </div>
+
+      <!-- Gallery grid -->
+      <div class="gallery-grid" id="gallery-grid" role="list">
+
+        <div class="gallery-card" data-category="network" role="listitem" tabindex="0" aria-label="Business Wi-Fi overhaul project, Network category. Press Enter to view." onclick="openLightbox(0)" onkeydown="if(event.key==='Enter')openLightbox(0)">
+          <div class="gallery-img">
+            <div class="gallery-placeholder">
+              <span style="font-size:3rem;position:relative;z-index:1" aria-hidden="true">📡</span>
+              <span style="font-size:11px;color:var(--text-d);position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Add Your Photo</span>
+            </div>
+            <div class="gallery-overlay" aria-hidden="true"><span style="color:#fff;font-size:13px;font-weight:600">View Project ↗</span></div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-tag">Network</div>
+            <div class="gallery-title">Business Wi-Fi Overhaul</div>
+            <div class="gallery-sub">Ubiquiti UniFi · 12-AP deployment · New Bern, NC</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="server" role="listitem" tabindex="0" aria-label="Small business server rack project, Server category. Press Enter to view." onclick="openLightbox(1)" onkeydown="if(event.key==='Enter')openLightbox(1)">
+          <div class="gallery-img">
+            <div class="gallery-placeholder">
+              <span style="font-size:3rem;position:relative;z-index:1" aria-hidden="true">🖥️</span>
+              <span style="font-size:11px;color:var(--text-d);position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Add Your Photo</span>
+            </div>
+            <div class="gallery-overlay" aria-hidden="true"><span style="color:#fff;font-size:13px;font-weight:600">View Project ↗</span></div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-tag">Server</div>
+            <div class="gallery-title">Small Business Server Rack</div>
+            <div class="gallery-sub">NAS + UPS + patch panel · full cable management</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="pc" role="listitem" tabindex="0" aria-label="Custom PC workstation build project, PC Builds category. Press Enter to view." onclick="openLightbox(2)" onkeydown="if(event.key==='Enter')openLightbox(2)">
+          <div class="gallery-img">
+            <div class="gallery-placeholder">
+              <span style="font-size:3rem;position:relative;z-index:1" aria-hidden="true">🔧</span>
+              <span style="font-size:11px;color:var(--text-d);position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Add Your Photo</span>
+            </div>
+            <div class="gallery-overlay" aria-hidden="true"><span style="color:#fff;font-size:13px;font-weight:600">View Project ↗</span></div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-tag">PC Builds</div>
+            <div class="gallery-title">Custom Workstation Build</div>
+            <div class="gallery-sub">i9 · 64GB RAM · 2TB NVMe · dual 4K displays</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="cable" role="listitem" tabindex="0" aria-label="Structured cabling project, Cabling category. Press Enter to view." onclick="openLightbox(3)" onkeydown="if(event.key==='Enter')openLightbox(3)">
+          <div class="gallery-img">
+            <div class="gallery-placeholder">
+              <span style="font-size:3rem;position:relative;z-index:1" aria-hidden="true">🔌</span>
+              <span style="font-size:11px;color:var(--text-d);position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Add Your Photo</span>
+            </div>
+            <div class="gallery-overlay" aria-hidden="true"><span style="color:#fff;font-size:13px;font-weight:600">View Project ↗</span></div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-tag">Cabling</div>
+            <div class="gallery-title">Office Structured Cabling</div>
+            <div class="gallery-sub">Cat6A · 24-port patch panel · 3,200 sq ft office</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="network" role="listitem" tabindex="0" aria-label="VPN setup and firewall project, Network category. Press Enter to view." onclick="openLightbox(4)" onkeydown="if(event.key==='Enter')openLightbox(4)">
+          <div class="gallery-img">
+            <div class="gallery-placeholder">
+              <span style="font-size:3rem;position:relative;z-index:1" aria-hidden="true">🛡️</span>
+              <span style="font-size:11px;color:var(--text-d);position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Add Your Photo</span>
+            </div>
+            <div class="gallery-overlay" aria-hidden="true"><span style="color:#fff;font-size:13px;font-weight:600">View Project ↗</span></div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-tag">Network</div>
+            <div class="gallery-title">VPN + Firewall Setup</div>
+            <div class="gallery-sub">pfSense · remote team · 8 concurrent users</div>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-category="pc" role="listitem" tabindex="0" aria-label="Data recovery project, PC Builds category. Press Enter to view." onclick="openLightbox(5)" onkeydown="if(event.key==='Enter')openLightbox(5)">
+          <div class="gallery-img">
+            <div class="gallery-placeholder">
+              <span style="font-size:3rem;position:relative;z-index:1" aria-hidden="true">💾</span>
+              <span style="font-size:11px;color:var(--text-d);position:relative;z-index:1;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Add Your Photo</span>
+            </div>
+            <div class="gallery-overlay" aria-hidden="true"><span style="color:#fff;font-size:13px;font-weight:600">View Project ↗</span></div>
+          </div>
+          <div class="gallery-info">
+            <div class="gallery-tag">PC Builds</div>
+            <div class="gallery-title">Critical Data Recovery</div>
+            <div class="gallery-sub">Failed SSD · 98% recovery · accounting firm</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="upload-hint" role="note" aria-label="Photo upload instructions">
+        <p style="font-size:16px;margin-bottom:6px">📸 <strong>Adding your own photos:</strong></p>
+        <p>Replace the placeholder emoji cards by adding <code style="background:var(--bg-card2);padding:2px 6px;border-radius:4px;font-size:13px">img</code> tags inside each <code style="background:var(--bg-card2);padding:2px 6px;border-radius:4px;font-size:13px">.gallery-placeholder</code> div, or swap the entire div for <code style="background:var(--bg-card2);padding:2px 6px;border-radius:4px;font-size:13px">&lt;img src="your-photo.jpg" alt="description"&gt;</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORK ═══ -->
+  <section aria-label="Work and services" class="tab-pane hidden" id="work" role="tabpanel">
+    <div style="max-width:1100px">
+      <div style="margin-bottom:32px">
+        <h2 style="font-size:clamp(28px,6vw,46px);font-weight:900;letter-spacing:-.02em">What I do.</h2>
+        <p style="margin-top:8px;font-size:16px;color:var(--text-d)">End-to-end IT support for businesses across Eastern NC and remote clients nationwide.</p>
+      </div>
+
+      <!-- AI Search -->
+      <div class="search-section">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div aria-hidden="true" style="width:30px;height:30px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px">🤖</div>
+          <div>
+            <div style="font-size:15px;font-weight:700">Ask a Tech Question</div>
+            <div style="font-size:12px;color:var(--text-d)">AI-powered answers — your question goes to Dylan's AI assistant</div>
+          </div>
+        </div>
+        <div class="search-box-wrap" role="search">
+          <label for="ai-input" class="sr-only">Type your IT question</label>
+          <input class="search-input" id="ai-input" placeholder="e.g. Why is my Wi-Fi slow? How do I set up a VPN?" type="text" aria-label="Type your IT question here"/>
+          <button class="search-btn" id="ai-btn" aria-label="Submit your tech question">
+            <svg fill="none" height="18" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="18" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="search-results hidden" id="ai-results" aria-live="polite" role="region" aria-label="AI answer">
+          <div class="search-result-header">
+            <span aria-hidden="true">🤖</span> AI Answer
+          </div>
+          <div id="ai-body">
+            <div class="search-loading" id="ai-loading" aria-label="Loading answer">
+              <div class="search-dot" aria-hidden="true"></div>
+              <div class="search-dot" aria-hidden="true"></div>
+              <div class="search-dot" aria-hidden="true"></div>
+              <span>Thinking…</span>
+            </div>
+            <div class="search-result-body hidden" id="ai-answer"></div>
+          </div>
+          <div style="padding:12px 20px;border-top:1px solid var(--border);font-size:13px;color:var(--text-d);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+            <span>Need hands-on help? Dylan can fix it in person or remotely.</span>
+            <button class="btn-outline" data-tab-target="booking" style="height:36px;font-size:13px;padding:0 14px" aria-label="Go to booking page">Book a Session ↗</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech stack -->
+      <div class="tech-section">
+        <div class="tech-category">
+          <div class="tech-category-label">Networking</div>
+          <div class="tech-grid">
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)" aria-hidden="true">🌐</div>TCP/IP &amp; DNS</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,200,255,.1)" aria-hidden="true">📡</div>Wi-Fi Setup &amp; Optimization</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,150,0,.1)" aria-hidden="true">🔒</div>VPN Configuration</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(200,50,200,.1)" aria-hidden="true">🛡️</div>Firewall &amp; Security</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)" aria-hidden="true">📶</div>Ubiquiti / TP-Link Omada</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,100,255,.1)" aria-hidden="true">🔌</div>Structured Cabling</div>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-label">Operating Systems &amp; Cloud</div>
+          <div class="tech-grid">
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,150,255,.1)" aria-hidden="true">🪟</div>Windows 10 / 11 / Server</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(200,200,200,.1)" aria-hidden="true">🍎</div>macOS</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,150,0,.1)" aria-hidden="true">☁️</div>Microsoft 365</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)" aria-hidden="true">🔷</div>Azure AD / Entra ID</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,200,255,.1)" aria-hidden="true">📦</div>Google Workspace</div>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-label">Hardware &amp; Repair</div>
+          <div class="tech-grid">
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)" aria-hidden="true">💾</div>Data Recovery</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,200,0,.1)" aria-hidden="true">⚡</div>Hardware Upgrades</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(200,50,50,.1)" aria-hidden="true">🛡️</div>Virus &amp; Malware Removal</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,200,255,.1)" aria-hidden="true">🖨️</div>Printers &amp; Peripherals</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,100,100,.1)" aria-hidden="true">🔧</div>Rack &amp; Server Builds</div>
+          </div>
+        </div>
+        <div class="tech-category">
+          <div class="tech-category-label">Remote &amp; Management</div>
+          <div class="tech-grid">
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(34,197,94,.1)" aria-hidden="true">🖥️</div>Remote Desktop / RDP</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(0,180,120,.1)" aria-hidden="true">🤝</div>TeamViewer / AnyDesk</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(100,100,255,.1)" aria-hidden="true">📋</div>IT Documentation</div>
+            <div class="tech-pill"><div class="tech-pill-icon" style="background:rgba(255,150,0,.1)" aria-hidden="true">💼</div>Vendor Management</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog -->
+      <div style="margin-top:52px">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:22px">
+          <div>
+            <h3 style="font-size:22px;font-weight:800;letter-spacing:-.01em">IT Tips &amp; Insights</h3>
+            <p style="font-size:14px;color:var(--text-d);margin-top:4px">Quick answers to common business IT questions</p>
+          </div>
+          <span class="pill pill-green" style="flex-shrink:0">Free Advice</span>
+        </div>
+        <div class="blog-grid" role="list">
+          <article class="blog-card" onclick="openBlog(0)" role="listitem" tabindex="0" aria-label="Read: Why Your Business Wi-Fi Should Have a Guest Network" onkeydown="if(event.key==='Enter')openBlog(0)">
+            <div class="blog-tag">Security</div>
+            <div class="blog-title">Why Your Business Wi-Fi Should Have a Guest Network</div>
+            <div class="blog-desc">Mixing personal devices with business systems on the same network is one of the most common — and costly — security mistakes small businesses make.</div>
+            <div class="blog-footer"><span>2 min read</span><span class="blog-read" aria-hidden="true">Read →</span></div>
+          </article>
+          <article class="blog-card" onclick="openBlog(1)" role="listitem" tabindex="0" aria-label="Read: The 3-2-1 Backup Rule" onkeydown="if(event.key==='Enter')openBlog(1)">
+            <div class="blog-tag">Backup &amp; Recovery</div>
+            <div class="blog-title">The 3-2-1 Backup Rule: What It Is and Why You Need It</div>
+            <div class="blog-desc">Most small businesses lose critical data not from hackers — but from a single hard drive failure with no backup in place.</div>
+            <div class="blog-footer"><span>3 min read</span><span class="blog-read" aria-hidden="true">Read →</span></div>
+          </article>
+          <article class="blog-card" onclick="openBlog(2)" role="listitem" tabindex="0" aria-label="Read: Is Your PC Actually Slow?" onkeydown="if(event.key==='Enter')openBlog(2)">
+            <div class="blog-tag">Performance</div>
+            <div class="blog-title">Is Your PC Actually Slow, or Just Needs a Tune-Up?</div>
+            <div class="blog-desc">Before spending money on a new computer, check these five things. Most "slow" computers just need a proper cleanup — not a replacement.</div>
+            <div class="blog-footer"><span>3 min read</span><span class="blog-read" aria-hidden="true">Read →</span></div>
+          </article>
+          <article class="blog-card" onclick="openBlog(3)" role="listitem" tabindex="0" aria-label="Read: How to Spot a Phishing Email" onkeydown="if(event.key==='Enter')openBlog(3)">
+            <div class="blog-tag">Phishing</div>
+            <div class="blog-title">How to Spot a Phishing Email Before It Costs You</div>
+            <div class="blog-desc">Phishing attacks now account for over 80% of reported security incidents. These are the real red flags your team needs to know.</div>
+            <div class="blog-footer"><span>4 min read</span><span class="blog-read" aria-hidden="true">Read →</span></div>
+          </article>
+          <article class="blog-card" onclick="openBlog(4)" role="listitem" tabindex="0" aria-label="Read: Setting Up Secure Remote Access" onkeydown="if(event.key==='Enter')openBlog(4)">
+            <div class="blog-tag">Remote Work</div>
+            <div class="blog-title">Setting Up Secure Remote Access for Your Team</div>
+            <div class="blog-desc">VPNs, remote desktop, and cloud tools each solve a different problem. Here's how to choose the right setup for your business.</div>
+            <div class="blog-footer"><span>4 min read</span><span class="blog-read" aria-hidden="true">Read →</span></div>
+          </article>
+          <article class="blog-card" onclick="openBlog(5)" role="listitem" tabindex="0" aria-label="Read: Monthly IT Checklist" onkeydown="if(event.key==='Enter')openBlog(5)">
+            <div class="blog-tag">Maintenance</div>
+            <div class="blog-title">The Monthly IT Checklist Every Small Business Should Run</div>
+            <div class="blog-desc">This 10-minute monthly checklist catches 90% of issues before they become emergencies — or worse.</div>
+            <div class="blog-footer"><span>5 min read</span><span class="blog-read" aria-hidden="true">Read →</span></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container" style="text-align:center;font-size:13px">
-    <div style="margin-bottom:8px;opacity:.6">© <span id="year"></span> Dylan Grow · IT Support &amp; Network Specialist · New Bern, NC</div>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-      <a href="https://www.linkedin.com/in/dgrow27" rel="noopener" style="color:var(--green);text-decoration:none" target="_blank">LinkedIn</a>
-      <a href="mailto:DylanGrow@gmail.com" style="color:var(--green);text-decoration:none">Email</a>
-      <a href="tel:2523490830" style="color:var(--green);text-decoration:none">(252) 349-0830</a>
+<footer class="site-footer" role="contentinfo">
+  <div class="container" style="text-align:center;font-size:14px">
+    <div style="margin-bottom:10px;opacity:.6">© <span id="year"></span> Dylan Grow · IT Support &amp; Network Specialist · New Bern, NC</div>
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
+      <a href="https://www.linkedin.com/in/dgrow27" rel="noopener" style="color:var(--green);text-decoration:none" target="_blank" aria-label="Dylan's LinkedIn (opens in new tab)">LinkedIn</a>
+      <a href="mailto:DylanGrow@gmail.com" style="color:var(--green);text-decoration:none" aria-label="Email Dylan">Email</a>
+      <a href="tel:2523490830" style="color:var(--green);text-decoration:none" aria-label="Call Dylan">(252) 349-0830</a>
     </div>
   </div>
 </footer>
 
 <!-- BLOG MODAL -->
-<div class="blog-modal-overlay hidden" id="blog-overlay" onclick="if(event.target===this)closeBlog()">
+<div class="blog-modal-overlay hidden" id="blog-overlay" role="dialog" aria-modal="true" aria-labelledby="blog-modal-title" onclick="if(event.target===this)closeBlog()">
   <div class="blog-modal">
-    <button class="blog-modal-close" onclick="closeBlog()">✕ Close</button>
-    <div id="blog-modal-content"></div>
+    <button class="blog-modal-close" onclick="closeBlog()" aria-label="Close article">✕ Close</button>
+    <div id="blog-modal-content" tabindex="-1"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay hidden" id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Project photo viewer" onclick="if(event.target===this)closeLightbox()">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close photo viewer">✕ Close</button>
+    <div class="lightbox-img" id="lb-img" aria-live="polite"></div>
+    <div class="lightbox-caption">
+      <div id="lb-tag" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:4px"></div>
+      <div id="lb-title" style="font-size:20px;font-weight:700"></div>
+      <div id="lb-sub" style="font-size:14px;color:var(--text-d);margin-top:4px"></div>
+    </div>
+    <div class="lightbox-nav">
+      <button onclick="moveLightbox(-1)" aria-label="Previous photo">← Prev</button>
+      <span id="lb-count" style="display:flex;align-items:center;font-size:13px;color:var(--text-d)"></span>
+      <button onclick="moveLightbox(1)" aria-label="Next photo">Next →</button>
+    </div>
   </div>
 </div>
 
 <script>
-// ── Blog posts
+// ═══════════════════════════════════════════
+// BLOG POSTS
+// ═══════════════════════════════════════════
 const blogPosts = [
-  {
-    tag:'Security', title:'Why Your Business Wi-Fi Should Have a Guest Network',
-    body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">When a customer or vendor connects to your main Wi-Fi, they're on the same network as your computers, printers, servers, and POS systems. One infected personal device can spread to everything.</p>
-<h4 style="margin-top:20px;font-weight:700">What a guest network does</h4>
-<p style="color:var(--text-d);line-height:1.8;margin-top:8px;font-size:15px">A guest VLAN isolates visitors so they can reach the internet but can't touch your business devices. Modern routers (especially Ubiquiti and TP-Link Omada) make this a 10-minute setup.</p>
-<ul style="color:var(--text-d);line-height:2;margin-top:8px;padding-left:20px;font-size:15px"><li>Blocks malware spreading from guest devices</li><li>Protects POS and accounting systems</li><li>Required for PCI compliance if you take cards</li><li>Keeps your network fast (bandwidth separation)</li></ul>
-<p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> If you're not running a separate guest network, your business is one infected smartphone away from a serious problem. I can set this up in under an hour.</p>`
-  },
-  {
-    tag:'Backup & Recovery', title:'The 3-2-1 Backup Rule: What It Is and Why You Need It',
-    body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">The 3-2-1 rule: keep <strong>3 copies</strong> of your data, on <strong>2 different media types</strong>, with <strong>1 copy offsite</strong>.</p>
-<ul style="color:var(--text-d);line-height:2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Copy 1:</strong> Your live working files (PC or server)</li><li><strong>Copy 2:</strong> A local external drive or NAS</li><li><strong>Copy 3:</strong> Cloud storage (Backblaze, OneDrive, or similar)</li></ul>
-<p style="color:var(--text-d);line-height:1.8;margin-top:16px;font-size:15px">Ransomware attacks encrypt your local files AND connected drives simultaneously. The only thing that saves you is an offsite copy that wasn't connected when the attack hit.</p>
-<p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> I can set up automated 3-2-1 backups for your business in one visit — cloud + local, fully automated, tested monthly.</p>`
-  },
-  {
-    tag:'Performance', title:'Is Your PC Actually Slow, or Just Needs a Tune-Up?',
-    body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Before you spend $800 on a new computer, run through this checklist. Nine times out of ten, slowness has a fixable cause.</p>
-<ol style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Storage:</strong> If your hard drive is over 85% full, everything slows to a crawl.</li><li><strong>RAM:</strong> 8GB is the minimum for Windows 11. Running Chrome + Office + Teams on 4GB is painful.</li><li><strong>Startup programs:</strong> Open Task Manager → Startup tab. Disable everything non-essential.</li><li><strong>Malware:</strong> Background adware silently eats CPU and RAM.</li><li><strong>Thermal throttling:</strong> Dust-clogged fans cause CPUs to slow to avoid overheating.</li></ol>
-<p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> A $150 tune-up often makes a 5-year-old PC feel new. Call me before you buy a replacement.</p>`
-  },
-  {
-    tag:'Phishing', title:'How to Spot a Phishing Email Before It Costs You',
-    body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Phishing emails now look disturbingly legitimate. Here are the real red flags — beyond the obvious spelling errors.</p>
-<ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Sender domain mismatch:</strong> "support@micros0ft-help.com" vs "support@microsoft.com"</li><li><strong>Urgency pressure:</strong> "Your account will be suspended in 24 hours." Legitimate services don't work like this.</li><li><strong>Unexpected attachments:</strong> An invoice you didn't request, a shipping notice for something you didn't order.</li><li><strong>Generic greetings:</strong> "Dear Customer" instead of your name — often a mass campaign.</li><li><strong>Mismatched links:</strong> Hover any link before clicking. The URL shown and actual destination rarely match in phishing.</li></ul>
-<p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> When in doubt, call the company directly using a number from their real website. I also offer staff phishing awareness training.</p>`
-  },
-  {
-    tag:'Remote Work', title:'Setting Up Secure Remote Access for Your Team',
-    body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Remote access isn't one-size-fits-all. The right solution depends on what your team needs to access and how sensitive that data is.</p>
-<ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:15px"><li><strong>Business VPN:</strong> Best for teams needing access to shared drives, local servers, or office printers.</li><li><strong>Remote Desktop (RDP):</strong> Best when employees need their full office PC from home.</li><li><strong>Cloud apps (M365, Google Workspace):</strong> Best for document collaboration with no on-premise infrastructure.</li><li><strong>Zero Trust / Cloudflare Access:</strong> Best for high-security environments — per-app access control.</li></ul>
-<p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> I'll assess your setup and recommend the right option — then configure it securely.</p>`
-  },
-  {
-    tag:'Maintenance', title:'The Monthly IT Checklist Every Small Business Should Run',
-    body:`<p style="color:var(--text-d);line-height:1.8;font-size:15px">Set a calendar reminder for the first Monday of each month and run through these 10 items.</p>
-<ol style="color:var(--text-d);line-height:2.4;margin-top:16px;padding-left:20px;font-size:15px"><li>✅ Check Windows/macOS updates — install pending ones</li><li>✅ Verify backup ran last night (check the log or test a restore)</li><li>✅ Review user accounts — remove anyone who left the company</li><li>✅ Check disk space on servers and key machines (&lt;85% is healthy)</li><li>✅ Run antivirus scan on at least one machine</li><li>✅ Test UPS battery backup units (press test button)</li><li>✅ Review any failed login alerts or unusual activity</li><li>✅ Update router/firewall firmware if available</li><li>✅ Clear old temp files and browser caches on shared machines</li><li>✅ Confirm offsite backup is current and accessible</li></ol>
-<p style="margin-top:20px;padding:16px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:14px;color:var(--green)">💡 <strong>Bottom line:</strong> Ask about my monthly managed IT plans. Flat rate — no surprise bills.</p>`
-  }
+  {tag:'Security',title:'Why Your Business Wi-Fi Should Have a Guest Network',body:`<p style="color:var(--text-d);line-height:1.8;font-size:16px">When a customer or vendor connects to your main Wi-Fi, they're on the same network as your computers, printers, servers, and POS systems. One infected personal device can spread to everything.</p><h4 style="margin-top:20px;font-weight:700;font-size:17px">What a guest network does</h4><p style="color:var(--text-d);line-height:1.8;margin-top:8px;font-size:16px">A guest VLAN isolates visitors so they can reach the internet but can't touch your business devices. Modern routers (especially Ubiquiti and TP-Link Omada) make this a 10-minute setup.</p><ul style="color:var(--text-d);line-height:2;margin-top:8px;padding-left:20px;font-size:16px"><li>Blocks malware spreading from guest devices</li><li>Protects POS and accounting systems</li><li>Required for PCI compliance if you take cards</li><li>Keeps your network fast (bandwidth separation)</li></ul><p style="margin-top:20px;padding:18px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:15px;color:var(--green)">💡 <strong>Bottom line:</strong> If you're not running a separate guest network, your business is one infected smartphone away from a serious problem. I can set this up in under an hour.</p>`},
+  {tag:'Backup & Recovery',title:'The 3-2-1 Backup Rule: What It Is and Why You Need It',body:`<p style="color:var(--text-d);line-height:1.8;font-size:16px">The 3-2-1 rule: keep <strong>3 copies</strong> of your data, on <strong>2 different media types</strong>, with <strong>1 copy offsite</strong>.</p><ul style="color:var(--text-d);line-height:2;margin-top:16px;padding-left:20px;font-size:16px"><li><strong>Copy 1:</strong> Your live working files (PC or server)</li><li><strong>Copy 2:</strong> A local external drive or NAS</li><li><strong>Copy 3:</strong> Cloud storage (Backblaze, OneDrive, or similar)</li></ul><p style="color:var(--text-d);line-height:1.8;margin-top:16px;font-size:16px">Ransomware attacks encrypt your local files AND connected drives simultaneously. The only thing that saves you is an offsite copy that wasn't connected when the attack hit.</p><p style="margin-top:20px;padding:18px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:15px;color:var(--green)">💡 <strong>Bottom line:</strong> I can set up automated 3-2-1 backups for your business in one visit — cloud + local, fully automated, tested monthly.</p>`},
+  {tag:'Performance',title:'Is Your PC Actually Slow, or Just Needs a Tune-Up?',body:`<p style="color:var(--text-d);line-height:1.8;font-size:16px">Before you spend $800 on a new computer, run through this checklist. Nine times out of ten, slowness has a fixable cause.</p><ol style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:16px"><li><strong>Storage:</strong> If your hard drive is over 85% full, everything slows to a crawl.</li><li><strong>RAM:</strong> 8GB is the minimum for Windows 11. Running Chrome + Office + Teams on 4GB is painful.</li><li><strong>Startup programs:</strong> Open Task Manager → Startup tab. Disable everything non-essential.</li><li><strong>Malware:</strong> Background adware silently eats CPU and RAM.</li><li><strong>Thermal throttling:</strong> Dust-clogged fans cause CPUs to slow to avoid overheating.</li></ol><p style="margin-top:20px;padding:18px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:15px;color:var(--green)">💡 <strong>Bottom line:</strong> A $150 tune-up often makes a 5-year-old PC feel new. Call me before you buy a replacement.</p>`},
+  {tag:'Phishing',title:'How to Spot a Phishing Email Before It Costs You',body:`<p style="color:var(--text-d);line-height:1.8;font-size:16px">Phishing emails now look disturbingly legitimate. Here are the real red flags — beyond the obvious spelling errors.</p><ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:16px"><li><strong>Sender domain mismatch:</strong> "support@micros0ft-help.com" vs "support@microsoft.com"</li><li><strong>Urgency pressure:</strong> "Your account will be suspended in 24 hours." Legitimate services don't work like this.</li><li><strong>Unexpected attachments:</strong> An invoice you didn't request, a shipping notice for something you didn't order.</li><li><strong>Generic greetings:</strong> "Dear Customer" instead of your name — often a mass campaign.</li><li><strong>Mismatched links:</strong> Hover any link before clicking. The URL shown and actual destination rarely match in phishing.</li></ul><p style="margin-top:20px;padding:18px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:15px;color:var(--green)">💡 <strong>Bottom line:</strong> When in doubt, call the company directly using a number from their real website. I also offer staff phishing awareness training.</p>`},
+  {tag:'Remote Work',title:'Setting Up Secure Remote Access for Your Team',body:`<p style="color:var(--text-d);line-height:1.8;font-size:16px">Remote access isn't one-size-fits-all. The right solution depends on what your team needs to access and how sensitive that data is.</p><ul style="color:var(--text-d);line-height:2.2;margin-top:16px;padding-left:20px;font-size:16px"><li><strong>Business VPN:</strong> Best for teams needing access to shared drives, local servers, or office printers.</li><li><strong>Remote Desktop (RDP):</strong> Best when employees need their full office PC from home.</li><li><strong>Cloud apps (M365, Google Workspace):</strong> Best for document collaboration with no on-premise infrastructure.</li><li><strong>Zero Trust / Cloudflare Access:</strong> Best for high-security environments — per-app access control.</li></ul><p style="margin-top:20px;padding:18px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:15px;color:var(--green)">💡 <strong>Bottom line:</strong> I'll assess your setup and recommend the right option — then configure it securely.</p>`},
+  {tag:'Maintenance',title:'The Monthly IT Checklist Every Small Business Should Run',body:`<p style="color:var(--text-d);line-height:1.8;font-size:16px">Set a calendar reminder for the first Monday of each month and run through these 10 items.</p><ol style="color:var(--text-d);line-height:2.4;margin-top:16px;padding-left:20px;font-size:16px"><li>✅ Check Windows/macOS updates — install pending ones</li><li>✅ Verify backup ran last night (check the log or test a restore)</li><li>✅ Review user accounts — remove anyone who left the company</li><li>✅ Check disk space on servers and key machines (&lt;85% is healthy)</li><li>✅ Run antivirus scan on at least one machine</li><li>✅ Test UPS battery backup units (press test button)</li><li>✅ Review any failed login alerts or unusual activity</li><li>✅ Update router/firewall firmware if available</li><li>✅ Clear old temp files and browser caches on shared machines</li><li>✅ Confirm offsite backup is current and accessible</li></ol><p style="margin-top:20px;padding:18px;background:var(--green-dim);border:1px solid var(--green-border);border-radius:12px;font-size:15px;color:var(--green)">💡 <strong>Bottom line:</strong> Ask about my monthly managed IT plans. Flat rate — no surprise bills.</p>`}
 ];
 
 function openBlog(i) {
   const p = blogPosts[i];
-  document.getElementById('blog-modal-content').innerHTML =
-    `<span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green)">${p.tag}</span>
-    <h2 style="font-size:22px;font-weight:800;margin:8px 0 20px;letter-spacing:-.01em;line-height:1.3">${p.title}</h2>${p.body}`;
+  const content = document.getElementById('blog-modal-content');
+  content.innerHTML = `<span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--green)" id="blog-modal-title">${p.tag}</span><h2 style="font-size:24px;font-weight:800;margin:8px 0 22px;letter-spacing:-.01em;line-height:1.3">${p.title}</h2>${p.body}`;
   document.getElementById('blog-overlay').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  content.focus();
 }
 function closeBlog() {
   document.getElementById('blog-overlay').classList.add('hidden');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBlog(); });
 
-// ── Year
-document.getElementById('year').textContent = new Date().getFullYear();
+// ═══════════════════════════════════════════
+// GALLERY / LIGHTBOX
+// ═══════════════════════════════════════════
+const galleryData = [
+  {emoji:'📡',tag:'Network',title:'Business Wi-Fi Overhaul',sub:'Ubiquiti UniFi · 12-AP deployment · New Bern, NC'},
+  {emoji:'🖥️',tag:'Server',title:'Small Business Server Rack',sub:'NAS + UPS + patch panel · full cable management'},
+  {emoji:'🔧',tag:'PC Builds',title:'Custom Workstation Build',sub:'i9 · 64GB RAM · 2TB NVMe · dual 4K displays'},
+  {emoji:'🔌',tag:'Cabling',title:'Office Structured Cabling',sub:'Cat6A · 24-port patch panel · 3,200 sq ft office'},
+  {emoji:'🛡️',tag:'Network',title:'VPN + Firewall Setup',sub:'pfSense · remote team · 8 concurrent users'},
+  {emoji:'💾',tag:'PC Builds',title:'Critical Data Recovery',sub:'Failed SSD · 98% recovery · accounting firm'},
+];
+let lbIndex = 0;
 
-// ── Theme
-const html = document.documentElement;
-const themeToggle = document.getElementById('theme-toggle');
-(function() {
-  const saved = localStorage.getItem('theme');
-  if (saved === 'light') { html.classList.remove('dark'); html.classList.add('light'); }
-  else { html.classList.add('dark'); html.classList.remove('light'); }
-})();
-themeToggle.addEventListener('click', () => {
-  const isDark = html.classList.contains('dark');
-  html.classList.toggle('dark', !isDark);
-  html.classList.toggle('light', isDark);
-  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+function openLightbox(i) {
+  lbIndex = i;
+  renderLightbox();
+  document.getElementById('lightbox-overlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  document.querySelector('.lightbox-close').focus();
+}
+function closeLightbox() {
+  document.getElementById('lightbox-overlay').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+function moveLightbox(dir) {
+  lbIndex = (lbIndex + dir + galleryData.length) % galleryData.length;
+  renderLightbox();
+}
+function renderLightbox() {
+  const d = galleryData[lbIndex];
+  document.getElementById('lb-img').innerHTML = `<div style="width:100%;height:100%;min-height:300px;display:flex;align-items:center;justify-content:center;background:var(--bg-card2);border-radius:16px;font-size:6rem">${d.emoji}</div>`;
+  document.getElementById('lb-tag').textContent = d.tag;
+  document.getElementById('lb-title').textContent = d.title;
+  document.getElementById('lb-sub').textContent = d.sub;
+  document.getElementById('lb-count').textContent = `${lbIndex+1} / ${galleryData.length}`;
+}
+
+// Gallery filter
+document.querySelectorAll('.gallery-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.gallery-filter').forEach(b => {
+      const active = b === btn;
+      b.style.background = active ? 'var(--green-dim)' : 'none';
+      b.style.borderColor = active ? 'var(--green-border)' : 'var(--border)';
+      b.style.color = active ? 'var(--green)' : 'var(--text-m)';
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    document.querySelectorAll('.gallery-card').forEach(card => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      card.style.display = show ? '' : 'none';
+    });
+  });
 });
 
-// ── CLOCK: 12-hour with date, always visible
-function updateClock() {
-  const now = new Date();
-  const et = { timeZone: 'America/New_York' };
-  document.getElementById('live-clock').textContent =
-    new Intl.DateTimeFormat('en-US', { ...et, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }).format(now) + ' ET';
-  document.getElementById('live-date').textContent =
-    new Intl.DateTimeFormat('en-US', { ...et, weekday: 'short', month: 'short', day: 'numeric' }).format(now);
+// ═══════════════════════════════════════════
+// KEYBOARD: Escape closes any modal
+// ═══════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeBlog(); closeLightbox(); }
+  if (e.key === 'ArrowLeft' && !document.getElementById('lightbox-overlay').classList.contains('hidden')) moveLightbox(-1);
+  if (e.key === 'ArrowRight' && !document.getElementById('lightbox-overlay').classList.contains('hidden')) moveLightbox(1);
+});
+
+// ═══════════════════════════════════════════
+// YEAR
+// ═══════════════════════════════════════════
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ═══════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════
+const html = document.documentElement;
+(function(){
+  const saved = localStorage.getItem('theme');
+  if(saved==='light'){html.classList.remove('dark');html.classList.add('light');}
+  else{html.classList.add('dark');html.classList.remove('light');}
+})();
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  const isDark = html.classList.contains('dark');
+  html.classList.toggle('dark',!isDark);
+  html.classList.toggle('light',isDark);
+  localStorage.setItem('theme',isDark?'light':'dark');
+});
+
+// ═══════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════
+function updateClock(){
+  const now=new Date(), et={timeZone:'America/New_York'};
+  document.getElementById('live-clock').textContent=new Intl.DateTimeFormat('en-US',{...et,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true}).format(now)+' ET';
+  document.getElementById('live-date').textContent=new Intl.DateTimeFormat('en-US',{...et,weekday:'short',month:'short',day:'numeric'}).format(now);
 }
-updateClock();
-setInterval(updateClock, 1000);
+updateClock(); setInterval(updateClock,1000);
 
-// ── TYPEWRITER
-const tw = document.getElementById('typewriter');
-const phrases = ['Dylan Grow', 'IT Specialist', 'Network Pro', 'Problem Solver'];
-let pi = 0, ci = 0, deleting = false, holding = false;
-
-function typeLoop() {
-  const full = phrases[pi % phrases.length];
-  if (holding) {
-    holding = false; deleting = true;
-    setTimeout(typeLoop, 3000); return;
-  }
-  if (!deleting) {
-    ci++; tw.textContent = full.slice(0, ci);
-    if (ci === full.length) { holding = true; setTimeout(typeLoop, 80); }
-    else { setTimeout(typeLoop, 120); }
-  } else {
-    ci--; tw.textContent = full.slice(0, ci);
-    if (ci === 0) { deleting = false; pi++; setTimeout(typeLoop, 400); }
-    else { setTimeout(typeLoop, 70); }
-  }
+// ═══════════════════════════════════════════
+// TYPEWRITER
+// ═══════════════════════════════════════════
+const tw=document.getElementById('typewriter');
+const phrases=['Dylan Grow','IT Specialist','Network Pro','Problem Solver'];
+let pi=0,ci=0,deleting=false,holding=false;
+function typeLoop(){
+  const full=phrases[pi%phrases.length];
+  if(holding){holding=false;deleting=true;setTimeout(typeLoop,3000);return;}
+  if(!deleting){ci++;tw.textContent=full.slice(0,ci);if(ci===full.length){holding=true;setTimeout(typeLoop,80);}else{setTimeout(typeLoop,120);}}
+  else{ci--;tw.textContent=full.slice(0,ci);if(ci===0){deleting=false;pi++;setTimeout(typeLoop,400);}else{setTimeout(typeLoop,70);}}
 }
 typeLoop();
 
-// ── Tab Navigation
-const tabBtns = document.querySelectorAll('.tab-btn');
-const mobBtns = document.querySelectorAll('.mob-tab-btn');
-const panes   = document.querySelectorAll('.tab-pane');
-
-function setActive(name) {
-  panes.forEach(p => p.classList.toggle('hidden', p.id !== name));
-  tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
-  mobBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  history.replaceState(null, '', '#' + name);
+// ═══════════════════════════════════════════
+// STAT COUNT-UP
+// ═══════════════════════════════════════════
+function animateCountUp(el){
+  const target=parseInt(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  const dur=1800, step=16;
+  const steps=dur/step;
+  let cur=0;
+  const inc=target/steps;
+  const timer=setInterval(()=>{
+    cur=Math.min(cur+inc,target);
+    el.textContent=Math.floor(cur)+suffix;
+    if(cur>=target)clearInterval(timer);
+  },step);
 }
-tabBtns.forEach(b => b.addEventListener('click', () => setActive(b.dataset.tab)));
-mobBtns.forEach(b => b.addEventListener('click', () => setActive(b.dataset.tab)));
-document.querySelectorAll('[data-tab-target]').forEach(b => b.addEventListener('click', () => setActive(b.dataset.tabTarget)));
+// Run count-up when home tab is visible
+function runCountUp(){
+  document.querySelectorAll('.stat-val').forEach(el=>{
+    if(!el.dataset.animated){el.dataset.animated='1';animateCountUp(el);}
+  });
+}
 
-const validTabs = ['home', 'about', 'work', 'booking'];
-const initTab = validTabs.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
+// ═══════════════════════════════════════════
+// TAB NAVIGATION
+// ═══════════════════════════════════════════
+const tabBtns=document.querySelectorAll('.tab-btn');
+const mobBtns=document.querySelectorAll('.mob-tab-btn');
+const panes=document.querySelectorAll('.tab-pane');
+
+function setActive(name){
+  panes.forEach(p=>{
+    p.classList.toggle('hidden',p.id!==name);
+    p.setAttribute('aria-hidden', p.id!==name ? 'true':'false');
+  });
+  tabBtns.forEach(b=>{
+    const a=b.dataset.tab===name;
+    b.classList.toggle('active',a);
+    b.setAttribute('aria-selected',a?'true':'false');
+  });
+  mobBtns.forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  window.scrollTo({top:0,behavior:'smooth'});
+  history.replaceState(null,'','#'+name);
+  if(name==='home') runCountUp();
+}
+tabBtns.forEach(b=>b.addEventListener('click',()=>setActive(b.dataset.tab)));
+mobBtns.forEach(b=>b.addEventListener('click',()=>setActive(b.dataset.tab)));
+document.querySelectorAll('[data-tab-target]').forEach(b=>b.addEventListener('click',()=>setActive(b.dataset.tabTarget)));
+
+const validTabs=['home','about','booking','projects','work'];
+const initTab=validTabs.includes(location.hash.slice(1))?location.hash.slice(1):'home';
 setActive(initTab);
 
-// ── Availability badge
-function checkAvailability() {
-  const et   = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  const day  = et.getDay(), hour = et.getHours() + et.getMinutes() / 60;
-  const open = day >= 1 && day <= 5 && hour >= 8 && hour < 18;
-  const badge = document.getElementById('avail-badge');
-  const dot   = document.getElementById('status-dot');
-  const txt   = document.getElementById('status-text');
-  if (open) {
-    badge.style.cssText = 'background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)';
-    dot.style.background = '#22c55e';
-    txt.style.color = '#22c55e'; txt.textContent = 'Available';
-  } else {
-    badge.style.cssText = 'background:var(--bg-card2);border:1px solid var(--border)';
-    dot.style.background = 'var(--text-d)';
-    txt.style.color = 'var(--text-d)'; txt.textContent = 'After Hours';
-  }
+// ═══════════════════════════════════════════
+// AVAILABILITY BADGE
+// ═══════════════════════════════════════════
+function checkAvailability(){
+  const et=new Date(new Date().toLocaleString('en-US',{timeZone:'America/New_York'}));
+  const day=et.getDay(),hour=et.getHours()+et.getMinutes()/60;
+  const open=day>=1&&day<=5&&hour>=8&&hour<18;
+  const badge=document.getElementById('avail-badge');
+  const dot=document.getElementById('status-dot');
+  const txt=document.getElementById('status-text');
+  if(open){badge.style.cssText='background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2)';dot.style.background='#22c55e';txt.style.color='#22c55e';txt.textContent='Available';}
+  else{badge.style.cssText='background:var(--bg-card2);border:1px solid var(--border)';dot.style.background='var(--text-d)';txt.style.color='var(--text-d)';txt.textContent='After Hours';}
 }
-checkAvailability(); setInterval(checkAvailability, 60000);
+checkAvailability(); setInterval(checkAvailability,60000);
 
-// ── vCard download
-document.getElementById('vcard-btn').addEventListener('click', () => {
-  const v = `BEGIN:VCARD\nVERSION:3.0\nFN:Dylan Grow\nN:Grow;Dylan;;;\nTITLE:IT Support & Network Specialist\nORG:Dylan Grow IT\nTEL;TYPE=WORK,VOICE:(252) 349-0830\nEMAIL;TYPE=PREF,INTERNET:DylanGrow@gmail.com\nURL:https://dylangrow.com\nADR;TYPE=WORK:;;New Bern;NC;;USA\nNOTE:CompTIA A+ Certified | Google IT Support Certified | Emergency IT Services\nEND:VCARD`;
-  const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(new Blob([v], { type: 'text/vcard' })),
-    download: 'Dylan-Grow-IT.vcf'
-  });
-  document.body.appendChild(a); a.click(); a.remove();
+// ═══════════════════════════════════════════
+// VCARD
+// ═══════════════════════════════════════════
+document.getElementById('vcard-btn').addEventListener('click',()=>{
+  const v=`BEGIN:VCARD\nVERSION:3.0\nFN:Dylan Grow\nN:Grow;Dylan;;;\nTITLE:IT Support & Network Specialist\nORG:Dylan Grow IT\nTEL;TYPE=WORK,VOICE:(252) 349-0830\nEMAIL;TYPE=PREF,INTERNET:DylanGrow@gmail.com\nURL:https://dylangrow.com\nADR;TYPE=WORK:;;New Bern;NC;;USA\nNOTE:CompTIA A+ Certified | Google IT Support Certified | Emergency IT Services\nEND:VCARD`;
+  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([v],{type:'text/vcard'})),download:'Dylan-Grow-IT.vcf'});
+  document.body.appendChild(a);a.click();a.remove();
 });
 
-// ── Contact form
-const form = document.getElementById('contact-form');
-const fst  = document.getElementById('form-status');
-form.addEventListener('submit', async e => {
+// ═══════════════════════════════════════════
+// CONTACT FORM
+// ═══════════════════════════════════════════
+const form=document.getElementById('contact-form');
+const fst=document.getElementById('form-status');
+form.addEventListener('submit',async e=>{
   e.preventDefault();
-  fst.textContent = 'Sending…'; fst.style.color = 'var(--text-d)';
-  const btn = form.querySelector('button[type=submit]');
-  btn.disabled = true; btn.style.opacity = '.6';
-  try {
-    await fetch('https://script.google.com/macros/s/AKfycbzTi-Pcn7tzisi2yP7XvxQ6JEQmPoI-9X3ebc4RF5NBCIdC8P0SQMUTlaQ1xMAgcAGv/exec', {
-      method: 'POST', mode: 'no-cors', body: new FormData(form)
-    });
-    fst.textContent = "✅ Message sent! I'll reply within 1 business hour."; fst.style.color = 'var(--green)';
+  fst.textContent='Sending…';fst.style.color='var(--text-d)';
+  const btn=form.querySelector('button[type=submit]');
+  btn.disabled=true;btn.style.opacity='.6';
+  try{
+    await fetch('https://script.google.com/macros/s/AKfycbzTi-Pcn7tzisi2yP7XvxQ6JEQmPoI-9X3ebc4RF5NBCIdC8P0SQMUTlaQ1xMAgcAGv/exec',{method:'POST',mode:'no-cors',body:new FormData(form)});
+    fst.textContent="✅ Message sent! I'll reply within 1 business hour.";fst.style.color='var(--green)';
     form.reset();
-  } catch {
-    fst.textContent = '⚠️ Error — email me: DylanGrow@gmail.com'; fst.style.color = '#f87171';
-  } finally {
-    btn.disabled = false; btn.style.opacity = '';
-    setTimeout(() => { fst.textContent = ''; }, 9000);
-  }
+  }catch{fst.textContent='⚠️ Error — email me: DylanGrow@gmail.com';fst.style.color='#f87171';}
+  finally{btn.disabled=false;btn.style.opacity='';setTimeout(()=>{fst.textContent='';},9000);}
 });
 
-// ── Calendar iframe adblock fallback
-(function() {
-  const iframe = document.getElementById('cal-iframe');
-  const fallback = document.getElementById('cal-fallback');
-  if (!iframe) return;
-  let loaded = false;
-  iframe.addEventListener('load', () => { loaded = true; });
-  setTimeout(() => { if (!loaded) { iframe.style.display = 'none'; fallback.style.display = 'flex'; } }, 5000);
-  iframe.addEventListener('error', () => { iframe.style.display = 'none'; fallback.style.display = 'flex'; });
+// ═══════════════════════════════════════════
+// CALENDAR FALLBACK
+// ═══════════════════════════════════════════
+(function(){
+  const iframe=document.getElementById('cal-iframe');
+  const fallback=document.getElementById('cal-fallback');
+  if(!iframe)return;
+  let loaded=false;
+  iframe.addEventListener('load',()=>{loaded=true;});
+  setTimeout(()=>{if(!loaded){iframe.style.display='none';fallback.style.display='flex';}},5000);
+  iframe.addEventListener('error',()=>{iframe.style.display='none';fallback.style.display='flex';});
 })();
 
-// ── Weather
-const LAT = 35.1085, LON = -77.0441;
-const weatherIconMap = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
-const weatherDescMap = {0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Rain showers',82:'Violent showers',85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm w/ hail',99:'Heavy thunderstorm'};
-async function fetchWeather() {
-  const el = id => document.getElementById(id);
-  el('weather-loading').style.display = 'flex';
-  el('weather-data').style.display = 'none';
-  el('weather-error').style.display = 'none';
-  try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const d = await res.json(), c = d.current;
-    const code = c.weather_code ?? c.weathercode ?? 0;
-    el('w-temp').textContent  = Math.round(c.temperature_2m);
-    el('w-feels').textContent = Math.round(c.apparent_temperature) + '°';
-    el('w-humid').textContent = Math.round(c.relative_humidity_2m) + '%';
-    el('w-wind').textContent  = Math.round(c.wind_speed_10m ?? 0) + ' mph';
-    el('w-desc').textContent  = weatherDescMap[code] || 'Unknown';
-    el('w-icon').textContent  = weatherIconMap[code] || '🌡️';
-    el('w-time').textContent  = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/New_York' }).format(new Date());
-    el('weather-loading').style.display = 'none';
-    el('weather-data').style.display = 'block';
-  } catch(err) {
-    console.warn('Weather:', err);
-    el('weather-loading').style.display = 'none';
-    el('weather-error').style.display = 'block';
-  }
+// ═══════════════════════════════════════════
+// WEATHER
+// ═══════════════════════════════════════════
+const LAT=35.1085,LON=-77.0441;
+const wIcon={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',77:'🌨️',80:'🌦️',81:'🌧️',82:'⛈️',85:'🌨️',86:'🌨️',95:'⛈️',96:'⛈️',99:'⛈️'};
+const wDesc={0:'Clear sky',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Icy fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Showers',81:'Rain showers',82:'Violent showers',85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm w/ hail',99:'Heavy thunderstorm'};
+async function fetchWeather(){
+  const el=id=>document.getElementById(id);
+  el('weather-loading').style.display='flex';el('weather-data').style.display='none';el('weather-error').style.display='none';
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York`;
+    const res=await fetch(url);if(!res.ok)throw new Error('HTTP '+res.status);
+    const d=await res.json(),c=d.current;
+    const code=c.weather_code??c.weathercode??0;
+    el('w-temp').textContent=Math.round(c.temperature_2m);
+    el('w-feels').textContent=Math.round(c.apparent_temperature)+'°';
+    el('w-humid').textContent=Math.round(c.relative_humidity_2m)+'%';
+    el('w-wind').textContent=Math.round(c.wind_speed_10m??0)+' mph';
+    el('w-desc').textContent=wDesc[code]||'Unknown';
+    el('w-icon').textContent=wIcon[code]||'🌡️';
+    el('w-time').textContent=new Intl.DateTimeFormat('en-US',{hour:'2-digit',minute:'2-digit',timeZone:'America/New_York'}).format(new Date());
+    el('weather-loading').style.display='none';el('weather-data').style.display='block';
+  }catch(err){console.warn('Weather:',err);el('weather-loading').style.display='none';el('weather-error').style.display='block';}
 }
 fetchWeather();
-document.getElementById('weather-retry').addEventListener('click', fetchWeather);
-setInterval(fetchWeather, 10 * 60 * 1000);
+document.getElementById('weather-retry').addEventListener('click',fetchWeather);
+setInterval(fetchWeather,10*60*1000);
 
-// ── AI Tech Search (Anthropic Claude API)
-const aiInput   = document.getElementById('ai-input');
-const aiBtn     = document.getElementById('ai-btn');
-const aiResults = document.getElementById('ai-results');
-const aiLoading = document.getElementById('ai-loading');
-const aiAnswer  = document.getElementById('ai-answer');
+// ═══════════════════════════════════════════
+// AI SEARCH — Cloudflare Worker proxy
+// ═══════════════════════════════════════════
+const WORKER_URL='YOUR_WORKER_URL_HERE';
+const aiInput=document.getElementById('ai-input');
+const aiBtn=document.getElementById('ai-btn');
+const aiResults=document.getElementById('ai-results');
+const aiLoading=document.getElementById('ai-loading');
+const aiAnswer=document.getElementById('ai-answer');
 
-async function runAISearch() {
-  const q = aiInput.value.trim();
-  if (!q) return;
-
-  aiResults.classList.remove('hidden');
-  aiLoading.classList.remove('hidden');
-  aiAnswer.classList.add('hidden');
-  aiAnswer.innerHTML = '';
-  aiBtn.disabled = true;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 600,
-        system: `You are a helpful IT support assistant on the website of Dylan Grow, a CompTIA A+ certified IT specialist based in New Bern, NC. Answer the user's IT question clearly and concisely in plain English — no jargon unless necessary. Keep answers practical and actionable. If the issue is complex, recommend they book a session with Dylan. Format with short paragraphs, no markdown headers.`,
-        messages: [{ role: 'user', content: q }]
-      })
-    });
-
-    if (!res.ok) throw new Error('API ' + res.status);
-    const data = await res.json();
-    const text = data.content?.[0]?.text || 'No answer returned.';
-
-    aiLoading.classList.add('hidden');
-    aiAnswer.classList.remove('hidden');
-    // Render with line breaks
-    aiAnswer.innerHTML = text
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>');
-    aiAnswer.innerHTML = '<p>' + aiAnswer.innerHTML + '</p>';
-
-  } catch (err) {
-    console.warn('AI Search error:', err);
-    aiLoading.classList.add('hidden');
-    aiAnswer.classList.remove('hidden');
-    aiAnswer.innerHTML = `<span style="color:var(--text-d)">Couldn't reach the AI right now — <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)">email Dylan directly</a> or <a href="tel:2523490830" style="color:var(--green)">call (252) 349-0830</a>.</span>`;
-  } finally {
-    aiBtn.disabled = false;
+async function runAISearch(){
+  const q=aiInput.value.trim();if(!q)return;
+  if(WORKER_URL==='YOUR_WORKER_URL_HERE'){
+    aiResults.classList.remove('hidden');aiLoading.classList.add('hidden');aiAnswer.classList.remove('hidden');
+    aiAnswer.innerHTML='<span style="color:var(--text-d)">AI search coming soon! For now, <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)">email Dylan</a> or <a href="tel:2523490830" style="color:var(--green)">call (252) 349-0830</a>.</span>';
+    return;
   }
+  aiResults.classList.remove('hidden');aiLoading.classList.remove('hidden');aiAnswer.classList.add('hidden');aiAnswer.innerHTML='';aiBtn.disabled=true;
+  try{
+    const res=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q})});
+    if(!res.ok)throw new Error('Worker '+res.status);
+    const data=await res.json();if(data.error)throw new Error(data.error);
+    const text=data.answer||'No answer returned.';
+    aiLoading.classList.add('hidden');aiAnswer.classList.remove('hidden');
+    const safe=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n\n+/g,'</p><p style="margin-top:10px">').replace(/\n/g,'<br>');
+    aiAnswer.innerHTML='<p>'+safe+'</p>';
+  }catch(err){
+    console.warn('AI:',err);aiLoading.classList.add('hidden');aiAnswer.classList.remove('hidden');
+    aiAnswer.innerHTML='<span style="color:var(--text-d)">Couldn\'t reach AI — <a href="mailto:DylanGrow@gmail.com" style="color:var(--green)">email Dylan</a> or <a href="tel:2523490830" style="color:var(--green)">call (252) 349-0830</a>.</span>';
+  }finally{aiBtn.disabled=false;}
 }
+aiBtn.addEventListener('click',runAISearch);
+aiInput.addEventListener('keydown',e=>{if(e.key==='Enter')runAISearch();});
 
-aiBtn.addEventListener('click', runAISearch);
-aiInput.addEventListener('keydown', e => { if (e.key === 'Enter') runAISearch(); });
+// ═══════════════════════════════════════════
+// CUSTOM CURSOR + SPARK TRAIL
+// ═══════════════════════════════════════════
+(function(){
+  const dot=document.getElementById('cursor-dot');
+  const ring=document.getElementById('cursor-ring');
+  if(!dot||!ring)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    // Spark every ~5th move
+    if(Math.random()<0.2) spawnSpark(mx,my);
+  });
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function animRing(){
+    rx=lerp(rx,mx,0.12);ry=lerp(ry,my,0.12);
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  function spawnSpark(x,y){
+    const s=document.createElement('div');
+    s.className='spark';
+    const angle=Math.random()*Math.PI*2;
+    const dist=20+Math.random()*30;
+    s.style.setProperty('--dx',Math.cos(angle)*dist+'px');
+    s.style.setProperty('--dy',Math.sin(angle)*dist+'px');
+    s.style.left=x+'px';s.style.top=y+'px';
+    s.style.width=(3+Math.random()*4)+'px';
+    s.style.height=s.style.width;
+    s.style.animation='sparkle 0.5s ease forwards';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),500);
+  }
+})();
+
+// ═══════════════════════════════════════════
+// PARTICLE CANVAS
+// ═══════════════════════════════════════════
+(function(){
+  const canvas=document.getElementById('particle-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W=window.innerWidth,H=window.innerHeight;
+  canvas.width=W;canvas.height=H;
+  window.addEventListener('resize',()=>{W=window.innerWidth;H=window.innerHeight;canvas.width=W;canvas.height=H;});
+  const N=55;
+  const particles=Array.from({length:N},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-.5)*0.3, vy:(Math.random()-.5)*0.3,
+    r:Math.random()*1.8+0.4,
+    a:Math.random()*Math.PI*2,
+    breatheSpeed:0.008+Math.random()*0.012,
+    breatheAmt:Math.random()*0.5+0.3,
+  }));
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.a+=p.breatheSpeed;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      const alpha=0.08+Math.sin(p.a)*p.breatheAmt*0.15;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(34,197,94,${Math.max(0.02,alpha)})`;
+      ctx.fill();
+    });
+    // Faint connecting lines between nearby particles
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=particles[i].x-particles[j].x;
+        const dy=particles[i].y-particles[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<110){
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x,particles[i].y);
+          ctx.lineTo(particles[j].x,particles[j].y);
+          ctx.strokeStyle=`rgba(34,197,94,${0.04*(1-dist/110)})`;
+          ctx.lineWidth=0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 </body>
 </html>
