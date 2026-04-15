@@ -459,29 +459,7 @@ html.light .cred-hero{background:linear-gradient(135deg,#f0fdf4,#dcfce7 40%,#f8f
         <div class="card" style="border-radius:24px;padding:32px">
           <h2 style="font-size:28px;font-weight:700;letter-spacing:-.01em">Let's solve it.</h2>
           <p style="margin-top:8px;font-size:15px;color:var(--text-d)">Describe the issue — I typically respond within 60 minutes during business hours.</p>
-          <form id="contact-form" style="margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px" novalidate aria-label="Contact Dylan form">
-            <div style="display:flex;flex-direction:column">
-              <label class="field-label" for="cf-name">Name</label>
-              <input class="field-input" id="cf-name" name="name" placeholder="Your name" required autocomplete="name"/>
-            </div>
-            <div style="display:flex;flex-direction:column">
-              <label class="field-label" for="cf-email">Email</label>
-              <input class="field-input" id="cf-email" name="email" placeholder="you@company.com" required type="email" autocomplete="email"/>
-            </div>
-            <div style="display:flex;flex-direction:column;grid-column:span 2">
-              <label class="field-label" for="cf-phone">Company / Phone (optional)</label>
-              <input class="field-input" id="cf-phone" name="phone" placeholder="Company name or callback number" autocomplete="tel"/>
-            </div>
-            <div style="display:flex;flex-direction:column;grid-column:span 2">
-              <label class="field-label" for="cf-message">What's broken?</label>
-              <textarea class="field-textarea" id="cf-message" name="message" placeholder="Network down? PC won't boot? Need new setup? Give me details..." required rows="5"></textarea>
-            </div>
-            <div style="grid-column:span 2;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-top:4px">
-              <button class="btn-green" type="submit" aria-label="Send your message to Dylan">Send Message</button>
-              <p id="form-status" style="font-size:14px;color:var(--text-d)" aria-live="polite"></p>
-            </div>
-            <input name="source" type="hidden" value="dylangrow.com"/>
-          </form>
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScjpiC7aZ1e7vlddSqik79qZv6jwAKnDbV-2Euh23_L2FvkHg/viewform?embedded=true" style="width: 100%; height: 1100px; border: none; border-radius: 12px; margin-top: 26px;" frameborder="0" marginheight="0" marginwidth="0" aria-label="Contact Dylan form">Loading…</iframe>
         </div>
 
         <div>
@@ -1127,24 +1105,6 @@ document.getElementById('vcard-btn').addEventListener('click',()=>{
   const v=`BEGIN:VCARD\nVERSION:3.0\nFN:Dylan Grow\nN:Grow;Dylan;;;\nTITLE:IT Support & Network Specialist\nORG:Dylan Grow IT\nTEL;TYPE=WORK,VOICE:(252) 349-0830\nEMAIL;TYPE=PREF,INTERNET:DylanGrow@gmail.com\nURL:https://dylangrow.com\nADR;TYPE=WORK:;;New Bern;NC;;USA\nNOTE:CompTIA A+ Certified | Google IT Support Certified | Emergency IT Services\nEND:VCARD`;
   const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([v],{type:'text/vcard'})),download:'Dylan-Grow-IT.vcf'});
   document.body.appendChild(a);a.click();a.remove();
-});
-
-// ═══════════════════════════════════════════
-// CONTACT FORM
-// ═══════════════════════════════════════════
-const form=document.getElementById('contact-form');
-const fst=document.getElementById('form-status');
-form.addEventListener('submit',async e=>{
-  e.preventDefault();
-  fst.textContent='Sending…';fst.style.color='var(--text-d)';
-  const btn=form.querySelector('button[type=submit]');
-  btn.disabled=true;btn.style.opacity='.6';
-  try{
-    await fetch('https://script.google.com/macros/s/AKfycbzTi-Pcn7tzisi2yP7XvxQ6JEQmPoI-9X3ebc4RF5NBCIdC8P0SQMUTlaQ1xMAgcAGv/exec',{method:'POST',mode:'no-cors',body:new FormData(form)});
-    fst.textContent="✅ Message sent! I'll reply within 1 business hour.";fst.style.color='var(--green)';
-    form.reset();
-  }catch{fst.textContent='⚠️ Error — email me: DylanGrow@gmail.com';fst.style.color='#f87171';}
-  finally{btn.disabled=false;btn.style.opacity='';setTimeout(()=>{fst.textContent='';},9000);}
 });
 
 // ═══════════════════════════════════════════
