@@ -13,12 +13,13 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dylangrow.com">
   <meta name="twitter:card" content="summary">
+  <meta name="description" content="Fast, friendly IT help for homes & small businesses in New Bern, NC. CompTIA A+ certified. On-site & remote support. Call (252) 349-0830.">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://platform.linkedin.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap&text=DylanGrowITSupport" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 <script>
 if(!localStorage.getItem('theme')) {
@@ -549,9 +550,9 @@ footer {
       <a href="#work">Work</a>
     </nav>
     <div class="nav-right">
-      <form action="https://duckduckgo.com/" method="get" style="display:flex;align-items:center;gap:6px;margin-left:12px" role="search">
-        <input type="text" name="q" placeholder="search web privately" aria-label="Search site" style="width:140px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg-elev-2);color:var(--text);font-size:13px;outline:none">
-        <button type="submit" style="padding:6px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg-elev);color:var(--muted);cursor:pointer;font-size:13px" aria-label="Search">🔍</button>
+      <form id="duckForm" style="display:flex;align-items:center;gap:6px;margin-left:12px" role="search" onsubmit="event.preventDefault(); window.open('https://duck.ai/?q='+encodeURIComponent(document.getElementById('duckInput').value),'_blank')">
+        <input id="duckInput" type="text" placeholder="Ask Duck AI..." aria-label="Ask Duck AI" style="width:140px;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg-elev-2);color:var(--text);font-size:13px;outline:none">
+        <button type="submit" style="padding:6px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg-elev);color:var(--muted);cursor:pointer;font-size:13px" aria-label="Search Duck AI">🦆</button>
       </form>
 
       <div class="clock" id="et-clock">ET --:--</div>
@@ -599,7 +600,7 @@ footer {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               Why I started
             </h3>
-            <p>Friend paid $199 at Geek Squad to uninstall bloatware. I started fixing for Craven County neighbors directly. No tickets. No upsells. Just show up, fix it, explain it.</p>
+            <p>Too many neighbors getting overcharged for simple fixes. I cut out the corporate middleman — just honest IT, plain English, and I actually show up.</p>
           </div>
 
           <div class="card about-card">
@@ -675,7 +676,8 @@ footer {
             <div class="cred-body">
               <h4>CompTIA A+ Certified</h4>
               <p>Core 1 & Core 2 • Industry-standard IT technician certification. Verification available on Credly.</p>
-              <a class="btn small primary" href="https://www.credly.com" target="_blank" rel="noopener">Verify on Credly ↗</a>
+              <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="d20c1749-5008-4f7f-8ed3-f2a8a62624ec" data-share-badge-host="https://www.credly.com"></div>
+              <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
             </div>
           </div>
           <div class="creds-small">
@@ -715,8 +717,35 @@ footer {
         <p>On-site in New Bern, Havelock, Jacksonville, and Morehead City. Remote support available anywhere in NC. Emergency? Call directly.</p>
       </div>
       <div class="booking-grid">
-        <div class="calendar-wrap card" style="padding:0">
-          <iframe loading="lazy" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23151821&ctz=America%2FNew_York&mode=WEEK&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&src=ZGxncm93MjdAZ21haWwuY29t&color=%2322c55e" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div style="display:grid;gap:16px">
+          <!-- How it works -->
+          <div class="card">
+            <h3 style="font-size:16px;margin-bottom:16px">How it works</h3>
+            <div style="display:grid;gap:12px">
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="flex:0 0 32px;height:32px;border-radius:10px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:14px">1</div>
+                <div><strong>Reach out</strong><p style="color:var(--muted);font-size:14px;margin-top:2px">Call, text, or email — I respond in under 15 minutes during business hours.</p></div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="flex:0 0 32px;height:32px;border-radius:10px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:14px">2</div>
+                <div><strong>We diagnose</strong><p style="color:var(--muted);font-size:14px;margin-top:2px">30–60 min diagnostic, often free. I'll tell you exactly what's wrong and what it'll cost — before touching anything.</p></div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <div style="flex:0 0 32px;height:32px;border-radius:10px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:14px">3</div>
+                <div><strong>Fixed & explained</strong><p style="color:var(--muted);font-size:14px;margin-top:2px">On-site or remote. You'll know what was done and why — no black box.</p></div>
+              </div>
+            </div>
+          </div>
+          <!-- Contact CTAs -->
+          <div class="card">
+            <h3 style="font-size:16px;margin-bottom:12px">Get in touch</h3>
+            <a href="tel:+12523490830" class="btn primary big">Call Now — (252) 349-0830</a>
+            <div class="btn-row" style="margin-top:10px">
+              <a href="sms:+12523490830" class="btn">💬 Text Me</a>
+              <a href="mailto:DylanGrow@gmail.com?subject=IT%20Help%20Request" class="btn">✉️ Email</a>
+            </div>
+            <button onclick="downloadVCard()" class="btn" style="width:100%;margin-top:10px;justify-content:center">📇 Save My Contact</button>
+          </div>
         </div>
         <div class="side-grid">
           <div class="card weather">
@@ -728,10 +757,11 @@ footer {
               <div class="weather-temp">--°</div>
               <div class="weather-meta">Loading forecast...</div>
             </div>
+          </div>
           <div class="card">
             <h3 style="font-size:16px; margin-bottom:8px">What to expect</h3>
             <ul class="checklist">
-              <li><span class="check">✓</span> 30-60 min diagnostic (often free)</li>
+              <li><span class="check">✓</span> 30–60 min diagnostic (often free)</li>
               <li><span class="check">✓</span> Clear pricing before I start</li>
               <li><span class="check">✓</span> On-site or secure remote session</li>
             </ul>
@@ -801,18 +831,46 @@ footer {
 </footer>
 
 <script>
+// vCard download
+function downloadVCard(){
+  const vcf = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:Dylan Grow',
+    'ORG:Dylan Grow IT Support',
+    'TITLE:IT Support Technician',
+    'TEL;TYPE=CELL,VOICE:+12523490830',
+    'EMAIL:DylanGrow@Gmail.com',
+    'ADR;TYPE=WORK:;;New Bern;NC;;;US',
+    'URL:https://dylangrow.com',
+    'NOTE:CompTIA A+ Certified. Fast\\, friendly IT help for homes & small businesses in Eastern NC.',
+    'END:VCARD'
+  ].join('\r\n');
+  const blob = new Blob([vcf], {type:'text/vcard'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'DylanGrow-IT.vcf';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Matrix background
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-resize(); addEventListener('resize', resize);
+function resize(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  columns = Math.floor(innerWidth / fontSize);
+  drops = Array(columns).fill(1);
+}
 const chars = '01';
 const fontSize = 14;
 let columns = Math.floor(innerWidth / fontSize);
 let drops = Array(columns).fill(1);
+resize(); addEventListener('resize', resize);
 function drawMatrix(){
   ctx.fillStyle = 'rgba(11,12,15,0.08)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -825,29 +883,91 @@ function drawMatrix(){
     drops[i]++;
   }
 }
-setInterval(drawMatrix, 55);
+let matrixInterval = setInterval(drawMatrix, 55);
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){ clearInterval(matrixInterval); }
+  else { matrixInterval = setInterval(drawMatrix, 55); }
+});
 
-// Custom cursor
+// Custom cursor + binary trail
 const dot = document.querySelector('.cursor-dot');
 const ring = document.querySelector('.cursor-ring');
 let mx = -100, my = -100, rx = -100, ry = -100;
-addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.opacity = 1; ring.style.opacity = 1; });
+
+// Binary trail particles pool
+const POOL_SIZE = 24;
+const pool = [];
+for(let i = 0; i < POOL_SIZE; i++){
+  const el = document.createElement('div');
+  el.style.cssText = `
+    position:fixed;pointer-events:none;z-index:9998;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    font-weight:500;color:var(--green);
+    transform:translate(-50%,-50%);
+    transition:opacity 0.05s;
+    will-change:transform,opacity;
+  `;
+  el.style.opacity = '0';
+  document.body.appendChild(el);
+  pool.push({ el, x: 0, y: 0, vy: 0, life: 0, maxLife: 0 });
+}
+
+function spawnBit(x, y){
+  // find a dead particle
+  const p = pool.find(p => p.life <= 0);
+  if(!p) return;
+  p.x = x + (Math.random() - 0.5) * 10;
+  p.y = y + (Math.random() - 0.5) * 6;
+  p.vy = 0.4 + Math.random() * 0.8;
+  p.maxLife = 38 + Math.floor(Math.random() * 22);
+  p.life = p.maxLife;
+  p.el.textContent = Math.random() > 0.5 ? '1' : '0';
+  p.el.style.opacity = '1';
+}
+
+let lastSpawn = 0;
+addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  dot.style.opacity = 1;
+  ring.style.opacity = 1;
+  // spawn a bit every ~40px of movement, throttled
+  if(Date.now() - lastSpawn > 40){
+    spawnBit(mx, my);
+    lastSpawn = Date.now();
+  }
+});
+
 function loop(){
   rx += (mx - rx) * 0.15;
   ry += (my - ry) * 0.15;
   dot.style.transform = `translate(${mx}px,${my}px)`;
   ring.style.transform = `translate(${rx}px,${ry}px)`;
+
+  // update trail particles
+  for(const p of pool){
+    if(p.life <= 0) continue;
+    p.life--;
+    p.y += p.vy;
+    p.x += (Math.random() - 0.5) * 0.4;
+    const frac = p.life / p.maxLife;
+    p.el.style.transform = `translate(${p.x}px,${p.y}px)`;
+    p.el.style.opacity = (frac * 0.85).toFixed(2);
+    if(p.life <= 0) p.el.style.opacity = '0';
+  }
+
   requestAnimationFrame(loop);
 }
 loop();
 addEventListener('mousedown', ()=>{ ring.style.width='20px'; ring.style.height='20px'; });
-addEventListener('mouseup', ()=>{ ring.style.width='28px'; ring.style.height='28px'; });
+addEventListener('mouseup',   ()=>{ ring.style.width='28px'; ring.style.height='28px'; });
 
-// ET Clock
+// ET Clock with full date
 function updateClock(){
   const now = new Date();
   const et = new Intl.DateTimeFormat('en-US', { timeZone:'America/New_York', hour:'2-digit', minute:'2-digit', hour12:true }).format(now);
-  document.getElementById('et-clock').textContent = `ET ${et}`;
+  const date = new Intl.DateTimeFormat('en-US', { timeZone:'America/New_York', weekday:'short', month:'short', day:'numeric' }).format(now);
+  document.getElementById('et-clock').textContent = `${date} • ET ${et}`;
 }
 updateClock(); setInterval(updateClock, 15000);
 
@@ -864,10 +984,10 @@ themeBtn.addEventListener('click', ()=>{
 
 // Typewriter
 const phrases = [
-  'fast friendly tech for small businesses',
-  'reliable IT for Eastern NC',
-  'on-site & remote support',
-  'no Geek Squad pricing'
+  'Fast, friendly tech for small businesses',
+  'Reliable IT for Eastern NC',
+  'On-site & remote support',
+  'No Geek Squad pricing'
 ];
 const typeEl = document.getElementById('type');
 let pi = 0, ci = 0, deleting = false;
@@ -893,19 +1013,28 @@ const obs = new IntersectionObserver(entries=>{
 },{ rootMargin:'-40% 0px -55% 0px', threshold:0 });
 sections.forEach(s=>obs.observe(s));
 
-// Weather
+// Weather with sessionStorage cache (15 min)
 async function loadWeather(){
   try{
+    const cached = sessionStorage.getItem('weather');
+    if(cached){
+      const {data, ts} = JSON.parse(cached);
+      if(Date.now() - ts < 15 * 60 * 1000){ renderWeather(data); return; }
+    }
     const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.1085&longitude=-77.0441&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph');
     const data = await res.json();
-    const t = Math.round(data.current.temperature_2m);
-    const w = data.current.wind_speed_10m;
-    const code = data.current.weather_code;
-    const map = {0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Drizzle',61:'Rain',71:'Snow',95:'Thunderstorm'};
-    document.getElementById('weather').innerHTML = `<div class="weather-temp">${t}°F</div><div class="weather-meta">${map[code]||'Mixed'} • ${w} mph wind • New Bern, NC</div>`;
+    sessionStorage.setItem('weather', JSON.stringify({data, ts: Date.now()}));
+    renderWeather(data);
   }catch(e){
     document.getElementById('weather').innerHTML = `<div class="weather-meta">Weather unavailable</div>`;
   }
+}
+function renderWeather(data){
+  const t = Math.round(data.current.temperature_2m);
+  const w = data.current.wind_speed_10m;
+  const code = data.current.weather_code;
+  const map = {0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Drizzle',61:'Rain',71:'Snow',95:'Thunderstorm'};
+  document.getElementById('weather').innerHTML = `<div class="weather-temp">${t}°F</div><div class="weather-meta">${map[code]||'Mixed'} • ${w} mph wind • New Bern, NC</div>`;
 }
 loadWeather();
 </script>
