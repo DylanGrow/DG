@@ -1,508 +1,564 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<!--
-  ____       _               ____                   
- |  _ \ _   | | __ _ _ __   / ___|_ __ _____      __
- | | | | | |/ _` | '_ \ | |  _| '__/ _ \ \ /\ / /
- | |_| | |_| | | (_| | | | || |_| | | | (_) \ V  V / 
- |____/ \__, |_|\__,_|_| |_| \____|_|  \___/ \_/\_/  
-        |___/                                        
-  New Bern's IT Pro — No fix, no fee.
-  P.S. There's no 404 page because I fix things before they break.
--->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dylan Grow — On-site & Remote IT for New Bern, NC</title>
-<meta name="description" content="Dylan Grow, IT Professional in New Bern, NC. On-site & remote support for homes and businesses in New Bern, Havelock, Jacksonville. 8+ years, 127 businesses helped. No fix, no fee.">
-<meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.tile.openstreetmap.org https://openstreetmap.org; connect-src https://api.open-meteo.com; frame-src https://www.openstreetmap.org; base-uri 'none'; form-action mailto:;">
-<meta property="og:title" content="Dylan Grow — IT Professional, New Bern NC">
-<meta property="og:description" content="Fast on-site & remote IT. No fix, no fee. Serving New Bern, Havelock, Jacksonville.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#000000">
-<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='black'/><text x='16' y='21' text-anchor='middle' font-family='monospace' font-size='14' fill='%2300ffaa'>DG</text></svg>">
-
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"LocalBusiness",
- "name":"Dylan Grow IT",
- "telephone":"+1-252-349-0830",
- "email":"dylan@dylangrow.com",
- "address":{"@type":"PostalAddress","addressLocality":"New Bern","addressRegion":"NC","addressCountry":"US"},
- "areaServed":["New Bern","Havelock","Jacksonville"],
- "url":"https://dylangrow.com",
- "priceRange":"$$",
- "description":"On-site and remote IT support in New Bern, NC. No fix, no fee.",
- "founder":"Dylan Grow"
-}
-</script>
-
+<title>Dylan Grow — IT Support | New Bern, NC</title>
+<meta name="description" content="Dylan Grow IT Support — On-site and remote help in New Bern, NC. CompTIA A+ Certified. Call (252) 349-0830.">
 <style>
 :root{
-  --bg:#000000; --fg:#e6f7f1; --muted:#8aa39b; --accent:#00ffaa; --accent2:#00aa7f;
-  --card:#0a0f0d; --border:#1a2420; --radius:16px;
-  --z-header:100; --z-sticky:90; --z-modal:200;
+  --green:#22c55e;
+  --green-glow:rgba(34,197,94,.35);
+  --bg:#050805;
+  --bg-elev:#0e1410;
+  --bg-elev-2:#141c16;
+  --text:#e7f3ea;
+  --muted:#9db3a6;
+  --border:#1e2b22;
+  --shadow:0 12px 40px rgba(0,0,0,.45);
 }
 [data-theme="light"]{
-  --bg:#f7fffc; --fg:#05110c; --muted:#4a5d56; --card:#ffffff; --border:#d6ebe3;
+  --bg:#f7fbf8;
+  --bg-elev:#ffffff;
+  --bg-elev-2:#f0f5f1;
+  --text:#0c1710;
+  --muted:#5b6f63;
+  --border:#dde6df;
+  --shadow:0 12px 30px rgba(16,53,30,.08);
+  --green-glow:rgba(34,197,94,.22);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;line-height:1.55;-webkit-font-smoothing:antialiased}
-img{max-width:100%;height:auto}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:12px}
-.skip{position:absolute;left:-9999px;top:auto}
-.skip:focus{left:12px;top:12px;background:var(--accent);color:#000;padding:8px 12px;border-radius:12px;z-index:999}
-.container{max-width:1040px;margin:0 auto;padding:0 16px}
-header{position:sticky;top:0;z-index:var(--z-header);border-bottom:1px solid var(--border);background:rgba(0,0,0,.65);backdrop-filter:blur(10px) saturate(130%)}
-[data-theme="light"] header{background:rgba(247,255,252,.75)}
-.head{display:flex;align-items:center;gap:16px;padding:10px 0}
-.logo{display:flex;align-items:center;gap:8px;font-weight:700}
-.logo-mark{width:28px;height:28px;border-radius:10px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-weight:800}
-nav{margin-left:auto}
-[role=tablist]{display:flex;gap:6px;background:var(--card);padding:4px;border-radius:16px;border:1px solid var(--border)}
-[role=tab]{appearance:none;background:transparent;border:0;color:var(--muted);padding:10px 14px;border-radius:12px;font:inherit;cursor:pointer;transition:color .12s ease,background-color .12s ease,transform .12s ease;min-height:40px}
-[role=tab][aria-selected="true"]{background:var(--fg);color:var(--bg)}
-[role=tab]:hover{transform:translateY(-1px);color:var(--fg)}
-.actions{display:flex;gap:8px}
-.actions button{width:40px;height:40px;display:grid;place-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--fg);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background-color .12s ease}
-.actions button:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--border),0 8px 24px rgba(0,255,170,.08)}
-.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:32px;padding:48px 0 24px}
-@media(max-width:960px){.hero{grid-template-columns:1fr}}
-h1{font-size:clamp(44px,8vw,84px);line-height:.92;margin:0 0 12px;letter-spacing:-.02em}
-#tw{min-height:1.15em;display:inline-block}
-.caret{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:4px;animation:blink 1s steps(1) infinite;vertical-align:-.1em}
-@keyframes blink{50%{opacity:0}}
-.sub{font-size:clamp(18px,2.4vw,22px);color:var(--muted);margin:0}
-.promise{margin:8px 0 24px;font-size:18px}
-.promise strong{color:var(--accent)}
-.ctas{display:flex;gap:12px;flex-wrap:wrap}
-.btn{appearance:none;border:1px solid var(--border);background:var(--card);color:var(--fg);padding:12px 18px;border-radius:16px;font:inherit;font-weight:600;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,background-color .12s ease,color .12s ease;display:inline-flex;align-items:center;gap:8px;min-height:44px}
-.btn:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--border),0 8px 24px rgba(0,255,170,.08)}
-.btn.primary{background:var(--accent);color:#000;border-color:transparent}
-.btn.primary:hover{box-shadow:0 0 0 1px #000 inset,0 8px 24px rgba(0,255,170,.18)}
-.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
-.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border:1px solid var(--border);border-radius:999px;font-size:13px;color:var(--muted)}
-.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px rgba(0,255,170,.6);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
-.mono{font-variant-numeric:tabular-nums;font-feature-settings:"tnum","ss01"}
-#clock{min-width:9ch;text-align:center}
-.hero-aside{display:grid;gap:12px;align-content:start}
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;transition:transform .12s ease,box-shadow .12s ease}
-.card:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--border),0 8px 24px rgba(0,255,170,.08);will-change:transform}
-.card dl{margin:0;display:grid;gap:10px}
-.card dt{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.card dd{margin:0;font-weight:600}
-.ai-search{display:flex;gap:8px}
-.ai-search input{flex:1;background:transparent;border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--fg);font:inherit;outline:none;transition:border-color .12s ease}
-.ai-search input:focus{border-color:var(--accent)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin:24px 0 32px}
-.stat{display:grid;place-items:center;padding:10px}
-.stat strong{font-size:28px;color:var(--accent);line-height:1}
-.stat span{color:var(--muted);font-size:13px;margin-top:4px}
-.reveal{opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease}
-.reveal.in{opacity:1;transform:none}
-.filters{display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap}
-.chip{padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font:inherit;transition:background-color .12s ease,color .12s ease,transform .12s ease}
-.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
-.chip:hover{transform:translateY(-1px)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.project{display:grid;gap:10px}
-.thumb{aspect-ratio:16/9;width:100%;border-radius:16px;overflow:hidden;background:#0c1210;border:1px solid var(--border)}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.project h3{margin:2px 0 0;font-size:17px}
-.project p{margin:0;color:var(--muted);font-size:14px}
-.tags{display:flex;gap:6px;flex-wrap:wrap}
-.tag{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
-.section-title{font-size:22px;margin:0 0 12px}
-.about{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
-@media(max-width:900px){.about{grid-template-columns:1fr}}
-.prose p{color:var(--muted);margin:0 0 12px}
-.list{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px}
-.list li{display:flex;gap:8px;align-items:flex-start}
-.list li::before{content:"—";color:var(--accent);line-height:1.4}
-blockquote{margin:14px 0;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:16px;font-style:italic}
-blockquote footer{margin-top:6px;font-style:normal;color:var(--muted);font-size:13px}
-.map{border-radius:16px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/10;background:#0c1210}
-.map iframe{width:100%;height:100%;border:0;display:block}
-.blog{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.post{padding:16px}
-.post time{font-size:12px;color:var(--muted)}
-.post h3{margin:8px 0 6px;font-size:17px}
-.post p{margin:0;color:var(--muted);font-size:14px}
-.booking{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start;margin-top:32px}
-@media(max-width:900px){.booking{grid-template-columns:1fr}}
-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:600px){form .row{grid-template-columns:1fr}}
-label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
-input,textarea,select{width:100%;padding:12px 14px;background:transparent;border:1px solid var(--border);border-radius:16px;color:var(--fg);font:inherit;transition:border-color .12s ease,box-shadow .12s ease}
-input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,255,170,.15)}
-textarea{min-height:110px;resize:vertical}
-footer{margin-top:64px;padding:32px 0;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
-.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.sticky-phone{display:none}
-@media(max-width:720px){
-  .actions button,[role=tab],.btn{min-height:48px;min-width:48px}
-  .sticky-phone{display:flex;position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--accent);color:#000;padding:12px 18px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.4);align-items:center;border:1px solid #000;transition:transform .12s ease}
-  .sticky-phone:hover{transform:translateX(-50%) translateY(-1px)}
-  body{padding-bottom:84px}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
-#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:10px 14px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .12s ease,transform .12s ease;z-index:200;font-weight:700;max-width:90vw;text-align:center}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-dialog#cmd{border:1px solid var(--border);background:var(--bg);color:var(--fg);border-radius:16px;padding:0;width:min(640px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.6)}
-dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
-.cmd-head{display:flex;padding:10px;border-bottom:1px solid var(--border)}
-.cmd-head input{flex:1;background:transparent;border:0;outline:none;color:var(--fg);font:inherit;padding:8px}
-.cmd-list{display:grid;max-height:320px;overflow:auto;padding:8px}
-.cmd-list button{text-align:left;padding:10px 12px;border-radius:12px;border:0;background:transparent;color:var(--fg);font:inherit;cursor:pointer;transition:background-color .12s ease}
-.cmd-list button:hover,.cmd-list button:focus{background:var(--card)}
-.sparkle{position:fixed;width:4px;height:4px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:300;opacity:.85;transform:translate(-50%,-50%);animation:spark .6s ease-out forwards}
-@keyframes spark{to{opacity:0;transform:translate(-50%,-70%) scale(.2)}}
-.theme-btn svg{transition:transform .12s ease}
-.theme-btn.spin svg{transform:rotate(180deg)}
-.konami{filter:hue-rotate(90deg)}
-.cv{content-visibility:auto;contain-intrinsic-size:1px 800px}
-html{scroll-padding-top:78px}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.sparkle,.caret{display:none}}
-@media (forced-colors:active){.btn,.card,header{border:1px solid CanvasText}}
+@media (hover:hover){body{cursor:none}}
+a{color:var(--green);text-decoration:none}
+img{max-width:100%}
+
+/* Matrix */
+#matrix-bg{
+  position:fixed; inset:0; width:100%; height:100%; z-index:-2; opacity:.17;
+}
+[data-theme="light"] #matrix-bg{opacity:.07}
+
+/* Custom cursor */
+#cursor{
+  position:fixed; left:-100px; top:-100px; width:22px; height:22px;
+  border:2px solid var(--green); border-radius:50%;
+  pointer-events:none; transform:translate(-50%,-50%);
+  z-index:10000; transition:width .18s,height .18s,border-color .18s;
+  box-shadow:0 0 14px var(--green-glow), inset 0 0 10px var(--green-glow);
+  mix-blend-mode:plus-lighter;
+}
+#cursor.hover{width:38px;height:38px;border-color:#fff}
+@media (hover:none){#cursor{display:none}}
+.spark{
+  position:fixed; width:4px; height:4px; background:var(--green);
+  border-radius:50%; pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%); box-shadow:0 0 8px var(--green);
+  animation:spark .6s forwards; opacity:.9;
+}
+@keyframes spark{to{opacity:0;transform:translate(-50%,-50%) scale(0)}}
+
+/* Header */
+header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(1.3) blur(10px);
+  background:color-mix(in oklab, var(--bg) 82%, transparent);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:1200px; margin:0 auto; padding:12px 20px;
+  display:flex; align-items:center; gap:14px;
+}
+.logo{
+  font-weight:900; letter-spacing:.3px; font-size:20px; white-space:nowrap;
+}
+.logo b{color:var(--green); text-shadow:0 0 18px var(--green-glow)}
+.tabs{
+  flex:1; display:flex; justify-content:center; gap:6px; flex-wrap:wrap
+}
+.tabs button{
+  background:transparent; border:0; color:var(--muted);
+  padding:9px 14px; border-radius:10px; font-weight:700; cursor:pointer;
+  transition:.2s; position:relative; font-size:14px;
+}
+.tabs button.active,.tabs button:hover{color:var(--text)}
+.tabs button.active{background:var(--bg-elev); box-shadow:inset 0 -2px 0 var(--green)}
+.header-tools{display:flex; align-items:center; gap:10px}
+#et-clock{
+  font-variant-numeric:tabular-nums; font-size:12.5px; color:var(--muted);
+  padding:6px 10px; border:1px solid var(--border); border-radius:9px; background:var(--bg-elev);
+  white-space:nowrap;
+}
+#theme-toggle{
+  width:36px; height:36px; display:grid; place-items:center;
+  border-radius:10px; border:1px solid var(--border); background:var(--bg-elev);
+  color:var(--text); cursor:pointer; font-size:16px;
+}
+#theme-toggle:hover{border-color:var(--green)}
+
+/* Layout */
+main{max-width:1200px; margin:0 auto; padding:32px 20px 80px}
+.tab-panel{display:none; animation:fade .35s ease}
+.tab-panel.active{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+/* Home */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:6px 12px; border:1px solid var(--border); border-radius:999px;
+  background:var(--bg-elev); color:var(--muted); font-size:12.5px; margin-bottom:14px;
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+.hero{
+  display:grid; grid-template-columns:1.15fr .85fr; gap:36px; align-items:center; margin-top:10px;
+}
+@media(max-width:940px){.hero{grid-template-columns:1fr}}
+h1{
+  font-size:clamp(38px,6.2vw,66px); line-height:1.02; margin:0 0 12px;
+  font-weight:900; letter-spacing:-.02em;
+}
+.accent{color:var(--green); text-shadow:0 0 28px var(--green-glow)}
+.subtitle{font-size:clamp(17px,2.4vw,21px); color:var(--muted); margin:0 0 22px}
+#typewriter{font-weight:800; color:var(--text)}
+.type-cursor{color:var(--green); animation:blink 1s infinite; font-weight:900}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
+.btn{
+  padding:12px 18px; border-radius:12px; font-weight:800; border:1px solid var(--border);
+  background:var(--bg-elev); color:var(--text); cursor:pointer; text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px; transition:.2s;
+}
+.btn.primary{background:var(--green); color:#052e12; border-color:transparent; box-shadow:0 8px 24px var(--green-glow)}
+.btn:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+.hero-card{
+  position:relative; background:linear-gradient(180deg,var(--bg-elev),var(--bg-elev-2));
+  border:1px solid var(--border); border-radius:24px; padding:26px; box-shadow:var(--shadow); overflow:hidden;
+}
+.hero-card:before{
+  content:""; position:absolute; inset:-1px; background:radial-gradient(520px circle at 85% 15%, var(--green-glow), transparent 60%); pointer-events:none;
+}
+.hero-list{display:grid; gap:10px; margin:0; padding:0; list-style:none; color:var(--muted)}
+.hero-list li{display:flex; gap:10px; align-items:flex-start}
+.hero-list b{color:var(--text)}
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px}
+@media(max-width:640px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--bg-elev); border:1px solid var(--border); border-radius:16px; padding:18px; text-align:center}
+.stat b{display:block; font-size:28px; color:var(--green); line-height:1}
+
+/* Sections */
+.section-title{font-size:28px; margin:0 0 14px; font-weight:900; letter-spacing:-.01em}
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr}}
+.card{background:var(--bg-elev); border:1px solid var(--border); border-radius:18px; padding:20px; box-shadow:var(--shadow)}
+
+/* About */
+.contact-card .contact-item{
+  display:flex; align-items:center; gap:10px; padding:12px 14px; margin:10px 0;
+  border-radius:12px; border:1px solid var(--border); background:var(--bg-elev-2);
+  color:var(--text); font-weight:700; transition:.2s;
+}
+.contact-card .contact-item:hover{border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow)}
+.availability{
+  display:inline-flex; align-items:center; gap:8px; margin-top:6px;
+  padding:8px 12px; border-radius:999px; font-size:13px; font-weight:800;
+  background:color-mix(in oklab, var(--green) 16%, transparent);
+  border:1px solid color-mix(in oklab, var(--green) 35%, var(--border));
+  color:var(--green);
+}
+form{display:grid; gap:12px}
+input,textarea{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border);
+  background:var(--bg-elev-2); color:var(--text); font:inherit; outline:none; transition:.2s;
+}
+input:focus,textarea:focus{border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow)}
+textarea{min-height:110px; resize:vertical}
+
+.creds{margin-top:26px}
+.creds-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+@media(max-width:980px){.creds-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.creds-grid{grid-template-columns:1fr}}
+.cred{
+  text-align:center; padding:18px; border-radius:16px; border:1px solid var(--border);
+  background:var(--bg-elev-2); font-weight:800;
+}
+.cred.hero{
+  grid-column:span 2; background:linear-gradient(180deg, color-mix(in oklab, var(--green) 22%, var(--bg-elev)), var(--bg-elev-2));
+  border-color:color-mix(in oklab, var(--green) 45%, var(--border));
+  box-shadow:0 0 30px var(--green-glow) inset, var(--shadow);
+}
+@media(max-width:560px){.cred.hero{grid-column:span 1}}
+.cred .badge{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green)}
+.cred .title{font-size:19px; margin:6px 0 4px}
+.cred .sub{color:var(--muted); font-weight:600; font-size:13px}
+
+/* Booking */
+.booking-grid{display:grid; grid-template-columns:.95fr 1.05fr; gap:22px; align-items:start}
+@media(max-width:1000px){.booking-grid{grid-template-columns:1fr}}
+.weather{display:flex; align-items:center; gap:16px}
+.weather-icon{font-size:42px; line-height:1}
+.weather strong{font-size:26px}
+.cal-wrap iframe{width:100%; height:620px; border:0; border-radius:16px; background:#fff}
+
+/* Projects */
+.projects-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media(max-width:1020px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.projects-grid{grid-template-columns:1fr}}
+.proj{
+  position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--border);
+  background:var(--bg-elev); min-height:200px; display:flex; align-items:flex-end; transition:.25s;
+}
+.proj-media{
+  position:absolute; inset:0; background:
+    linear-gradient(180deg, transparent 20%, rgba(0,0,0,.55)),
+    radial-gradient(380px at 80% 10%, var(--green-glow), transparent 60%),
+    linear-gradient(160deg, var(--bg-elev-2), transparent);
+  opacity:.9; transition:.25s;
+}
+.proj-content{position:relative; padding:18px; z-index:2}
+.proj h4{margin:0 0 6px; font-size:18px}
+.proj p{margin:0; color:var(--muted); font-size:14px}
+.proj:hover{transform:translateY(-3px); border-color:var(--green); box-shadow:var(--shadow)}
+.proj:hover .proj-media{opacity:1; transform:scale(1.03)}
+
+/* Work */
+.ai-search{
+  display:flex; gap:8px; background:var(--bg-elev); border:1px solid var(--border);
+  padding:8px; border-radius:14px; box-shadow:var(--shadow); align-items:center;
+}
+.ai-search input{flex:1; border:0; background:transparent; padding:10px 12px; color:var(--text); outline:none; font-size:15px}
+.ai-search button{
+  padding:10px 16px; border-radius:10px; border:0; background:var(--green);
+  color:#052e12; font-weight:900; cursor:pointer;
+}
+.pills{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+.pills span{
+  padding:8px 12px; border-radius:999px; border:1px solid var(--border);
+  background:var(--bg-elev-2); font-size:13px; font-weight:700; color:var(--muted)
+}
+.blog{display:grid; gap:12px; margin-top:16px}
+.post{padding:16px; border:1px solid var(--border); border-radius:14px; background:var(--bg-elev); transition:.2s}
+.post:hover{border-color:var(--green)}
+.post h4{margin:0 0 6px; font-size:17px}
+.post p{margin:0; color:var(--muted); font-size:14px}
+
+footer{
+  margin-top:40px; padding-top:18px; border-top:1px solid var(--border);
+  color:var(--muted); font-size:13px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+}
 </style>
 </head>
 <body>
-<a href="#main" class="skip">Skip to content</a>
+<canvas id="matrix-bg" aria-hidden="true"></canvas>
+<div id="cursor" aria-hidden="true"></div>
+
 <header>
-  <div class="container head">
-    <a class="logo" href="#" aria-label="Dylan Grow home">
-      <span class="logo-mark" aria-hidden="true">DG</span>
-      <span>Dylan Grow</span>
-    </a>
-    <nav aria-label="Primary">
-      <div role="tablist" aria-label="Sections">
-        <button role="tab" aria-selected="true" data-tab="work" id="tab-work">Work</button>
-        <button role="tab" aria-selected="false" data-tab="about" id="tab-about">About</button>
-        <button role="tab" aria-selected="false" data-tab="blog" id="tab-blog">Blog</button>
-      </div>
+  <div class="header-inner">
+    <div class="logo">DYLAN <b>GROW</b> IT</div>
+    <nav class="tabs" role="tablist" aria-label="Main">
+      <button data-tab="home" class="active" role="tab" aria-selected="true">Home</button>
+      <button data-tab="about" role="tab">About</button>
+      <button data-tab="booking" role="tab">Booking</button>
+      <button data-tab="projects" role="tab">Projects</button>
+      <button data-tab="work" role="tab">Work</button>
     </nav>
-    <div class="actions">
-      <button id="cmdBtn" aria-label="Open command palette (Ctrl+K)" title="Ctrl+K">⌘</button>
-      <button id="theme" class="theme-btn" aria-label="Toggle theme" title="Toggle theme">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-      </button>
+    <div class="header-tools">
+      <div id="et-clock" title="Eastern Time">--:--:-- ET</div>
+      <button id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">◐</button>
     </div>
   </div>
 </header>
 
-<main id="main" class="container">
-  <section class="hero reveal">
-    <div>
-      <h1><span id="tw" aria-live="polite"></span><span class="caret" aria-hidden="true"></span></h1>
-      <p class="sub">On-site & Remote IT for New Bern</p>
-      <p class="promise">No fix, no fee — <strong>Pay only if I fix it</strong></p>
-      <div class="ctas">
-        <a class="btn primary" href="#booking">Get Help Now</a>
-        <a class="btn" href="#panel-work" data-goto="work">View Work</a>
-      </div>
-      <div class="meta">
-        <span class="pill" role="status"><span class="dot" aria-hidden="true"></span> Available — &lt;1hr response</span>
-        <span class="pill mono" id="clock" aria-label="Current time in New Bern">--:--:-- ET</span>
-        <span class="pill" id="weather" aria-live="polite">New Bern: loading…</span>
-      </div>
-    </div>
-    <aside class="hero-aside">
-      <div class="card">
-        <dl>
-          <div><dt>Currently fixing</dt><dd id="fixing">—</dd></div>
-          <div><dt>Site uptime</dt><dd id="uptime" class="mono">00:00:00</dd></div>
-          <div><dt>Last updated</dt><dd id="updated">—</dd></div>
-        </dl>
-      </div>
-      <form class="ai-search card" action="https://html.duckduckgo.com/html/" method="get" target="_blank" rel="noopener noreferrer" role="search" aria-label="Private web search">
-        <label for="q" class="sr-only">Search privately</label>
-        <input id="q" name="q" placeholder="Search the web privately…" autocomplete="off" inputmode="search" aria-label="Search query">
-        <button class="btn" type="submit">Search</button>
-      </form>
-    </aside>
-  </section>
-
-  <section class="stats reveal" aria-label="Quick stats">
-    <div class="stat"><strong>8+</strong><span>years</span></div>
-    <div class="stat"><strong>127</strong><span>businesses helped</span></div>
-    <div class="stat"><strong>&lt;1hr</strong><span>avg response</span></div>
-  </section>
-
-  <div id="panels">
-    <section id="panel-work" role="tabpanel" aria-labelledby="tab-work" class="cv">
-      <div class="filters" role="toolbar" aria-label="Filter projects">
-        <button class="chip" aria-pressed="true" data-filter="all">All</button>
-        <button class="chip" aria-pressed="false" data-filter="business">Business</button>
-        <button class="chip" aria-pressed="false" data-filter="network">Network</button>
-      </div>
-      <div class="grid" id="workGrid">
-        <article class="project card reveal" data-cat="business">
-          <div class="thumb"><img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%230a0f0d'/><text x='50%' y='50%' fill='%2300ffaa' font-family='monospace' font-size='22' text-anchor='middle'>Taco Stand POS Refresh</text></svg>" alt="" width="800" height="450"></div>
-          <h3>Taco Stand POS Refresh — New Bern</h3>
-          <p>Replaced failing terminals, VLAN'd guest Wi-Fi, cut ticket times 40%.</p>
-          <div class="tags"><span class="tag">POS</span><span class="tag">Saturday fix</span></div>
-        </article>
-        <article class="project card reveal" data-cat="network">
-          <div class="thumb"><img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%230a0f0d'/><text x='50%' y='50%' fill='%2300ffaa' font-family='monospace' font-size='22' text-anchor='middle'>Marina Wi-Fi — Trent River</text></svg>" alt="" width="800" height="450"></div>
-          <h3>Marina Wi-Fi — Trent River</h3>
-          <p>Point-to-multipoint across docks, captive portal, no more dead slips.</p>
-          <div class="tags"><span class="tag">UniFi</span><span class="tag">Outdoor</span></div>
-        </article>
-        <article class="project card reveal" data-cat="business">
-          <div class="thumb"><img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%230a0f0d'/><text x='50%' y='50%' fill='%2300ffaa' font-family='monospace' font-size='22' text-anchor='middle'>Law Firm 365 Migration</text></svg>" alt="" width="800" height="450"></div>
-          <h3>Law Firm 365 Migration — Havelock</h3>
-          <p>Email, SharePoint, MFA, and proper backups in one weekend.</p>
-          <div class="tags"><span class="tag">Microsoft 365</span><span class="tag">Security</span></div>
-        </article>
-        <article class="project card reveal" data-cat="business">
-          <div class="thumb"><img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%230a0f0d'/><text x='50%' y='50%' fill='%2300ffaa' font-family='monospace' font-size='22' text-anchor='middle'>Dental Office Backup</text></svg>" alt="" width="800" height="450"></div>
-          <h3>Dental Office Backup — Jacksonville</h3>
-          <p>3-2-1 backups, HIPAA-friendly, tested restore in 18 minutes.</p>
-          <div class="tags"><span class="tag">Backup</span><span class="tag">Compliance</span></div>
-        </article>
-        <article class="project card reveal" data-cat="network">
-          <div class="thumb"><img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%230a0f0d'/><text x='50%' y='50%' fill='%2300ffaa' font-family='monospace' font-size='20' text-anchor='middle'>Retail Network Segregation</text></svg>" alt="" width="800" height="450"></div>
-          <h3>Retail Network Segregation — Downtown NB</h3>
-          <p>Separate POS, staff, IoT. No more “why is the printer slow?”</p>
-          <div class="tags"><span class="tag">VLAN</span><span class="tag">Security</span></div>
-        </article>
-        <article class="project card reveal" data-cat="network">
-          <div class="thumb"><img loading="lazy" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'><rect width='100%' height='100%' fill='%230a0f0d'/><text x='50%' y='50%' fill='%2300ffaa' font-family='monospace' font-size='22' text-anchor='middle'>Construction Starlink</text></svg>" alt="" width="800" height="450"></div>
-          <h3>Construction Site Starlink — Craven</h3>
-          <p>Rugged case, battery, and failover. Internet where fiber isn't.</p>
-          <div class="tags"><span class="tag">Starlink</span><span class="tag">Field</span></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="panel-about" role="tabpanel" aria-labelledby="tab-about" hidden class="cv">
-      <div class="about">
-        <div>
-          <h2 class="section-title">About</h2>
-          <div class="prose">
-            <p>I'm Dylan. I fix computers, networks, and weird printer issues for businesses from Middle Street to Cherry Point. On-site when it matters, remote when it's faster.</p>
-            <p>I believe in clear pricing, plain English, and <strong>no fix, no fee</strong>. If I can't solve it, you don't pay.</p>
-          </div>
-          <ul class="list" aria-label="Credentials">
-            <li>CompTIA A+ Certified</li>
-            <li>8+ years hands-on IT</li>
-            <li>127 local businesses helped</li>
-          </ul>
-          <h3 class="section-title" style="margin-top:20px">Tools I use</h3>
-          <div class="tags"><span class="tag">Windows & macOS</span><span class="tag">UniFi</span><span class="tag">Microsoft 365</span><span class="tag">Veeam</span><span class="tag">pfSense</span><span class="tag">Starlink</span></div>
-          
-          <h3 class="section-title" style="margin-top:24px">Testimonials</h3>
-          <blockquote>“Dylan had our POS back in 40 minutes on a Saturday. Saved the lunch rush.”
-            <footer>— Maria T., Captain's Kitchen, New Bern</footer>
-          </blockquote>
-          <blockquote>“No tech speak, just fixed our file share and trained the team.”
-            <footer>— James R., Harbor Law, Havelock</footer>
-          </blockquote>
-          <blockquote>“He shows up, explains the cost, and doesn't leave until it's right.”
-            <footer>— Priya S., Smile Dental, Jacksonville</footer>
-          </blockquote>
+<main>
+  <!-- HOME -->
+  <section id="home" class="tab-panel active">
+    <div class="eyebrow"><span class="dot"></span> New Bern, NC • On-site & Remote</div>
+    <div class="hero">
+      <div>
+        <h1>Dylan Grow<br><span class="accent">IT Support</span></h1>
+        <p class="subtitle">Fast, friendly tech help for homes & small businesses. <span id="typewriter"></span><span class="type-cursor">|</span></p>
+        <div class="cta-row">
+          <a class="btn primary" href="tel:+12523490830">Call (252) 349-0830</a>
+          <a class="btn" href="mailto:DylanGrow@gmail.com">Email DylanGrow@gmail.com</a>
+          <button class="btn" data-tab-jump="booking">Book a visit</button>
         </div>
-        <div>
-          <div class="card">
-            <h3 class="section-title" style="font-size:18px">Service Area</h3>
-            <p style="color:var(--muted);margin-top:0">New Bern • Havelock • Jacksonville • Morehead City</p>
-            <div class="map" aria-label="Map of New Bern area">
-              <iframe loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-77.15%2C35.03%2C-76.93%2C35.18&layer=mapnik&marker=35.1085%2C-77.0441" title="OpenStreetMap of New Bern, NC" referrerpolicy="no-referrer"></iframe>
-            </div>
-          </div>
-          <div class="card" style="margin-top:12px">
-            <h3 class="section-title" style="font-size:18px">Contact</h3>
-            <p><button class="btn" data-copy="+12523490830" aria-label="Copy phone number">(252) 349-0830 — tap to copy</button></p>
-            <p><a class="btn" href="mailto:dylan@dylangrow.com">dylan@dylangrow.com</a></p>
-            <p style="color:var(--muted);font-size:13px;margin:8px 0 0">Response time: typically under 1 hour, 8am–8pm ET</p>
-          </div>
+        <div class="stats">
+          <div class="stat"><b>~15 min</b>avg response</div>
+          <div class="stat"><b>100+</b>devices serviced</div>
+          <div class="stat"><b>A+</b>CompTIA Certified</div>
         </div>
       </div>
-    </section>
-
-    <section id="panel-blog" role="tabpanel" aria-labelledby="tab-blog" hidden class="cv">
-      <h2 class="section-title">Field Notes</h2>
-      <div class="blog">
-        <article class="post card reveal">
-          <time datetime="2025-11-02">Nov 2, 2025</time>
-          <h3>Why Your Small Business Needs VLANs (Even With 10 People)</h3>
-          <p>Separate guests, POS, and printers. Inexpensive gear, huge stability wins on the coast.</p>
-        </article>
-        <article class="post card reveal">
-          <time datetime="2025-09-18">Sep 18, 2025</time>
-          <h3>New Bern Fiber Outage Kit: What I Keep in My Truck</h3>
-          <p>Starlink mini, LTE failover, battery, and a crimper. Stay online when storms hit.</p>
-        </article>
-        <article class="post card reveal">
-          <time datetime="2025-07-11">Jul 11, 2025</time>
-          <h3>Microsoft 365 vs Google Workspace for NC Coastal Businesses</h3>
-          <p>Compliance, offline access, and real-world support — my honest take.</p>
-        </article>
-        <article class="post card reveal">
-          <time datetime="2025-04-04">Apr 4, 2025</time>
-          <h3>Stop Paying for Antivirus That Slows You Down</h3>
-          <p>Built-in protection + good habits beats bloatware every time.</p>
-        </article>
-      </div>
-    </section>
-  </div>
-
-  <section id="booking" class="booking reveal cv" aria-labelledby="book-title">
-    <div>
-      <h2 id="book-title" class="section-title">Book Help — No Fix, No Fee</h2>
-      <p style="color:var(--muted);margin-top:-6px">Tell me what's broken. I'll confirm by text or email. Pay only if I fix it.</p>
-      <form id="bookForm" class="card" novalidate>
-        <div class="row">
-          <div><label for="name">Name</label><input id="name" name="name" required autocomplete="name" placeholder="Your name"></div>
-          <div><label for="phone">Phone</label><input id="phone" name="phone" required inputmode="tel" autocomplete="tel" placeholder="(252) 349-0830"></div>
-        </div>
-        <div class="row" style="margin-top:12px">
-          <div><label for="date">Preferred date</label><input id="date" name="date" type="date" required></div>
-          <div><label for="time">Preferred time</label><input id="time" name="time" type="time" required></div>
-        </div>
-        <div style="margin-top:12px">
-          <label for="issue">What's wrong?</label>
-          <textarea id="issue" name="issue" placeholder="Printer offline, Wi-Fi drops, email not syncing…" required></textarea>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-          <button class="btn primary" type="submit">Send Request</button>
-          <a class="btn" href="tel:+12523490830">Call Instead</a>
-        </div>
-        <p style="color:var(--muted);font-size:12px;margin:10px 0 0">This opens your email app — no tracking, no third-party forms.</p>
-      </form>
-    </div>
-    <div>
-      <div class="card">
-        <h3 class="section-title" style="font-size:18px">What to expect</h3>
-        <ul class="list">
-          <li>Fast reply (usually &lt;1hr)</li>
-          <li>Up-front estimate</li>
-          <li>On-site or remote — your call</li>
-          <li>No fix, no fee — ever</li>
+      <div class="hero-card">
+        <h3 style="margin:0 0 8px">What I fix, fast</h3>
+        <ul class="hero-list">
+          <li>✅ <div><b>Wi-Fi & Networking</b><br>Dead zones, slow speeds, mesh setup</div></li>
+          <li>✅ <div><b>PC & Mac Tune-ups</b><br>Virus removal, upgrades, backups</div></li>
+          <li>✅ <div><b>Microsoft 365 & Email</b><br>Setup, migration, security</div></li>
+          <li>✅ <div><b>Small Business IT</b><br>POS, printers, file sharing</div></li>
         </ul>
       </div>
-      <div class="card" style="margin-top:12px">
-        <h3 class="section-title" style="font-size:18px">Service Area</h3>
-        <p style="margin:0;color:var(--muted)">New Bern (275 waterfront to Trent Woods), Havelock, Jacksonville, and nearby. Outside area? Ask.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="tab-panel">
+    <h2 class="section-title">About Dylan</h2>
+    <div class="grid-2">
+      <div class="card contact-card">
+        <h3 style="margin-top:0">Contact</h3>
+        <a class="contact-item" href="tel:+12523490830">📞 (252) 349-0830</a>
+        <a class="contact-item" href="mailto:DylanGrow@gmail.com">✉️ DylanGrow@gmail.com</a>
+        <div class="availability"><span class="dot"></span> Available this week for on-site in New Bern</div>
+        <p style="color:var(--muted); margin:14px 0 0">I’m a hands-on IT generalist focused on clear communication, clean work, and lasting fixes. I document everything and explain in plain English.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Quick Message</h3>
+        <form id="contact-form">
+          <input name="name" type="text" placeholder="Your name" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="phone" type="tel" placeholder="Phone (optional)">
+          <textarea name="message" placeholder="What do you need help with?" required></textarea>
+          <button class="btn primary" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="creds">
+      <h3 class="section-title" style="font-size:22px">Credentials</h3>
+      <div class="creds-grid">
+        <div class="cred hero">
+          <div class="badge">Flagship</div>
+          <div class="title">CompTIA A+ Certified</div>
+          <div class="sub">Core hardware, Windows, troubleshooting</div>
+        </div>
+        <div class="cred">
+          <div class="badge">Google</div>
+          <div class="title">IT Support Certificate</div>
+          <div class="sub">Troubleshooting & customer care</div>
+        </div>
+        <div class="cred">
+          <div class="badge">Safety</div>
+          <div class="title">CPR / AED Certified</div>
+          <div class="sub">Current certification</div>
+        </div>
+        <div class="cred">
+          <div class="badge">In Progress</div>
+          <div class="title">CompTIA Network+</div>
+          <div class="sub">Advanced networking studies</div>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- BOOKING -->
+  <section id="booking" class="tab-panel">
+    <h2 class="section-title">Book Help</h2>
+    <div class="booking-grid">
+      <div class="card">
+        <h3 style="margin-top:0">New Bern, NC Weather</h3>
+        <div id="weather">Loading weather for New Bern, NC…</div>
+        <div style="margin-top:14px; color:var(--muted); font-size:14px">Weather helps plan on-site visits. I bring shoe covers and floor mats rain or shine.</div>
+        <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn primary" href="tel:+12523490830">Call (252) 349-0830</a>
+          <a class="btn" href="sms:+12523490830">Text Me</a>
+        </div>
+      <div class="card cal-wrap">
+        <h3 style="margin-top:0">Pick a Time</h3>
+        <iframe src="https://calendar.google.com/calendar/embed?src=dylangrow%40gmail.com&ctz=America%2FNew_York&mode=WEEK&showTitle=0&showPrint=0&showTabs=1" title="Booking Calendar" loading="lazy"></iframe>
+        <p style="color:var(--muted); font-size:13px; margin:10px 2px 0">Don't see a time? Email DylanGrow@gmail.com — I keep emergency slots open.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="tab-panel">
+    <h2 class="section-title">Recent Projects</h2>
+    <div class="projects-grid">
+      <div class="proj"><div class="proj-media"></div><div class="proj-content"><h4>Coffee Shop Network Overhaul</h4><p>UniFi APs, guest VLAN, POS isolation. 3x speed boost.</p></div></div>
+      <div class="proj"><div class="proj-media"></div><div class="proj-content"><h4>Home Office Mesh Wi-Fi</h4><p>Eliminated dead zones in 3,200 sq ft brick home.</p></div></div>
+      <div class="proj"><div class="proj-media"></div><div class="proj-content"><h4>Ransomware Recovery</h4><p>Clean install, backups, M365 hardening. Zero data loss.</p></div></div>
+      <div class="proj"><div class="proj-media"></div><div class="proj-content"><h4>Retail POS Setup</h4><p>New Square terminals, receipt printers, inventory sync.</p></div></div>
+      <div class="proj"><div class="proj-media"></div><div class="proj-content"><h4>Gaming PC Builds</h4><p>Custom cooling, cable management, 1440p optimized.</p></div></div>
+      <div class="proj"><div class="proj-media"></div><div class="proj-content"><h4>Help Desk Automation</h4><p>Ticket forms, auto-replies, remote tools deployment.</p></div></div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="tab-panel">
+    <h2 class="section-title">Workbench</h2>
+    <div class="card">
+      <h3 style="margin-top:0">AI Search</h3>
+      <p style="color:var(--muted); margin:0 0 10px">Quick web answers using DuckDuckGo.</p>
+      <div class="ai-search">
+        <input id="ai-input" type="text" placeholder="Ask AI or search the web… e.g., 'fix Windows 11 slow boot'">
+        <button id="ai-btn" type="button">Search</button>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:22px">
+      <div class="card">
+        <h3 style="margin-top:0">Tech Stack</h3>
+        <div class="pills">
+          <span>Windows 10/11</span><span>macOS</span><span>Linux</span><span>UniFi</span><span>Meraki Go</span>
+          <span>Active Directory</span><span>Microsoft 365</span><span>Google Workspace</span><span>PowerShell</span>
+          <span>Networking</span><span>pfSense</span><span>Backups</span><span>Printer Repair</span>
+        </div>
+      <div class="card">
+        <h3 style="margin-top:0">Field Notes (Blog)</h3>
+        <div class="blog">
+          <article class="post"><h4>5 Signs You Need a Network Upgrade</h4><p>Dropped Zoom calls, buffering TVs, and smart home lag usually mean your router is choking.</p></article>
+          <article class="post"><h4>Stop Paying for Antivirus Bloat</h4><p>Windows Security + smart habits beats most suites. Here’s my 3-layer setup.</p></article>
+          <article class="post"><h4>Backup Strategy for Small Business</h4><p>3-2-1 rule made simple: local NAS + cloud + tested restores.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>© <span id="year"></span> Dylan Grow IT Support — New Bern, NC</div>
+    <div>Call <a href="tel:+12523490830">(252) 349-0830</a> • <a href="mailto:DylanGrow@gmail.com">DylanGrow@gmail.com</a></div>
+  </footer>
 </main>
 
-<footer>
-  <div class="container foot">
-    <span>© <span id="year"></span> Dylan Grow • New Bern, NC</span>
-    <span>No tracking, no cookies • v1.0.0</span>
-  </div>
-</footer>
-
-<a href="tel:+12523490830" class="sticky-phone" aria-label="Call Dylan now">Call (252) 349-0830</a>
-
-<dialog id="cmd" aria-label="Command palette">
-  <div class="cmd-head"><input id="cmdInput" placeholder="Type a command… (work, about, blog, book, call)" autocomplete="off" aria-label="Command input"></div>
-  <div id="cmdList" class="cmd-list" role="listbox" aria-label="Commands"></div>
-</dialog>
-
-<div id="toast" role="status" aria-live="polite"></div>
-
 <script>
-(()=>{'use strict';
-const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
-// Theme
-const themeBtn=$('#theme');
-const stored=localStorage.getItem('dg-theme');
-const prefersLight=matchMedia('(prefers-color-scheme: light)').matches;
-const initial=stored||(prefersLight?'light':'dark');
-document.documentElement.setAttribute('data-theme',initial);
-themeBtn.addEventListener('click',()=>{const cur=document.documentElement.getAttribute('data-theme');const nxt=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',nxt);localStorage.setItem('dg-theme',nxt);themeBtn.classList.add('spin');setTimeout(()=>themeBtn.classList.remove('spin'),120);});
+(() => {
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-// Clock
-const clockEl=$('#clock');
-function tickClock(){const now=new Date();const s=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now);clockEl.textContent=s+' ET';}
-tickClock();setInterval(tickClock,1000);
+  // Matrix canvas
+  const c = document.getElementById('matrix-bg');
+  const ctx = c.getContext('2d');
+  let w, h, cols, drops;
+  const fontSize = 14;
+  const chars = '01 DYLANGROWITSUPPORT 010101';
+  function resize(){ w = c.width = innerWidth; h = c.height = innerHeight; cols = Math.floor(w / fontSize); drops = Array(cols).fill(0).map(()=> Math.random() * -100); }
+  resize(); addEventListener('resize', resize);
+  function draw(){
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    ctx.fillStyle = light ? 'rgba(247,251,248,0.08)' : 'rgba(5,8,5,0.08)';
+    ctx.fillRect(0,0,w,h);
+    ctx.fillStyle = '#22c55e';
+    ctx.font = fontSize + 'px monospace';
+    for(let i=0;i<cols;i++){
+      const txt = chars[Math.floor(Math.random()*chars.length)];
+      const x = i*fontSize;
+      const y = drops[i]*fontSize;
+      ctx.fillText(txt, x, y);
+      if(y > h && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+  setInterval(draw, 50);
 
-// Typewriter
-const phrases=["Dylan Grow","IT Professional","Network Pro","Fixes Things Fast"];
-const tw=$('#tw');let pi=0,ci=0,del=false;
-function type(){const ph=phrases[pi];if(!del){tw.textContent=ph.slice(0,++ci);if(ci===ph.length){del=true;return setTimeout(type,3200);}setTimeout(type,110);}else{tw.textContent=ph.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;return setTimeout(type,200);}setTimeout(type,65);}}
-type();
+  // Custom cursor with spark trail
+  const cursor = document.getElementById('cursor');
+  let mx = -100, my = -100;
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    if(Math.random() > 0.65) spark(mx, my);
+  });
+  function spark(x,y){
+    const s = document.createElement('div');
+    s.className = 'spark';
+    s.style.left = x + 'px'; s.style.top = y + 'px';
+    document.body.appendChild(s);
+    setTimeout(()=> s.remove(), 600);
+  }
+  document.querySelectorAll('a, button, .proj, input, textarea, .tabs button').forEach(el=>{
+    el.addEventListener('mouseenter', ()=> cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', ()=> cursor.classList.remove('hover'));
+  });
 
-// Currently fixing
-const jobs=["POS system at waterfront café","UniFi Wi-Fi in Trent Woods","365 backup for law firm","Starlink at construction site","Printer fleet in downtown NB"];
-const fixingEl=$('#fixing');let fi=0;function rot(){fixingEl.textContent=jobs[fi++%jobs.length];}rot();setInterval(rot,8000);
+  // Tabs
+  const tabBtns = document.querySelectorAll('.tabs button');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabBtns.forEach(btn => btn.addEventListener('click', () => activate(btn.dataset.tab)));
+  document.querySelectorAll('[data-tab-jump]').forEach(b => b.addEventListener('click', ()=> activate(b.getAttribute('data-tab-jump'))));
+  function activate(id){
+    tabBtns.forEach(b => { b.classList.toggle('active', b.dataset.tab===id); b.setAttribute('aria-selected', b.dataset.tab===id); });
+    panels.forEach(p => p.classList.toggle('active', p.id===id));
+    scrollTo({top:0, behavior:'smooth'});
+  }
 
-// Uptime
-const up=$('#uptime');const start=performance.now();setInterval(()=>{const s=Math.floor((performance.now()-start)/1000);const h=String(Math.floor(s/3600)).padStart(2,'0');const m=String(Math.floor(s%3600/60)).padStart(2,'0');const sec=String(s%60).padStart(2,'0');up.textContent=`${h}:${m}:${sec}`;},1000);
+  // ET Clock
+  const clock = document.getElementById('et-clock');
+  function tick(){
+    const s = new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York', hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    clock.textContent = s + ' ET';
+  }
+  tick(); setInterval(tick, 1000);
 
-// Last updated
-$('#updated').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+  // Theme toggle
+  const themeBtn = document.getElementById('theme-toggle');
+  const saved = localStorage.getItem('dg-theme');
+  if(saved) document.documentElement.setAttribute('data-theme', saved);
+  themeBtn.addEventListener('click', ()=>{
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('dg-theme', next);
+  });
 
-// Weather
-const weatherEl=$('#weather');
-function loadWeather(){fetch('https://api.open-meteo.com/v1/forecast?latitude=35.11&longitude=-77.04&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York').then(r=>r.json()).then(d=>{const c=d.current;const t=Math.round(c.temperature_2m);const w=Math.round(c.wind_speed_10m);const map={0:'Clear',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Drizzle',61:'Rain',71:'Snow',80:'Showers',95:'Storm'};weatherEl.textContent=`New Bern: ${t}°F • ${map[c.weather_code]||'—'} • ${w}mph`}).catch(()=>{weatherEl.textContent='New Bern: weather unavailable';});}
-(window.requestIdleCallback||setTimeout)(loadWeather,600);
+  // Typewriter with 3200ms linger
+  const tw = document.getElementById('typewriter');
+  const phrases = ['On-Site IT Support','Network Troubleshooting','Virus & Malware Removal','CompTIA A+ Certified','New Bern, NC Local'];
+  let pi = 0, ci = 0, del = false;
+  function type(){
+    const p = phrases[pi];
+    if(!del){
+      tw.textContent = p.slice(0, ++ci);
+      if(ci === p.length){ del = true; setTimeout(type, 3200); return; }
+    } else {
+      tw.textContent = p.slice(0, --ci);
+      if(ci === 0){ del = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, del ? 38 : 70);
+  }
+  type();
 
-// Toast
-const toast=$('#toast');let tt;function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2200);}
+  // Weather widget - New Bern NC via Open-Meteo
+  const weatherEl = document.getElementById('weather');
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=35.1085&longitude=-77.0441&current=temperature_2m,weather_code,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York')
+    .then(r => r.json())
+    .then(d => {
+      const t = Math.round(d.current.temperature_2m);
+      const wind = Math.round(d.current.wind_speed_10m);
+      const code = d.current.weather_code;
+      const map = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌦️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',95:'⛈️',96:'⛈️',99:'⛈️'};
+      const icon = map[code] || '🌡️';
+      weatherEl.innerHTML = `<div class="weather"><div class="weather-icon">${icon}</div><div><strong>${t}°F</strong><div style="color:var(--muted)">New Bern, NC • Wind ${wind} mph</div></div></div>`;
+    })
+    .catch(()=>{ weatherEl.textContent = 'Weather unavailable right now.'; });
 
-// Copy phone
-$$('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(b.dataset.copy);showToast('Copied (252) 349-0830');}catch{showToast('Number: (252) 349-0830');}}));
+  // AI Search (DuckDuckGo) - fixed single div, no nested form, correct IDs
+  const aiInput = document.getElementById('ai-input');
+  const aiBtn = document.getElementById('ai-btn');
+  function doSearch(){
+    const q = aiInput.value.trim();
+    if(!q) return;
+    const url = 'https://duckduckgo.com/?q=' + encodeURIComponent(q) + '&ia=chat';
+    window.open(url, '_blank', 'noopener');
+  }
+  aiBtn.addEventListener('click', doSearch);
+  aiInput.addEventListener('keydown', e => { if(e.key === 'Enter') doSearch(); });
 
-// Tabs
-const tabs=$$('[role=tab]'),panels=$$('[role=tabpanel]');
-function activate(id,push=true){tabs.forEach(b=>{const on=b.dataset.tab===id;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;});panels.forEach(p=>{p.hidden=p.id!==`panel-${id}`;});if(push) history.replaceState(null,'','#'+id);}
-tabs.forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
-const initTab=location.hash.replace('#','');if(initTab) activate(initTab,false);
-$$('[data-goto]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();activate(a.dataset.goto);document.getElementById('panel-work').scrollIntoView({behavior:'smooth'});}));;
-
-// Filters
-const chips=$$('.chip');const cards=$$('#workGrid .project');
-chips.forEach(c=>c.addEventListener('click',()=>{chips.forEach(x=>x.setAttribute('aria-pressed','false'));c.setAttribute('aria-pressed','true');const f=c.dataset.filter;cards.forEach(card=>{card.style.display=(f==='all'||card.dataset.cat===f)?'':'none';});}));
-
-// Command palette
-const cmd=$('#cmd'),cmdBtn=$('#cmdBtn'),cmdIn=$('#cmdInput'),cmdList=$('#cmdList');
-const actions=[{l:'Go to Work',a:()=>activate('work')},{l:'Go to About',a:()=>activate('about')},{l:'Go to Blog',a:()=>activate('blog')},{l:'Open Booking',a:()=>$('#booking').scrollIntoView({behavior:'smooth'})},{l:'Call Dylan',a:()=>location.href='tel:+12523490830'},{l:'Email Dylan',a:()=>location.href='mailto:dylan@dylangrow.com'},{l:'Toggle Theme',a:()=>themeBtn.click()},{l:'Copy Phone',a:()=>navigator.clipboard.writeText('+12523490830').then(()=>showToast('Copied'))}];
-function renderCmd(q=''){cmdList.innerHTML='';actions.filter(x=>x.l.toLowerCase().includes(q.toLowerCase())).forEach(x=>{const b=document.createElement('button');b.textContent=x.l;b.addEventListener('click',()=>{cmd.close();x.a();});cmdList.appendChild(b);});}
-function openCmd(){cmd.showModal();renderCmd('');setTimeout(()=>cmdIn.focus(),10);}
-cmdBtn.addEventListener('click',openCmd);
-addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCmd();}});
-cmdIn.addEventListener('input',e=>renderCmd(e.target.value));
-
-// Sparkle trail
-if(!matchMedia('(prefers-reduced-motion: reduce)').matches && innerWidth>800){
- let last=0;addEventListener('pointermove',e=>{const now=Date.now();if(now-last<90)return;last=now;if(Math.random()<.25){const s=document.createElement('span');s.className='sparkle';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),600);}});
-}
-
-// Intersection
-const io=new IntersectionObserver(ents=>{ents.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
-$$('.reveal').forEach(el=>io.observe(el));
-
-// Swipe
-const wrap=$('#panels');let sx=0;wrap.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});wrap.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>60){const order=['work','about','blog'];const cur=order.indexOf(document.querySelector('[role=tab][aria-selected="true"]').dataset.tab);const nxt=dx<0?Math.min(cur+1,2):Math.max(cur-1,0);activate(order[nxt]);}});
-
-// Exit intent
-let exit=false;document.addEventListener('mouseout',e=>{if(exit)return;if(e.clientY<0){exit=true;showToast('Need fast help? Tap Call → (252) 349-0830');}});
-
-// Konami
-const seq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];let k=0;addEventListener('keydown',e=>{k=e.key===seq[k]?k+1:(e.key===seq[0]?1:0);if(k===seq.length){k=0;document.body.classList.toggle('konami');showToast('Turbo mode unlocked ⚡');}});
-
-// Booking
-$('#bookForm').addEventListener('submit',e=>{e.preventDefault();const fd=new FormData(e.target);const s=v=>String(v||'').replace(/[<>]/g,'').trim();const name=s(fd.get('name')),phone=s(fd.get('phone')),date=s(fd.get('date')),time=s(fd.get('time')),issue=s(fd.get('issue'));if(!name||!phone){showToast('Name and phone required');return;}const subj=encodeURIComponent(`IT Help — ${name} — ${date} ${time}`);const body=encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nPreferred: ${date} ${time}\nIssue:\n${issue}\n\n— dylangrow.com`);location.href=`mailto:dylan@dylangrow.com?subject=${subj}&body=${body}`;showToast('Opening your email…');});
-
-// Year
-$('#year').textContent=new Date().getFullYear();
-
-// Resize debounce
-let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{/* reserved */},200);});
-
-// Console easter egg
-console.log('%c Dylan Grow — IT Pro — New Bern ', 'background:#00ffaa;color:#000;padding:3px 8px;border-radius:8px;font-family:monospace');
-console.log('No fix, no fee. Try Ctrl+K, or the Konami code.');
+  // Contact form
+  document.getElementById('contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    alert(`Thanks ${fd.get('name')}! I'll reply to ${fd.get('email')} soon. For urgent issues call (252) 349-0830.`);
+    e.target.reset();
+  });
 })();
 </script>
 </body>
