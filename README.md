@@ -1,2 +1,7 @@
-# GrowIdeas
-Best of the best
+[D Y L N]
+          |
+    ______|______
+   |      |      |
+ [WEB]  [SYS]  [NET]
+   |      |      |
+   ◯      ◯      ◯
