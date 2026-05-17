@@ -96,40 +96,56 @@ body::before {
   z-index: -1;
 }
 
-/* Custom Cursor */
+
+/* Premium Custom Cursor */
 * {
   cursor: none !important;
 }
-.cursor-dot, .cursor-ring {
+.custom-cursor {
   position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform .1s ease-out, opacity .2s;
-  will-change: transform;
-}
-.cursor-dot {
-  width: 12px; height: 12px;
-  background: var(--green);
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(34,197,94,.5);
+  background: var(--green);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
 }
-.cursor-ring {
-  width: 40px; height: 40px;
+.custom-cursor::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
   border: 2px solid var(--green);
   border-radius: 50%;
-  opacity: .5;
-  transition: width .2s ease, height .2s ease, opacity .2s;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  transition: all 0.3s ease;
 }
-.cursor-ring.hover {
+.custom-cursor.hover {
+  width: 50px;
+  height: 50px;
+  background: rgba(34, 197, 94, 0.2);
+}
+.custom-cursor.hover::before {
   width: 60px;
   height: 60px;
-  opacity: .8;
+  opacity: 0.6;
+}
+.custom-cursor.click {
+  width: 15px;
+  height: 15px;
 }
 @media (pointer: coarse) {
   * { cursor: auto !important; }
-  .cursor-dot, .cursor-ring { display: none; }
+  .custom-cursor { display: none; }
 }
 
 a { color: inherit; text-decoration: none; }
@@ -413,6 +429,41 @@ h1 span {
   box-shadow: 0 6px 30px rgba(34,197,94,.6);
 }
 
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  z-index: 100;
+  transition: all .3s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: var(--green);
+  color: #000;
+  border-color: var(--green);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 30px rgba(34,197,94,.4);
+}
+
 /* Projects & Work Sections */
 section {
   padding: 80px 0;
@@ -501,8 +552,7 @@ footer {
 </head>
 <body>
 
-<div class="cursor-dot"></div>
-<div class="cursor-ring"></div>
+<div class="custom-cursor"></div>
 
 <header>
   <div class="container nav">
@@ -551,15 +601,16 @@ footer {
           <h2>Verified certifications</h2>
         </div>
         <div class="creds-grid">
-          <!-- LinkedIn Badge - FIRST -->
-          <div class="card" style="padding: 20px; text-align: center;">
-            <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="dgrow27" data-version="v1">
-              <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/dgrow27?trk=profile-badge">Dylan Grow</a>
-            </div>
-          </div>
-          
-          <!-- CompTIA A+ -->
+          <!-- Combined Credentials Card -->
           <div class="card cred-hero">
+            <!-- LinkedIn Badge First -->
+            <div style="margin-bottom: 32px;">
+              <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="dgrow27" data-version="v1">
+                <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/dgrow27?trk=profile-badge">Dylan Grow</a>
+              </div>
+            </div>
+            
+            <!-- CompTIA A+ -->
             <h4>CompTIA A+ Certified</h4>
             <p>Core 1 (220-1101) & Core 2 (220-1102) • Industry-standard IT technician certification covering hardware, networking, mobile devices, virtualization, cloud computing, and operational procedures.</p>
             <div style="display: flex; gap: 12px; margin-top: 20px; justify-content: center; flex-wrap: wrap;">
@@ -604,6 +655,11 @@ footer {
   💬
 </button>
 
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  ↑
+</button>
+
 <script>
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -619,40 +675,43 @@ themeBtn.addEventListener('click', () => {
   localStorage.setItem('theme', next);
 });
 
-// Custom cursor
-const dot = document.querySelector('.cursor-dot');
-const ring = document.querySelector('.cursor-ring');
-let mx = -100, my = -100, rx = -100, ry = -100;
+// Premium Custom Cursor
+const cursor = document.querySelector('.custom-cursor');
+let mouseX = 0, mouseY = 0;
+let cursorX = 0, cursorY = 0;
 
-addEventListener('mousemove', e => {
-  mx = e.clientX;
-  my = e.clientY;
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
 });
 
-function loop() {
-  rx += (mx - rx) * 0.2;
-  ry += (my - ry) * 0.2;
-  dot.style.transform = `translate(${mx}px,${my}px)`;
-  ring.style.transform = `translate(${rx}px,${ry}px)`;
-  requestAnimationFrame(loop);
+function animateCursor() {
+  const speed = 0.15;
+  cursorX += (mouseX - cursorX) * speed;
+  cursorY += (mouseY - cursorY) * speed;
+  cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+  requestAnimationFrame(animateCursor);
 }
-loop();
+animateCursor();
 
-// Hover effects for interactive elements
-document.querySelectorAll('a, button, input, [onclick]').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+// Hover effects
+document.querySelectorAll('a, button, input, [onclick], .card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
-addEventListener('mousedown', () => {
-  ring.style.width='30px';
-  ring.style.height='30px';
-  dot.style.transform = `translate(${mx}px,${my}px) scale(0.8)`;
-});
-addEventListener('mouseup', () => {
-  ring.style.width='40px';
-  ring.style.height='40px';
-  dot.style.transform = `translate(${mx}px,${my}px) scale(1)`;
+// Click effect
+document.addEventListener('mousedown', () => cursor.classList.add('click'));
+document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
 });
 
 // Weather
