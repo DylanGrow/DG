@@ -1,0 +1,42 @@
+{
+  "name": "Dylan Grow IT Support",
+  "short_name": "DG IT",
+  "description": "Professional IT support for homes and small businesses in Eastern North Carolina. CompTIA A+ certified technician.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0c0f",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='48' fill='%2322c55e'/%3E%3Ctext x='96' y='130' font-size='100' font-weight='900' text-anchor='middle' fill='%23052e13' font-family='system-ui'%3EDG%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='128' fill='%2322c55e'/%3E%3Ctext x='256' y='350' font-size='280' font-weight='900' text-anchor='middle' fill='%23052e13' font-family='system-ui'%3EDG%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Call Dylan",
+      "short_name": "Call",
+      "description": "Call Dylan Grow directly",
+      "url": "tel:+12523490830",
+      "icons": []
+    },
+    {
+      "name": "Book Service",
+      "short_name": "Book",
+      "description": "Schedule IT support",
+      "url": "/#booking",
+      "icons": []
+    }
+  ]
+}
